@@ -3,9 +3,9 @@ import { GEL_SAFE_FRAME_RATIO, GEL_MIN_RATIO_RHS, GEL_MIN_RATIO_LHS } from "../.
 export function testHarnessDisplay(game: Phaser.Game, context: Context) {
     let graphicsGroup: Phaser.Group;
     let domGameArea: HTMLDivElement;
-    let accessibilityOverlay = <HTMLDivElement>document.getElementsByClassName(
+    let accessibilityOverlay = document.getElementsByClassName(
         "game-wrapper__accessibility-overlay",
-    )[0];
+    )[0] as HTMLDivElement;
 
     return {
         create,
