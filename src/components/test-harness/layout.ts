@@ -2,7 +2,10 @@ import { GEL_SAFE_FRAME_RATIO, GEL_MIN_RATIO_RHS, GEL_MIN_RATIO_LHS } from "../.
 
 export function testHarnessDisplay(game: Phaser.Game, context: Context) {
     let graphicsGroup: Phaser.Group;
-    let graphics: Phaser.Graphics;
+    let domGameArea: HTMLDivElement;
+    let accessibilityOverlay = document.getElementsByClassName(
+        "game-wrapper__accessibility-overlay",
+    )[0] as HTMLDivElement;
 
     return {
         create,
@@ -25,42 +28,39 @@ export function testHarnessDisplay(game: Phaser.Game, context: Context) {
     }
 
     function show() {
-        const [gameAreaWidth, gameAreaHeight] = gameAreaDimensions();
+        highlightGameArea();
+    }
 
-        graphics = game.add.graphics();
+    function highlightGameArea() {
+        const size = context.layout.getSize();
+        const gameAreaWidth = (size.stageHeightPx / GEL_MIN_RATIO_RHS) * GEL_MIN_RATIO_LHS;
+        const gameAreaHeight = size.stageHeightPx;
+        const graphics = game.add.graphics();
         graphics.beginFill(0x32cd32, 0.5);
-        graphics.drawRect(0, 0, gameAreaWidth, gameAreaHeight);
+        graphics.drawRect(-gameAreaWidth * 0.5, -gameAreaHeight * 0.5, gameAreaWidth, gameAreaHeight);
         graphicsGroup.add(graphics);
-        center(graphicsGroup);
         context.layout.addToBackground(graphicsGroup);
+        highlightGameAreaInDOM(gameAreaWidth, gameAreaHeight, size.scale);
+
         context.qaMode.testHarnessLayoutDisplayed = true;
+    }
+
+    function highlightGameAreaInDOM(gameAreaWidth: number, gameAreaHeight: number, scale: number) {
+        accessibilityOverlay.style.display = "block";
+        domGameArea = document.createElement("div");
+        domGameArea.id = "genie-gamearea";
+        domGameArea.style.position = "absolute";
+        domGameArea.style.top = (game.world.centerY - gameAreaHeight * scale * 0.5).toString() + "px";
+        domGameArea.style.left = (game.world.centerX - gameAreaWidth * scale * 0.5).toString() + "px";
+        domGameArea.style.width = (gameAreaWidth * scale).toString() + "px";
+        domGameArea.style.height = (gameAreaHeight * scale).toString() + "px";
+        accessibilityOverlay.appendChild(domGameArea);
     }
 
     function hide() {
         graphicsGroup.destroy(true, true);
+        domGameArea.remove();
+        accessibilityOverlay.style.display = "none";
         context.qaMode.testHarnessLayoutDisplayed = false;
-    }
-
-    function center(group: Phaser.Group) {
-        group.forEach((graphic: Phaser.Graphics) => {
-            graphic.x = graphic.x - graphic.width * 0.5;
-            graphic.y = graphic.y - graphic.height * 0.5;
-        }, game);
-    }
-
-    function gameAreaDimensions() {
-        let areaWidth;
-        let areaHeight;
-        const size = context.layout.getSize();
-
-        if (game.width / game.height >= GEL_SAFE_FRAME_RATIO) {
-            areaHeight = game.height / size.scale;
-            areaWidth = areaHeight / GEL_MIN_RATIO_RHS * GEL_MIN_RATIO_LHS;
-        } else {
-            areaWidth = game.width / size.scale;
-            areaHeight = areaWidth / GEL_MIN_RATIO_LHS * GEL_MIN_RATIO_RHS;
-        }
-
-        return [areaWidth, areaHeight];
     }
 }
