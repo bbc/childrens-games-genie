@@ -8,11 +8,13 @@ import { PromiseTrigger } from "src/core/promise-utils";
 import { startup } from "src/core/startup";
 import { assetPacks } from "test/helpers/asset-packs";
 import { assets } from "test/helpers/assets";
-import { installMockGetGmi, uninstallMockGetGmi } from "test/helpers/mock";
+import * as mock from "test/helpers/mock";
+import { ScreenDef } from "src/core/sequencer";
+import { Screen } from "src/core/screen";
 
 describe("Asset Loader", () => {
-    beforeEach(installMockGetGmi);
-    afterEach(uninstallMockGetGmi);
+    beforeEach(mock.installMockGetGmi);
+    afterEach(mock.uninstallMockGetGmi);
 
     it("Should callback with 100% progress when 0 files are to be loaded in gamePacks.", () => {
         const updateCallback = sinon.spy();
@@ -24,7 +26,7 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return startup([])
+        return startup([mock.screenDef()])
             .then(game => {
                 return runInPreload(game, () => loadAssets(game, gamePacks, loadscreenPack, updateCallback));
             })
@@ -44,7 +46,7 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return startup([])
+        return startup([mock.screenDef()])
             .then(game => {
                 return runInPreload(game, () => loadAssets(game, gamePacks, loadscreenPack, updateCallback));
             })
@@ -69,7 +71,7 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return startup([])
+        return startup([mock.screenDef()])
             .then(game => {
                 return runInPreload(game, () => loadAssets(game, gamePacks, loadscreenPack, updateCallback));
             })
@@ -91,7 +93,7 @@ describe("Asset Loader", () => {
             url: assetPacks.loadscreenPack,
         };
         let theGame: Phaser.Game;
-        return startup([])
+        return startup([mock.screenDef()])
             .then(game => {
                 theGame = game;
                 return runInPreload(game, () => loadAssets(game, gamePacks, loadscreenPack, updateCallback));
@@ -119,7 +121,7 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return startup([])
+        return startup([mock.screenDef()])
             .then(game => {
                 game.load.json = loadSpy;
                 game.cache.getJSON = getJSONStub;
@@ -137,14 +139,11 @@ function runInPreload<T>(game: Phaser.Game, action: () => Promise<T>): Promise<T
     const promiseTrigger = new PromiseTrigger<T>();
     game.state.add(
         "loadscreen",
-        class State extends Phaser.State {
-            constructor() {
-                super();
-            }
+        new class extends Phaser.State {
             public preload() {
                 promiseTrigger.resolve(action());
             }
-        },
+        }(),
     );
     game.state.start("loadscreen");
     return promiseTrigger;
