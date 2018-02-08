@@ -5,25 +5,22 @@ import * as sinon from "sinon";
 import { testHarnessDisplay } from "src/components/test-harness/layout";
 
 describe("test harness layout", () => {
-    let qaModeActive: boolean;
-    let testHarnessLayoutDisplayed: boolean;
     let testHarness: { create: () => void };
     let mockGame: any;
     let mockContext: any;
     let sandbox: sinon.SinonSandbox;
-    let QKeyCode: number;
-    let onKeyUpSpy: any;
-    let addKeyStub: any;
+    const QKEYCODE: number = 81;
+    let onKeyUpSpy: sinon.SinonSpy;
+    let addKeyStub: sinon.SinonStub;
 
     before(() => {
-        QKeyCode = 81;
         sandbox = sinon.sandbox.create();
     });
 
     beforeEach(() => {
         onKeyUpSpy = sandbox.spy();
         addKeyStub = sandbox.stub();
-        addKeyStub.withArgs(QKeyCode).returns({
+        addKeyStub.withArgs(QKEYCODE).returns({
             onUp: {
                 add: onKeyUpSpy,
             },

@@ -5,22 +5,19 @@ import * as sinon from "sinon";
 import "src/lib/phaser";
 
 describe("GelLayers", () => {
-
     let mockGame: any;
     let mockScaler: any;
 
     beforeEach(() => {
-        
         mockGame = {
-          add: {group: sinon.spy(function(){return {addChild: sinon.spy()}; })},
-          renderer: {resolution: 800},
+            add: { group: sinon.spy(() => ({ addChild: sinon.spy() })) },
+            renderer: { resolution: 800 },
         };
 
         mockScaler = {
-          onSizeChange: { add: sinon.spy()},
-          onScaleChange: { add: sinon.spy()},
+            onSizeChange: { add: sinon.spy() },
+            onScaleChange: { add: sinon.spy() },
         };
-
     });
 
     xit("Should add three gel layer groups to the phaser game", () => {
