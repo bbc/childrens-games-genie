@@ -23,7 +23,7 @@ module.exports = {
             },
             {
                 test: /\.tsx?$/,
-                use: "awesome-typescript-loader",
+                loader: "awesome-typescript-loader",
             },
         ],
     },
@@ -36,4 +36,5 @@ module.exports = {
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"],
         plugins: [new TsConfigPathsPlugin()],
     },
+    plugins: [],
 };
