@@ -30,6 +30,9 @@ export class Layout {
         buttons: any,
     ) {
         this.root = new Phaser.Group(game, game.world, undefined);
+
+        console.log('blah');
+
         this.accessibilityManager = accessibilityManager;
 
         const size = scaler.getSize();
