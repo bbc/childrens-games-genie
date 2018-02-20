@@ -2,12 +2,11 @@
 import * as _ from "lodash/fp";
 
 import * as Scaler from "../scaler";
-import * as AccessibilityManager from "../stubs/accessibility-manager";
 import { Layout } from "./layout";
 
 type PhaserElement = Phaser.Sprite | Phaser.Image | Phaser.BitmapText | Phaser.Group;
 
-export function LayoutFactory(game: Phaser.Game, gameWrapper: HTMLElement): LayoutFactory {
+export function create(game: Phaser.Game, gameWrapper: HTMLElement): LayoutFactory {
     const root = game.add.group(undefined, "gelGroup", true);
     const background = game.add.group(undefined, "gelBackground");
     const foreground = game.add.group(undefined, "foreground");
@@ -15,7 +14,6 @@ export function LayoutFactory(game: Phaser.Game, gameWrapper: HTMLElement): Layo
 
     //TODO stageHeight should come from config
     const scaler = Scaler.create(600, game);
-    const accessibilityManager = AccessibilityManager.create(game, gameWrapper);
 
     root.addChild(background);
     root.addChild(foreground);
@@ -26,7 +24,7 @@ export function LayoutFactory(game: Phaser.Game, gameWrapper: HTMLElement): Layo
         keyLookups,
         addToBackground,
         addToForeground,
-        create,
+        addLayout,
         removeAll,
         addLookups,
         getSize: scaler.getSize,
@@ -42,8 +40,8 @@ export function LayoutFactory(game: Phaser.Game, gameWrapper: HTMLElement): Layo
      * @param buttons - array of standard button names to include. See {@link ./gel-defaults.ts} for available names
      * @returns {Layout}
      */
-    function create(buttons: string[], keyLookup: { [s: string]: string }): Layout {
-        const layout = new Layout(game, scaler, accessibilityManager, keyLookup, buttons);
+    function addLayout(buttons: string[], keyLookup: { [s: string]: string }): Layout {
+        const layout = new Layout(game, scaler, keyLookup, buttons);
 
         addToBackground(layout.root);
 
