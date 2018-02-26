@@ -1,7 +1,6 @@
 /*jshint esversion: 6 */
 const path = require("path");
 const webpack = require("webpack");
-const HappyPack = require("happypack");
 var ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 var phaserModule = path.join(__dirname, "../node_modules/phaser-ce/");
@@ -13,6 +12,7 @@ module.exports = {
     context: path.join(__dirname, ".."),
     devtool: "cheap-module-eval-source-map",
     entry: "./src/main.ts",
+    mode: "development",
     output: {
         devtoolModuleFilenameTemplate: "[absolute-resource-path]",
         filename: "output/main.js",
@@ -22,18 +22,26 @@ module.exports = {
             {
                 test: /(phaser-split|p2|pixi).js$/,
                 include: /(node_modules[\\\/]phaser-ce)/,
-                use: "happypack/loader?id=script-loader",
+                use: {
+                    loader: "script-loader",
+                },
             },
             {
                 test: /\.tsx?$/,
                 include: /(src|test)/,
-                use: "happypack/loader?id=ts",
+                use: "ts-loader",
             },
             {
                 test: /\.js$/,
                 include: /(src|test)/,
                 exclude: /node_modules/,
-                loader: "happypack/loader?id=babel",
+                use: {
+                    loader: "babel-core",
+                    query: {
+                        presets: [["env", { targets: { ie: 11 } }]],
+                        cacheDirectory: true,
+                    },
+                },
             },
         ],
     },
@@ -47,42 +55,6 @@ module.exports = {
         plugins: [],
     },
     plugins: [
-        new HappyPack({
-            id: "ts",
-            threads: 1,
-            loaders: [
-                {
-                    path: "babel-loader",
-                    query: { presets: [["env", { targets: { ie: 11 } }]] },
-                },
-                {
-                    path: "ts-loader",
-                    query: { happyPackMode: true },
-                },
-            ],
-        }),
-        new HappyPack({
-            id: "script-loader",
-            threads: 1,
-            loaders: [
-                {
-                    path: "script-loader",
-                },
-            ],
-        }),
-        new HappyPack({
-            id: "babel",
-            threads: 1,
-            loaders: [
-                {
-                    path: "babel-core",
-                    query: {
-                        presets: [["env", { targets: { ie: 11 } }]],
-                        cacheDirectory: true,
-                    },
-                },
-            ],
-        }),
         new ForkTsCheckerWebpackPlugin({
             checkSyntacticErrors: true,
             workers: ForkTsCheckerWebpackPlugin.ONE_CPU,

@@ -1,9 +1,11 @@
 /*jshint esversion: 6 */
 var webpackConfig = require("../build-scripts/webpack.config");
 const webpack = require("webpack");
-const HappyPack = require("happypack");
+var ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 module.exports = {
+    mode: "development",
+    devtool: "cheap-module-eval-source-map",
     module: {
         rules: webpackConfig.module.rules.concat([
             {
@@ -11,20 +13,15 @@ module.exports = {
                 test: /\.tsx?$/,
                 include: /(src)/,
                 exclude: /(node_modules|resources\/js\/vendor)/,
-                loader: "happypack/loader?id=istanbul-instrumenter",
+                loader: "istanbul-instrumenter-loader",
             },
         ]),
     },
     resolve: webpackConfig.resolve,
-    plugins: webpackConfig.plugins.concat([
-        new HappyPack({
-            id: "istanbul-instrumenter",
-            threads: 1,
-            loaders: [
-                {
-                    path: "istanbul-instrumenter-loader",
-                },
-            ],
+    plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            checkSyntacticErrors: true,
+            workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
         }),
-    ]),
+    ],
 };
