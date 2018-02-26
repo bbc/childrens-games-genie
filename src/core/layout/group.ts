@@ -23,6 +23,7 @@ const getGroupX = (sizes: GroupSizes) => {
     const horizontals: HorizontalPositions<number> = sizes.metrics[
         sizes.pos.v === "middle" ? "safeHorizontals" : "horizontals"
     ] as HorizontalPositions<number>;
+
     return horizontal[sizes.pos.h](
         horizontals[sizes.pos.h] as number,
         sizes.width,
@@ -51,6 +52,8 @@ class Group extends Phaser.Group {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
         this.setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
         this.setGroupPosition();
+
+        (window as any).btnGrp = this;
     }
 
     /**
@@ -70,7 +73,7 @@ class Group extends Phaser.Group {
             },
         };
 
-        const newButton = new DebugButton(this.game, testButton);
+        const newButton = new DebugButton(this.game, testButton, this.metrics.isMobile);
 
         this.addAt(newButton, position);
         this.buttons.push(newButton);
@@ -89,6 +92,11 @@ class Group extends Phaser.Group {
     }
 
     public reset(metrics: ViewportMetrics) {
+        if (this.metrics.isMobile !== metrics.isMobile) {
+            this.resetButtons(metrics);
+            this.alignChildren();
+        }
+
         this.metrics = metrics;
         const invScale = 1 / metrics.scale;
         this.scale.setTo(invScale, invScale);
@@ -112,6 +120,11 @@ class Group extends Phaser.Group {
             }
         }, this);
     };
+
+    //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
+    private resetButtons(metrics: ViewportMetrics) {
+        this.buttons.forEach(button => button.size(metrics));
+    }
 
     private getSizes: () => GroupSizes = () => ({
         metrics: this.metrics,
