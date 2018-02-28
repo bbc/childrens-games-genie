@@ -4,6 +4,7 @@
 - [Context](#context)
 - [Screen](#screen)
 - [Sequencer](#sequencer)
+- [Design Patterns Used](#design-patterns-used)
 
 ## Startup
 
@@ -32,5 +33,9 @@ When adding `this.next()` as a callback on a Phaser Button, `context.inState` ca
 instead of:
 
 `this.game.add.button(0, 0, this.gel.play, this.next, this))`
+
+## Design Patterns Used
+
+Modules are created using a variant of the static factory pattern. They are first called using the `create()` method, which will return a singleton with its methods. It is similar to the  [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript).
 
 
