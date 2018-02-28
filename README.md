@@ -5,6 +5,8 @@
 `npm run build` which runs `webpack --config build-scripts/webpack.config.js`
 `npm run build-watch` runs the compiler and creates a bundle.
 
+*Note* - if `npm start` is running the server then `npm install` may fail. 
+
 
 ## To view:
 

@@ -35,7 +35,7 @@ describe("Home Screen", () => {
             addToBackground: addToBackgroundSpy,
             keyLookups: {
                 currentState: "gameState",
-                gel: "thisIsGel",
+                gelDesktop: "thisIsGel",
                 background: "backgroundImage",
                 title: "titleImage",
             },

@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 
+import * as ButtonFactory from "../../../src/core/layout/button-factory";
 import { Layout } from "../../../src/core/layout/layout";
 import { PromiseTrigger } from "../../../src/core/promise-utils";
 
@@ -9,6 +10,7 @@ describe("Layout", () => {
     let mockGame: any;
     let mockScaler: any;
     let mockKeyLookup: any;
+    let mockButtonFactory: any;
 
     beforeEach(() => {
         return initialiseGame().then(game => {
@@ -34,6 +36,7 @@ describe("Layout", () => {
                 onScaleChange: { add: sinon.spy() },
             };
             mockKeyLookup = sinon.spy();
+            mockButtonFactory = ButtonFactory.create(mockGame);
         });
     });
 
@@ -41,30 +44,35 @@ describe("Layout", () => {
 
     //Currently suffers from a "game instanceof Phaser.Game" typecheck issue
     it("should add the correct number of GEL buttons for a given config", () => {
-        const layout1 = new Layout(mockGame, mockScaler, mockKeyLookup, ["achievements"]);
+        const layout1 = new Layout(mockGame, mockScaler, mockKeyLookup, ["achievements"], mockButtonFactory);
         expect(Object.keys(layout1.buttons).length).to.eql(1);
 
-        const layout2 = new Layout(mockGame, mockScaler, mockKeyLookup, ["play", "soundOff", "settings"]);
+        const layout2 = new Layout(
+            mockGame,
+            mockScaler,
+            mockKeyLookup,
+            ["play", "audioOff", "settings"],
+            mockButtonFactory,
+        );
         expect(Object.keys(layout2.buttons).length).to.eql(3);
 
-        const layout3 = new Layout(mockGame, mockScaler, mockKeyLookup, [
-            "achievements",
-            "exit",
-            "howToPlay",
-            "play",
-            "soundOff",
-            "settings",
-        ]);
+        const layout3 = new Layout(
+            mockGame,
+            mockScaler,
+            mockKeyLookup,
+            ["achievements", "exit", "howToPlay", "play", "audioOff", "settings"],
+            mockButtonFactory,
+        );
         expect(Object.keys(layout3.buttons).length).to.eql(6);
     });
 
     it("Should create 9 Gel Groups", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, []);
+        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
         expect(layout.root.children.length).to.eql(9);
     });
 
     it("Should add items to the correct group", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, []);
+        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
         const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
 
         layout.addToGroup("middleRight", testElement);
@@ -76,7 +84,7 @@ describe("Layout", () => {
     });
 
     it("Should correctly insert an item using the index position property", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, []);
+        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
         const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
         testElement.randomKey = randomKey;
 
@@ -92,7 +100,13 @@ describe("Layout", () => {
 
     //Currently suffers from a "game instanceof Phaser.Game" typecheck issue
     it("Should set button callbacks using the 'setAction' method", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, ["achievements", "exit", "settings"]);
+        const layout = new Layout(
+            mockGame,
+            mockScaler,
+            mockKeyLookup,
+            ["achievements", "exit", "settings"],
+            mockButtonFactory,
+        );
 
         const testAction = sinon.spy();
 

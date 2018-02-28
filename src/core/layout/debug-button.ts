@@ -56,7 +56,7 @@ export class DebugButton extends Phaser.Button {
         this.animations.sprite.addChild(text);
     }
 
-    public size(metrics: ViewportMetrics) {
+    public resize(metrics: ViewportMetrics) {
         this.buttonSize = metrics.isMobile ? "mobile" : "desktop";
         this.texture = this.backdrops[this.buttonSize].up;
     }

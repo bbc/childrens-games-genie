@@ -47,6 +47,7 @@ class Group extends Phaser.Group {
         private vPos: string,
         private hPos: string,
         private metrics: ViewportMetrics,
+        private buttonFactory: any,
         private isVertical: boolean,
     ) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
@@ -64,16 +65,18 @@ class Group extends Phaser.Group {
             position = this.buttons.length;
         }
 
-        const testButton: GelSpec = {
-            width: 200,
-            height: this.metrics.buttonMin,
-            text: config.title,
-            click: () => {
-                console.log("test button");
-            },
-        };
+        // const testButton: GelSpec = {
+        //     width: 200,
+        //     height: this.metrics.buttonMin,
+        //     text: config.title,
+        //     click: () => {
+        //         console.log("test button");
+        //     },
+        // };
 
-        const newButton = new DebugButton(this.game, testButton, this.metrics.isMobile);
+        //const newButton = new DebugButton(this.game, testButton, this.metrics.isMobile);
+
+        const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key)
 
         this.addAt(newButton, position);
         this.buttons.push(newButton);
@@ -123,7 +126,7 @@ class Group extends Phaser.Group {
 
     //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
     private resetButtons(metrics: ViewportMetrics) {
-        this.buttons.forEach(button => button.size(metrics));
+        this.buttons.forEach(button => button.resize(metrics));
     }
 
     private getSizes: () => GroupSizes = () => ({

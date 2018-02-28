@@ -24,6 +24,7 @@ export class Layout {
         scaler: Scaler,
         keyLookup: { [s: string]: string },
         buttons: any,
+        buttonFactory: any,
     ) {
         this.root = new Phaser.Group(game, game.world, undefined);
 
@@ -40,6 +41,7 @@ export class Layout {
                         layout.vPos,
                         layout.hPos,
                         this.metrics,
+                        buttonFactory,
                         !!layout.arrangeV,
                     ),
             ),
