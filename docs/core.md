@@ -6,6 +6,7 @@
 * [Sequencer](#sequencer)
 * [Asset Loader][1]
 * [Design Patterns Used](#design-patterns-used)
+* [Typescript Build Process][2]
 
 ## Startup
 
@@ -40,3 +41,4 @@ instead of:
 Modules are created using a variant of the static factory pattern. They are first called using the `create()` method, which will return a singleton with its methods. It is similar to the [revealing module pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript).
 
 [1]: asset-loader.md
+[2]: ts-build.md
