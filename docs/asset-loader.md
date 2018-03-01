@@ -26,7 +26,7 @@ loadAssets(
 
 ## Parameters
 
-##### gamePacks: PackList
+#### gamePacks: PackList
 
 The gamePacks are the list of asset packs that are to be loaded by the asset loader.
 
