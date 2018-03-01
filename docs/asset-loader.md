@@ -3,11 +3,9 @@
 * [Core][1]
 * [Asset Loader](#creating-an-asset-loader)
 
-
-* [gamePacks](#gamepacks-packlist)
-* [loadscreenPack](#loadscreenpack-pack)
-* [updateCallback](#updatecallback-progress-number--void)
-
+- [gamePacks](#gamepacks-packlist)
+- [loadscreenPack](#loadscreenpack-pack)
+- [updateCallback](#updatecallback-progress-number--void)
 
 * [KeyLookups](#keylookups)
 * [Asset Packs](#asset-packs)
