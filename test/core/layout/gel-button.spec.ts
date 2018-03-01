@@ -13,7 +13,7 @@ import { GelButton } from "../../../src/core/layout/gel-button";
 
 import * as sinon from "sinon";
 
-describe.only("Gel Button", () => {
+describe("Gel Button", () => {
     beforeEach(mock.installMockGetGmi);
     afterEach(mock.uninstallMockGetGmi);
 
