@@ -68,7 +68,7 @@ class Group extends Phaser.Group {
             position = this.buttons.length;
         }
 
-        const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key)
+        const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key);
 
         this.addAt(newButton, position);
         this.buttons.push(newButton);
