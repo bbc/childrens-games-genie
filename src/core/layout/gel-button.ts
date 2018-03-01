@@ -1,25 +1,29 @@
+// @ts-ignore
+import * as fp from "lodash/fp";
+
 export class GelButton extends Phaser.Button {
-    private assets: any;
-    private buttonSize = "desktop";
+    private id: string;
 
     constructor(game: Phaser.Game, x: number, y: number, isMobile: boolean, key: string) {
-        super(game, 0, 0, "gel/desktop/" + key + ".png", publish(key));
+        super(game, 0, 0, assetPath({key, isMobile}), publish(key));
 
+        this.id = key;
         this.animations.sprite.anchor.setTo(0.5, 0.5);
-
-        this.assets = {
-            mobile: "gel/mobile/" + key + ".png",
-            desktop: "gel/desktop/" + key + ".png",
-        };
     }
 
     public resize(metrics: ViewportMetrics) {
-        this.buttonSize = metrics.isMobile ? "mobile" : "desktop";
-        this.animations.sprite.loadTexture(this.assets[this.buttonSize]);
+        this.animations.sprite.loadTexture(assetPath({key: this.id, isMobile: metrics.isMobile}));
     }
 }
 
+const paths = [
+    [(x: any) => x.isMobile, (x: any) => "gel/mobile/" + x.key + ".png"],
+    [(x: any) => !x.isMobile, (x: any) => "gel/desktop/" + x.key + ".png"],
+];
+
+const assetPath = fp.cond(paths);
+
 const publish = (key: string) => () => {
-    //TODO fire signal here
+    //TODO publish signal here
     console.log(key);
 };
