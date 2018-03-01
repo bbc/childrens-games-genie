@@ -2,7 +2,6 @@
 import * as _ from "lodash/fp";
 
 import * as Scaler from "../scaler";
-import * as ButtonFactory from "./button-factory";
 import { Layout } from "./layout";
 
 type PhaserElement = Phaser.Sprite | Phaser.Image | Phaser.BitmapText | Phaser.Group;
@@ -12,7 +11,6 @@ export function create(game: Phaser.Game, gameWrapper: HTMLElement): LayoutFacto
     const background = game.add.group(undefined, "gelBackground");
     const foreground = game.add.group(undefined, "foreground");
     const keyLookups: ScreenMap = {};
-    const buttonFactory = ButtonFactory.create(game);
 
     //TODO stageHeight should come from config
     const scaler = Scaler.create(600, game);
@@ -42,8 +40,8 @@ export function create(game: Phaser.Game, gameWrapper: HTMLElement): LayoutFacto
      * @param buttons - array of standard button names to include. See {@link ./gel-defaults.ts} for available names
      * @returns {Layout}
      */
-    function addLayout(buttons: string[], keyLookup: { [s: string]: string }): Layout {
-        const layout = new Layout(game, scaler, keyLookup, buttons, buttonFactory);
+    function addLayout(buttons: string[]): Layout {
+        const layout = new Layout(game, scaler, buttons);
 
         addToBackground(layout.root);
 

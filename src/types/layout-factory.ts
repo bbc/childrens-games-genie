@@ -1,7 +1,7 @@
 declare interface LayoutFactory {
     getSize: any;
     keyLookups: ScreenMap;
-    addLayout(buttons: string[], keyLookup: { [s: string]: string }): any; //TODO - 'any' should be Layout but the importing breaks the declaration.
+    addLayout(buttons: string[]): any; //TODO - 'any' should be Layout but the importing breaks the declaration.
     addToBackground(object: PIXI.DisplayObject): PIXI.DisplayObject;
     addToForeground(object: PIXI.DisplayObject): PIXI.DisplayObject;
     removeAll(): void;

@@ -22,9 +22,7 @@ export class Layout {
     constructor(
         game: Phaser.Game,
         scaler: Scaler,
-        keyLookup: { [s: string]: string },
         buttons: any,
-        buttonFactory: any,
     ) {
         this.root = new Phaser.Group(game, game.world, undefined);
 
@@ -41,14 +39,13 @@ export class Layout {
                         layout.vPos,
                         layout.hPos,
                         this.metrics,
-                        buttonFactory,
                         !!layout.arrangeV,
                     ),
             ),
         );
         this.buttons = _.zipObject(
             buttons,
-            buttons.map((name: string) => this.groups[gel[name].group].addButton(gel[name], keyLookup)),
+            buttons.map((name: string) => this.groups[gel[name].group].addButton(gel[name])),
         );
 
         scaler.onScaleChange.add(this.resize, this);

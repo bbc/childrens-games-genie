@@ -1,5 +1,7 @@
 // @ts-ignore
 import * as fp from "lodash/fp";
+
+import * as ButtonFactory from "./button-factory";
 import { DebugButton } from "./debug-button";
 
 const horizontal: HorizontalPositions<(pos: number, width: number, pad: number) => number> = {
@@ -40,41 +42,31 @@ const getGroupY = (sizes: GroupSizes) =>
 
 class Group extends Phaser.Group {
     private buttons: DebugButton[] = [];
+    private buttonFactory: any; // TODO use ReturnType<ButtonFactory.create> with TS2.8
     private setGroupPosition: () => void;
+
     constructor(
         game: Phaser.Game,
         parent: Phaser.Group,
         private vPos: string,
         private hPos: string,
         private metrics: ViewportMetrics,
-        private buttonFactory: any,
         private isVertical: boolean,
     ) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
+
+        this.buttonFactory = ButtonFactory.create(game);
         this.setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
         this.setGroupPosition();
-
-        (window as any).btnGrp = this;
     }
 
     /**
      * TODO add interface for config
      */
-    public addButton(config: any, keyLookup: any, position?: number) {
+    public addButton(config: any, position?: number) {
         if (position === undefined) {
             position = this.buttons.length;
         }
-
-        // const testButton: GelSpec = {
-        //     width: 200,
-        //     height: this.metrics.buttonMin,
-        //     text: config.title,
-        //     click: () => {
-        //         console.log("test button");
-        //     },
-        // };
-
-        //const newButton = new DebugButton(this.game, testButton, this.metrics.isMobile);
 
         const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key)
 

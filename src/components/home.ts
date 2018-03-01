@@ -12,7 +12,6 @@ export class Home extends Screen {
 
     public preload() {
         this.keyLookup = this.layoutFactory.keyLookups[this.game.state.current];
-        this.gel = this.layoutFactory.keyLookups.gel;
     }
 
     public create() {
@@ -21,7 +20,7 @@ export class Home extends Screen {
         this.layoutFactory.addToBackground(
             this.game.add.button(0, 0, this.gel.play, this.context.sequencer.next, this),
         ); // remove when layout handles this
-        this.layoutFactory.addLayout(["exit", "howToPlay", "play", "soundOff", "settings"], this.gel);
+        this.layoutFactory.addLayout(["exit", "howToPlay", "play", "audioOff", "settings"]);
         createTestHarnessDisplay(this.game, this.context, this.layoutFactory);
 
         // Example on how to accessibilify a standard button:

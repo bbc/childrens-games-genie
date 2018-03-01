@@ -9,8 +9,6 @@ describe("Layout", () => {
     const randomKey = "1d67c228681df6ad7f0b05f069cd087c442934ab5e4e86337d70c832e110c61b";
     let mockGame: any;
     let mockScaler: any;
-    let mockKeyLookup: any;
-    let mockButtonFactory: any;
 
     beforeEach(() => {
         return initialiseGame().then(game => {
@@ -35,8 +33,6 @@ describe("Layout", () => {
                 getSize: sinon.spy(() => ({ width: 200, height: 200 })),
                 onScaleChange: { add: sinon.spy() },
             };
-            mockKeyLookup = sinon.spy();
-            mockButtonFactory = ButtonFactory.create(mockGame);
         });
     });
 
@@ -44,35 +40,31 @@ describe("Layout", () => {
 
     //Currently suffers from a "game instanceof Phaser.Game" typecheck issue
     it("should add the correct number of GEL buttons for a given config", () => {
-        const layout1 = new Layout(mockGame, mockScaler, mockKeyLookup, ["achievements"], mockButtonFactory);
+        const layout1 = new Layout(mockGame, mockScaler, ["achievements"]);
         expect(Object.keys(layout1.buttons).length).to.eql(1);
 
         const layout2 = new Layout(
             mockGame,
             mockScaler,
-            mockKeyLookup,
             ["play", "audioOff", "settings"],
-            mockButtonFactory,
         );
         expect(Object.keys(layout2.buttons).length).to.eql(3);
 
         const layout3 = new Layout(
             mockGame,
             mockScaler,
-            mockKeyLookup,
             ["achievements", "exit", "howToPlay", "play", "audioOff", "settings"],
-            mockButtonFactory,
         );
         expect(Object.keys(layout3.buttons).length).to.eql(6);
     });
 
     it("Should create 9 Gel Groups", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
+        const layout = new Layout(mockGame, mockScaler, []);
         expect(layout.root.children.length).to.eql(9);
     });
 
     it("Should add items to the correct group", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
+        const layout = new Layout(mockGame, mockScaler, []);
         const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
 
         layout.addToGroup("middleRight", testElement);
@@ -84,7 +76,7 @@ describe("Layout", () => {
     });
 
     it("Should correctly insert an item using the index position property", () => {
-        const layout = new Layout(mockGame, mockScaler, mockKeyLookup, [], mockButtonFactory);
+        const layout = new Layout(mockGame, mockScaler, []);
         const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
         testElement.randomKey = randomKey;
 
@@ -103,9 +95,7 @@ describe("Layout", () => {
         const layout = new Layout(
             mockGame,
             mockScaler,
-            mockKeyLookup,
             ["achievements", "exit", "settings"],
-            mockButtonFactory,
         );
 
         const testAction = sinon.spy();
