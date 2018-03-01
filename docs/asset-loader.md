@@ -1,12 +1,12 @@
 # Asset Loader
 
 * [Core][1]
-* [Asset Loader](#Creating an Asset Loader)
-* [gamePacks](#gamePacks: PackList)
-* [loadscreenPack](#loadscreenPack: Pack)
-* [updateCallback](#updateCallback: (progress: number) => void)
-* [KeyLookups](#KeyLookups)
-* [Known Issues](#Known Issues)
+* [Asset Loader](#creating-an-asset-loader)
+* [gamePacks](#gamepacks-packlist)
+* [loadscreenPack](#loadscreenpack-pack)
+* [updateCallback](#updatecallback-progress-number--void)
+* [KeyLookups](#keylookups)
+* [Known Issues](#known-issues)
 
 ## Creating an Asset Loader
 
