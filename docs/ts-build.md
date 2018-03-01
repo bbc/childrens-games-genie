@@ -33,8 +33,6 @@ Watch mode can be started with `npm run build-watch`.
 
 In watch mode, webpack is simply ran with the same config file, but with the `--watch` flag.
 
----
-
 ## For Testing
 
 This section explains the build process when `npm run test` is executed.  
@@ -57,8 +55,6 @@ The config file for webpack during a build that requires coverage, is located at
 This config file is almost the same as the normal build one, except it adds an extra plugin called `istanbul-instrumenter-loader` which calculates coverage.
 
 We also are using the `--max_old_space_size=4096` node option, as this requires a lot of memory, because it is remapping the coverage back to our Typescript source files.
-
----
 
 ## Phaser
 
