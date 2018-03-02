@@ -32,11 +32,13 @@ describe("Signal Bus", () => {
         assert(callback3.callCount === 2);
     });
 
-    it("Should throw an error if you try to add the same signal name twice", () => {
+    it("Should not create the same signal twic", () => {
         const bus = SignalBus.create();
 
-        bus.add("testSignal1");
-        assert.throws(() => bus.add("testSignal1"));
+        const ref1 = bus.add("testSignal1");
+        const ref2 = bus.add("testSignal1");
+
+        assert.equal(ref1, ref2);
     });
 
     it("Should pass data from publisher to subscribers", () => {

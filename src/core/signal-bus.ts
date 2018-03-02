@@ -2,10 +2,9 @@ export const create = () => {
     const _bus = {};
 
     const add = name => {
-        if (_bus[name]) {
-            throw new Error("Signal already exists");
+        if (!_bus[name]) {
+            _bus[name] = new Phaser.Signal();
         }
-        _bus[name] = new Phaser.Signal();
     };
 
     const remove = name => {
