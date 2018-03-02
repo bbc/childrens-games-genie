@@ -5,7 +5,7 @@ import * as sinon from "sinon";
 
 import * as SignalBus from "../../src/core/signal-bus";
 
-describe.only("Signal Bus", () => {
+describe("Signal Bus", () => {
     it("Should fire the correct callbacks when a signal is published", () => {
         const bus = SignalBus.create();
 
