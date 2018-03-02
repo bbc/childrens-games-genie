@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
-import { accessibilify } from "../../src/lib/accessibilify/accessibilify";
-import * as helperModule from "../../src/lib/accessibilify/accessible-dom-element";
+import { accessibilify } from "../../../src/lib/accessibilify/accessibilify";
+import * as helperModule from "../../../src/lib/accessibilify/accessible-dom-element";
 
-describe.only("#accessibilify", () => {
+describe("#accessibilify", () => {
     let mockButton: any;
     let parentElement: any;
     let gameWidth: number;
