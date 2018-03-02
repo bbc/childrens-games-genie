@@ -5,13 +5,7 @@ import * as sinon from "sinon";
 
 import * as SignalBus from "../../src/core/signal-bus";
 
-       // * On subscribing to a signal is it the callback fired?
-       // * On publishing a signal is the data payload sent?
-       // * Signals use unique names
-
-
 describe.only("Signal Bus", () => {
-
     it("Should fire the correct callbacks when a signal is published", () => {
         const bus = SignalBus.create();
 
@@ -28,43 +22,37 @@ describe.only("Signal Bus", () => {
 
         bus.publish("testSignal1");
         bus.publish("testSignal1", 12345);
-        bus.publish("testSignal1", {exampleData: "abcdef"});
+        bus.publish("testSignal1", { exampleData: "abcdef" });
 
-        bus.publish("testSignal2", {aa: "bb"});
-        bus.publish("testSignal2", {aa: "bb"});
+        bus.publish("testSignal2", { aa: "bb" });
+        bus.publish("testSignal2", { aa: "bb" });
 
         assert(callback1.callCount === 3);
         assert(callback2.callCount === 3);
         assert(callback3.callCount === 2);
     });
 
-    it("Should only allow unique signal names", () => {
+    it("Should throw an error if you try to add the same signal name twice", () => {
         const bus = SignalBus.create();
 
         bus.add("testSignal1");
-        bus.add("testSignal1");
+        assert.throws(() => bus.add("testSignal1"));
+    });
+
+    it("Should pass data from publisher to subscribers", () => {
+        const bus = SignalBus.create();
+        let receive;
+        let send;
+
+        bus.add("testSignal");
+        bus.subscribe(data => (receive = data), "testSignal");
+
+        send = { a: 1, b: 2, c: 3 };
+        bus.publish("testSignal", send);
+        assert(send === receive);
+
+        send = { BBC: [1, 2, 3, 4, 5] };
+        bus.publish("testSignal", send);
+        assert(send === receive);
     });
 });
-
-/**
- * Wraps a test in asynchronous Phaser setup and shutdown code, and runs it in the preload phase of the first state.
- * @param action Function to run the tests, returning a promise.
- */
-// function runInPreload(action: (g: Phaser.Game) => Promise<void>): Promise<void> {
-//     const promisedTest = new PromiseTrigger<void>();
-//     const testState = new class extends Screen {
-//         public preload() {
-//             promisedTest.resolve(action(this.game));
-//         }
-//     }();
-//     const transitions = [
-//         {
-//             name: "loadscreen",
-//             state: testState,
-//             nextScreenName: () => "loadscreen",
-//         },
-//     ];
-//     return startup(transitions)
-//         .then(game => promisedTest.then(() => game))
-//         .then(game => game.destroy());
-// }
