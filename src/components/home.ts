@@ -1,5 +1,5 @@
 import { Screen } from "../core/screen";
-import { accessibilify } from "../lib/accessibilify";
+import { accessibilify } from "../lib/accessibilify/accessibilify";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness";
 
 export class Home extends Screen {
@@ -29,6 +29,6 @@ export class Home extends Screen {
         });
         btn.name = "accessible-button-example";
         this.layoutFactory.addToBackground(btn);
-        accessibilify(btn, this.layoutFactory, "Test Accessible Button");
+        accessibilify(btn, "Test Accessible Button");
     }
 }
