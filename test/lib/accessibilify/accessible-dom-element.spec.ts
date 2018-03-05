@@ -114,4 +114,21 @@ describe.only("#accessibleDomElement", () => {
             expect(newAccessibleElement.visible()).to.equal(false);
         });
     });
+
+    describe("setting position of element via position function", () => {
+        it("sets css values correctly", () => {
+            const newAccessibleElement = accessibleDomElement(options);
+            const positionOptions = {
+                x: 50,
+                y: 50,
+                width: 200,
+                height: 100,
+            };
+            newAccessibleElement.position(positionOptions);
+            expect(element.style.left).to.equal("50px");
+            expect(element.style.top).to.equal("50px");
+            expect(element.style.width).to.equal("200px");
+            expect(element.style.height).to.equal("100px");
+        });
+    });
 });
