@@ -7,7 +7,6 @@ export class GelButton extends Phaser.Button {
 
     constructor(game, x, y, isMobile, key) {
         super(game, 0, 0, assetPath({ key, isMobile }), publish(key));
-        signal.bus.add(signalId(key));
         this.id = key;
         this.animations.sprite.anchor.setTo(0.5, 0.5);
     }
@@ -24,4 +23,4 @@ const paths = [
 
 const signalId = key => "GEL-" + key;
 const assetPath = fp.cond(paths);
-const publish = key => () => signal.bus.publish(signalId(key));
+const publish = key => () => signal.bus.publish({name: signalId(key)});

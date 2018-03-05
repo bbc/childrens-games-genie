@@ -9,52 +9,43 @@ describe("Signal Bus", () => {
     it("Should fire the correct callbacks when a signal is published", () => {
         const bus = SignalBus.create();
 
-        bus.add("testSignal1");
-        bus.add("testSignal2");
-
         const callback1 = sinon.spy();
         const callback2 = sinon.spy();
         const callback3 = sinon.spy();
 
-        bus.subscribe(callback1, "testSignal1");
-        bus.subscribe(callback2, "testSignal1");
-        bus.subscribe(callback3, "testSignal2");
+        bus.subscribe({callback: callback1, name: "testSignal1"});
+        bus.subscribe({callback: callback2, name: "testSignal2"});
+        bus.subscribe({callback: callback3, name: "testSignal3"});
 
-        bus.publish("testSignal1");
-        bus.publish("testSignal1", 12345);
-        bus.publish("testSignal1", { exampleData: "abcdef" });
+        bus.publish({name: "testSignal1"});
+        bus.publish({name: "testSignal1", data: 12345});
+        bus.publish({name: "testSignal1", data: { exampleData: "abcdef" }});
 
-        bus.publish("testSignal2", { aa: "bb" });
-        bus.publish("testSignal2", { aa: "bb" });
+        bus.publish({name: "testSignal2", data: { aa: "bb" }});
+        bus.publish({name: "testSignal2", data: { aa: "bb" }});
 
         assert(callback1.callCount === 3);
-        assert(callback2.callCount === 3);
-        assert(callback3.callCount === 2);
+        assert(callback2.callCount === 2);
+        assert(callback3.callCount === 0);
     });
 
-    it("Should not create the same signal twic", () => {
-        const bus = SignalBus.create();
-
-        const ref1 = bus.add("testSignal1");
-        const ref2 = bus.add("testSignal1");
-
-        assert.equal(ref1, ref2);
+    it("Should remove signals correctly", () => {
+        //TODO
     });
 
     it("Should pass data from publisher to subscribers", () => {
         const bus = SignalBus.create();
-        let receive;
-        let send;
+        let received;
+        let data;
 
-        bus.add("testSignal");
-        bus.subscribe(data => (receive = data), "testSignal");
+        bus.subscribe({callback: newData => (received = newData), name: "testSignal"});
 
-        send = { a: 1, b: 2, c: 3 };
-        bus.publish("testSignal", send);
-        assert(send === receive);
+        data = { a: 1, b: 2, c: 3 };
+        bus.publish({name: "testSignal", data});
+        assert(data === received);
 
-        send = { BBC: [1, 2, 3, 4, 5] };
-        bus.publish("testSignal", send);
-        assert(send === receive);
+        data = { BBC: [1, 2, 3, 4, 5] };
+        bus.publish({name: "testSignal", data});
+        assert(data === received);
     });
 });

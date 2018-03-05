@@ -1,10 +1,14 @@
+// @ts-ignore
+import * as fp from "lodash/fp";
+
 export const create = () => {
     const _bus = {};
 
-    const add = name => {
-        if (!_bus[name]) {
-            _bus[name] = new Phaser.Signal();
+    const addSignal = message => {
+        if (!_bus[message.name]) {
+            _bus[message.name] = new Phaser.Signal();
         }
+        return message;
     };
 
     const remove = name => {
@@ -12,10 +16,13 @@ export const create = () => {
         delete bus[name];
     };
 
-    const subscribe = (callback, name) => _bus[name].add(callback);
-    const publish = (name, data?) => _bus[name].dispatch(data);
+    const addSubscription = message => _bus[message.name].add(message.callback);
+    const publishMessage = message => _bus[message.name].dispatch(message.data);
 
-    return { add, remove, subscribe, publish };
+    const subscribe = fp.flow(addSignal, addSubscription);
+    const publish = fp.flow(addSignal, publishMessage);
+
+    return { remove, subscribe, publish };
 };
 
 //Single instance

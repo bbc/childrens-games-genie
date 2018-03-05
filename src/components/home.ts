@@ -22,7 +22,12 @@ export class Home extends Screen {
         createTestHarnessDisplay(this.game, this.context, this.layoutFactory);
 
         //Example Subscription to signal bus
-        signal.bus.subscribe(() => { console.log("Play was pressed"); }, "GEL-play");
+        signal.bus.subscribe({
+            name: "GEL-play",
+            callback: () => {
+                console.log("Play was pressed");
+            },
+        });
 
         // Example on how to accessibilify a standard button:
         // const btn = this.game.add.button(-200, 0, this.gel.play, () => {
