@@ -9,24 +9,15 @@ describe("Signal Bus", () => {
     it("Should fire the correct callbacks when a signal is published", () => {
         const bus = SignalBus.create();
 
-        const callback1 = sinon.spy();
-        const callback2 = sinon.spy();
-        const callback3 = sinon.spy();
+        const callback = sinon.spy();
 
-        bus.subscribe({callback: callback1, name: "testSignal1"});
-        bus.subscribe({callback: callback2, name: "testSignal2"});
-        bus.subscribe({callback: callback3, name: "testSignal3"});
+        bus.subscribe({callback, name: "testSignal1"});
 
         bus.publish({name: "testSignal1"});
         bus.publish({name: "testSignal1", data: 12345});
         bus.publish({name: "testSignal1", data: { exampleData: "abcdef" }});
 
-        bus.publish({name: "testSignal2", data: { aa: "bb" }});
-        bus.publish({name: "testSignal2", data: { aa: "bb" }});
-
-        assert(callback1.callCount === 3);
-        assert(callback2.callCount === 2);
-        assert(callback3.callCount === 0);
+        assert(callback.callCount === 3);
     });
 
     it("Should remove signals correctly", () => {
