@@ -131,4 +131,13 @@ describe.only("#accessibleDomElement", () => {
             expect(element.style.height).to.equal("100px");
         });
     });
+
+    describe("removing element", () => {
+        it("is removed from DOM when calling remove function", () => {
+            const remove = sandbox.stub(element, "remove");
+            const newAccessibleElement = accessibleDomElement(options);
+            newAccessibleElement.remove();
+            sinon.assert.calledOnce(remove);
+        });
+    });
 });
