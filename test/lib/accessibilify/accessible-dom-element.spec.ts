@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as sinon from "sinon";
 import { accessibleDomElement } from "../../../src/lib/accessibilify/accessible-dom-element";
 
-describe.only("#accessibleDomElement", () => {
+describe("#accessibleDomElement", () => {
     let sandbox: sinon.SinonSandbox;
     let options: AccessibleDomElementOptions;
     let createElement: sinon.SinonStub;
