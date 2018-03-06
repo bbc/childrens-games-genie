@@ -28,13 +28,5 @@ export class Home extends Screen {
                 console.log("Play was pressed");
             },
         });
-
-        // Example on how to accessibilify a standard button:
-        // const btn = this.game.add.button(-200, 0, this.gel.play, () => {
-        //     console.log("clicked accessible button");
-        // }););
-        // btn.name = "accessible-button-example";
-        // this.layoutFactory.addToBackground(btn);
-        // accessibilify(btn, "Test Accessible Button");
     }
 }
