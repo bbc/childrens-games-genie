@@ -1,6 +1,5 @@
 import { Screen } from "../core/screen";
 import * as signal from "../core/signal-bus";
-import { accessibilify } from "../lib/accessibilify/accessibilify";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness";
 
 export class Home extends Screen {
