@@ -49,6 +49,11 @@ describe("#accessibleDomElement", () => {
             expect(element.getAttribute("aria-label")).to.equal("Play Button");
         });
 
+        it("sets role to correct value", () => {
+            accessibleDomElement(options);
+            expect(element.getAttribute("role")).to.equal("button");
+        });
+
         it("sets style position to absolute", () => {
             accessibleDomElement(options);
             expect(element.style.position).to.equal("absolute");

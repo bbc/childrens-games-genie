@@ -15,6 +15,7 @@ export function accessibleDomElement(options: AccessibleDomElementOptions) {
     function init(): void {
         el.setAttribute("tabindex", "0");
         el.setAttribute("aria-label", options.ariaLabel);
+        el.setAttribute("role", "button");
         el.style.position = "absolute";
         el.addEventListener("keyup", keyUp);
         el.addEventListener("click", options.onClick);
