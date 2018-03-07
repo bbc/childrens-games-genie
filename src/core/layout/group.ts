@@ -2,7 +2,7 @@
 import * as fp from "lodash/fp";
 
 import * as ButtonFactory from "./button-factory";
-import { DebugButton } from "./debug-button";
+import { GelButton } from "./gel-button";
 
 const horizontal: HorizontalPositions<(pos: number, width: number, pad: number) => number> = {
     left: (pos: number, width: number, pad: number) => pos + pad,
@@ -41,7 +41,7 @@ const getGroupY = (sizes: GroupSizes) =>
     );
 
 class Group extends Phaser.Group {
-    private buttons: DebugButton[] = [];
+    private buttons: GelButton[] = [];
     private buttonFactory: any; // TODO use ReturnType<ButtonFactory.create> with TS2.8
     private setGroupPosition: () => void;
 
