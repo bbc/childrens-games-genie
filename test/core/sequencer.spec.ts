@@ -8,7 +8,7 @@ describe("Sequencer", () => {
     let sequencer: any;
     let mockGame: any;
     let mockLayout: any;
-    let next: NextScreenFunction;
+    let next;
 
     const sandbox = sinon.sandbox.create();
     const mockContext: any = { inState: { transient: {}, persistent: {} } };

@@ -4,27 +4,27 @@ import * as fp from "lodash/fp";
 import * as ButtonFactory from "./button-factory";
 import { DebugButton } from "./debug-button";
 
-const horizontal: HorizontalPositions<(pos, width, pad) => number> = {
+const horizontal = {
     left: (pos, width, pad) => pos + pad,
     right: (pos, width, pad) => pos - width - pad,
     center: (pos, width, pad) => pos - width / 2,
 };
 
-const vertical: VerticalPositions = {
+const vertical = {
     top: (pos, height, pad) => pos + pad,
     middle: (pos, height, pad) => pos - height / 2,
     bottom: (pos, height, pad) => pos - (height + pad),
 };
 
-const getGroupPosition = (sizes: GroupSizes) => ({
+const getGroupPosition = (sizes) => ({
     x: getGroupX(sizes),
     y: getGroupY(sizes),
 });
 
-const getGroupX = (sizes: GroupSizes) => {
-    const horizontals: HorizontalPositions<number> = sizes.metrics[
+const getGroupX = (sizes) => {
+    const horizontals = sizes.metrics[
         sizes.pos.v === "middle" ? "safeHorizontals" : "horizontals"
-    ] as HorizontalPositions<number>;
+    ];
 
     return horizontal[sizes.pos.h](
         horizontals[sizes.pos.h] as number,
@@ -50,7 +50,7 @@ class Group extends Phaser.Group {
         parent: Phaser.Group,
         private vPos,
         private hPos,
-        private metrics: ViewportMetrics,
+        private metrics,
         private isVertical,
     ) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
@@ -86,7 +86,7 @@ class Group extends Phaser.Group {
         this.setGroupPosition();
     }
 
-    public reset(metrics: ViewportMetrics) {
+    public reset(metrics) {
         if (this.metrics.isMobile !== metrics.isMobile) {
             this.resetButtons(metrics);
             this.alignChildren();
@@ -121,7 +121,7 @@ class Group extends Phaser.Group {
         this.buttons.forEach(button => button.resize(metrics));
     }
 
-    private getSizes: () => GroupSizes = () => ({
+    private getSizes = () => ({
         metrics: this.metrics,
         pos: { h: this.hPos, v: this.vPos },
         width: this.width,
@@ -136,25 +136,3 @@ class Group extends Phaser.Group {
 }
 
 export default Group;
-
-interface GroupSizes {
-    metrics: ViewportMetrics;
-    pos: { h: string; v: string };
-    width;
-    height;
-    scale;
-}
-
-interface HorizontalPositions<T> {
-    left: T;
-    right: T;
-    center: T;
-    [key: string]: T;
-}
-
-interface VerticalPositions {
-    top: (pos, width, pad) => number;
-    middle: (pos, width, pad) => number;
-    bottom: (pos, width, pad) => number;
-    [key: string]: (pos, width, pad) => number;
-}

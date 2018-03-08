@@ -2,12 +2,12 @@ import * as _ from "lodash";
 import "../lib/phaser";
 
 export class Screen extends Phaser.State {
-    protected layoutFactory: LayoutFactory;
+    protected layoutFactory;
 
-    private _context: Context;
-    private _next: NextScreenFunction;
+    private _context;
+    private _next;
 
-    public get context(): Context {
+    public get context() {
         return this._context;
     }
 
@@ -15,13 +15,13 @@ export class Screen extends Phaser.State {
         this._context = _.merge({}, this._context, newContext);
     }
 
-    public init(context: Context, next: NextScreenFunction, layoutFactory: LayoutFactory) {
+    public init(context, next, layoutFactory) {
         this.layoutFactory = layoutFactory;
         this._context = context;
         this._next = next;
     }
 
-    public next(changedState?: GameStateUpdate) {
+    public next(changedState?) {
         this._next(changedState);
     }
 }

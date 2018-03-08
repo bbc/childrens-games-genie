@@ -3,11 +3,11 @@ import * as LayoutFactory from "./layout/factory";
 
 export function create(
     game: Phaser.Game,
-    context: Context,
-    transitions: ScreenDef[],
-    gameWrapper: HTMLElement,
-): Sequencer {
-    let currentScreen: ScreenDef = transitions[0];
+    context,
+    transitions,
+    gameWrapper,
+)  {
+    let currentScreen = transitions[0];
 
     const self = { getTransitions };
     const layoutFactory = LayoutFactory.create(game, gameWrapper);
@@ -19,7 +19,7 @@ export function create(
 
     return self;
 
-    function next(changedState: GameStateUpdate): void {
+    function next(changedState): void {
         //TODO: Use GMI to save persistent state to local storage, if it has been updated
         const newState = _.merge({}, context.inState, changedState);
         const nextScreenName = currentScreen.nextScreenName(newState);
@@ -30,7 +30,7 @@ export function create(
         currentScreen = screenLookup[nextScreenName];
     }
 
-    function getTransitions(): ScreenDef[] {
+    function getTransitions() {
         return transitions;
     }
 }

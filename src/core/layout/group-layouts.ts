@@ -1,10 +1,4 @@
-interface GroupLayout {
-    vPos;
-    hPos;
-    arrangeV?;
-}
-
-export const groupLayouts: GroupLayout[] = [
+export const groupLayouts = [
     { vPos: "top", hPos: "left" },
     { vPos: "top", hPos: "right" },
     { vPos: "bottom", hPos: "left" },

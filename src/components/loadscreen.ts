@@ -1,16 +1,16 @@
 import * as _ from "lodash";
 
-import { loadAssets, Pack, PackList, ScreenMap } from "../core/asset-loader";
+import { loadAssets } from "../core/asset-loader";
 import { Screen } from "../core/screen";
 
 const MASTER_PACK_KEY = "MasterAssetPack";
 const GEL_PACK_KEY = "GelAssetPack";
 
-const gamePacksToLoad: PackList = {
+const gamePacksToLoad = {
     [MASTER_PACK_KEY]: { url: "asset-master-pack.json" },
     [GEL_PACK_KEY]: { url: "gel/gel-pack.json" },
 };
-const loadscreenPack: Pack = {
+const loadscreenPack = {
     key: "loadscreen",
     url: "loader/loadscreen-pack.json",
 };
@@ -44,7 +44,7 @@ export class Loadscreen extends Screen {
     }
 }
 
-function dumpToConsole(keyLookups: ScreenMap) {
+function dumpToConsole(keyLookups) {
     const lines = _.flattenDeep([
         "Loaded assets:",
         _.flatMap(keyLookups, (keyMap, screenId) => [

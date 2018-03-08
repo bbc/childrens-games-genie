@@ -11,7 +11,7 @@ export class GelButton extends Phaser.Button {
         this.animations.sprite.anchor.setTo(0.5, 0.5);
     }
 
-    public resize(metrics: ViewportMetrics) {
+    public resize(metrics) {
         this.animations.sprite.loadTexture(assetPath({ key: this.id, isMobile: metrics.isMobile }));
     }
 }

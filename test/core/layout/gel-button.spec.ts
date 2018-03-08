@@ -2,7 +2,7 @@
 import * as fp from "lodash/fp";
 
 import { assert } from "chai";
-import { loadAssets, Pack, PackList } from "../../../src/core/asset-loader";
+import { loadAssets } from "../../../src/core/asset-loader";
 import { PromiseTrigger } from "../../../src/core/promise-utils";
 import { Screen } from "../../../src/core/screen";
 import { startup } from "../../../src/core/startup";
@@ -19,11 +19,11 @@ describe("Layout - Gel Button", () => {
 
     it("Should swap mobile and desktop assets when resized.", () => {
         const updateCallback = sinon.spy();
-        const gamePacks: PackList = {
+        const gamePacks = {
             MASTER_PACK_KEY: { url: assetPacks.emptyAssetPack },
             GEL_PACK_KEY: { url: assetPacks.emptyAssetPack },
         };
-        const gelPack: Pack = {
+        const gelPack = {
             key: "gel",
             url: assetPacks.gelButtonAssetPack,
         };
@@ -45,11 +45,11 @@ describe("Layout - Gel Button", () => {
 
     it("Should be centered.", () => {
         const updateCallback = sinon.spy();
-        const gamePacks: PackList = {
+        const gamePacks = {
             MASTER_PACK_KEY: { url: assetPacks.emptyAssetPack },
             GEL_PACK_KEY: { url: assetPacks.emptyAssetPack },
         };
-        const gelPack: Pack = {
+        const gelPack = {
             key: "gel",
             url: assetPacks.gelButtonAssetPack,
         };
@@ -67,7 +67,7 @@ describe("Layout - Gel Button", () => {
  * Wraps a test in asynchronous Phaser setup and shutdown code, and runs it in the preload phase of the first state.
  * @param action Function to run the tests, returning a promise.
  */
-function runInPreload(action: (g: Phaser.Game) => Promise<void>): Promise<void> {
+function runInPreload(action: (g) => Promise<void>): Promise<void> {
     const promisedTest = new PromiseTrigger<void>();
     const testState = new class extends Screen {
         public preload() {

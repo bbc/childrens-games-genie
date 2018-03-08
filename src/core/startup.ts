@@ -12,9 +12,9 @@ export interface Config {
 }
 
 export function startup(transitions, initialAdditionalState?): Promise<Phaser.Game> {
-    const gmi: Gmi = (window as any).getGMI({});
+    const gmi = (window as any).getGMI({});
     const urlParams = parseUrlParams(window.location.search);
-    const qaMode: QAMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
+    const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
     hookErrors(gmi.gameContainerId);
 
     const phaserConfig: Phaser.IGameConfig = {
@@ -37,7 +37,7 @@ export function startup(transitions, initialAdditionalState?): Promise<Phaser.Ga
     function onStarted(config) {
         // Phaser is now set up and we can use all game properties.
         game.canvas.setAttribute("aria-hidden", "true");
-        const context: Context = {
+        const context = {
             gmi,
             inState: _.merge({ transient: {}, persistent: {} }, initialAdditionalState),
             popupScreens: [],
@@ -94,7 +94,7 @@ function hookErrors(gameDivId) {
     });
 }
 
-function getContainerDiv(gmi): HTMLElement {
+function getContainerDiv(gmi) {
     const containerDiv = document.getElementById(gmi.gameContainerId);
     if (!containerDiv) {
         throw Error(`Container element "#${gmi.gameContainerId}" not found`);

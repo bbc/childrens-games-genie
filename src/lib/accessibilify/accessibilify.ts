@@ -11,7 +11,7 @@ export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?)
 
     return button;
 
-    function newAccessibleElement(): AccessibleDomElement {
+    function newAccessibleElement() {
         return accessibleDomElement({
             id: button.name,
             ariaLabel: ariaLabel ? ariaLabel : button.name,
@@ -43,7 +43,7 @@ export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?)
         }
     }
 
-    function isOutsideScreen(): boolean {
+    function isOutsideScreen() {
         const pixiBounds = button.getBounds();
         const buttonBounds = new Phaser.Rectangle(pixiBounds.x, pixiBounds.y, pixiBounds.width, pixiBounds.height);
 

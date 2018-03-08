@@ -7,7 +7,7 @@ export const calculateMetrics = (
     height,
     scale,
     stageHeight,
-): ViewportMetrics => {
+) => {
     const isMobile = width < BREAK_WIDTH;
     const safeWidth = height * SAFE_ASPECT_RATIO;
 

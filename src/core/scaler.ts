@@ -12,7 +12,7 @@ const getScale = fp.curry((scaleMethods: any, stageHeightPx: number, { width, he
 
 const getBounds = (game: Phaser.Game) => () => game.scale.getParentBounds();
 
-export function create(stageHeightPx: number, game: Phaser.Game): Scaler {
+export function create(stageHeightPx: number, game: Phaser.Game) {
     // Will be immediately resized:
     game.scale.setGameSize(2, 2);
     game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;

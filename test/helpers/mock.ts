@@ -28,7 +28,7 @@ export function gmi(propertiesToMerge: any = {}) {
         gameContainerId: TEST_DIV_ID,
         embedVars: { configPath: "" },
     };
-    return _.merge(defaultGmi, propertiesToMerge) as Gmi;
+    return _.merge(defaultGmi, propertiesToMerge);
 }
 
 export function uninstallMockGetGmi() {

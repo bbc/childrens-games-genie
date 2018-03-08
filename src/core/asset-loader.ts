@@ -1,23 +1,6 @@
 import * as _ from "lodash";
 import { PromiseTrigger } from "./promise-utils";
 
-export interface Pack {
-    key: string;
-    url: string;
-}
-
-export interface PackList {
-    [key: string]: { url: string; data?: string };
-}
-
-interface AssetPack {
-    [key: string]: Array<{ [key: string]: any }>;
-}
-
-export interface ScreenMap {
-    [screen: string]: { [key: string]: string };
-}
-
 /**
  * Creates an Asset Loader, which can handle the loading of load screen assets,
  * as well as the assets for the rest of the game.
@@ -27,16 +10,16 @@ export interface ScreenMap {
  * @param  updateCallback A callback to return the load progress and keyLookups.
  */
 export function loadAssets(
-    game: Phaser.Game,
-    gamePacks: PackList,
-    loadscreenPack: Pack,
-    updateCallback: (progress) => void,
-): Promise<ScreenMap> {
-    let gameAssetPack: AssetPack = {};
-    let missingScreenPack: PackList = {};
-    let keyLookups: ScreenMap = {};
-    const promisedScreenMap = new PromiseTrigger<ScreenMap>();
-    const loadQueue: Array<() => void> = [
+    game,
+    gamePacks,
+    loadscreenPack,
+    updateCallback,
+) {
+    let gameAssetPack = {};
+    let missingScreenPack = {};
+    let keyLookups = {};
+    const promisedScreenMap = new PromiseTrigger();
+    const loadQueue = [
         () => {
             loadAssetPackJSON(gamePacks);
         },
@@ -78,7 +61,7 @@ export function loadAssets(
         }
     }
 
-    function loadAssetPackJSON(packs: PackList) {
+    function loadAssetPackJSON(packs) {
         for (const key in packs) {
             if (packs.hasOwnProperty(key)) {
                 game.load.json(key, packs[key].url);
@@ -86,7 +69,7 @@ export function loadAssets(
         }
     }
 
-    function processAssetPackJSON(packs: PackList): [ScreenMap, AssetPack] {
+    function processAssetPackJSON(packs) {
         for (const key in packs) {
             if (packs.hasOwnProperty(key)) {
                 packs[key].data = game.cache.getJSON(key);
@@ -96,7 +79,7 @@ export function loadAssets(
         return namespaceAssetsByScreen(assetPack);
     }
 
-    function loadAssetPack(pack: AssetPack) {
+    function loadAssetPack(pack) {
         for (const screen in pack) {
             if (pack.hasOwnProperty(screen)) {
                 game.load.pack(screen, undefined, pack);
@@ -108,14 +91,14 @@ export function loadAssets(
         updateCallback(progress);
     }
 
-    function getMissingScreens(): PackList {
-        const missingScreenList: PackList = {};
+    function getMissingScreens() {
+        const missingScreenList = {};
         // For loading based on screen ids we'll ignore the "default" state and anything starting with "__".
-        const missingScreens: string[] = _.filter(
+        const missingScreens = _.filter(
             _.keys(game.state.states),
             k => k !== "default" && !_.startsWith(k, "__"),
         );
-        missingScreens.forEach((key: string) => {
+        missingScreens.forEach((key) => {
             if (!gameAssetPack.hasOwnProperty(key) && loadscreenPack.key !== key) {
                 missingScreenList[key] = { url: key + ".json" };
             }
@@ -124,8 +107,8 @@ export function loadAssets(
     }
 }
 
-function convertPackListToAssetPack(packs: PackList): AssetPack {
-    const assetPack: AssetPack = {};
+function convertPackListToAssetPack(packs) {
+    const assetPack = {};
     for (const pack in packs) {
         if (packs.hasOwnProperty(pack)) {
             Object.assign(assetPack, packs[pack].data);
@@ -134,8 +117,8 @@ function convertPackListToAssetPack(packs: PackList): AssetPack {
     return assetPack;
 }
 
-function namespaceAssetsByScreen(pack: AssetPack): [ScreenMap, AssetPack] {
-    const keyLookups: ScreenMap = {};
+function namespaceAssetsByScreen(pack) {
+    const keyLookups = {};
     for (const screen in pack) {
         if (pack.hasOwnProperty(screen)) {
             if (Object.keys(pack[screen]).length !== 0 && pack[screen].constructor !== Object) {
@@ -148,8 +131,8 @@ function namespaceAssetsByScreen(pack: AssetPack): [ScreenMap, AssetPack] {
     return [keyLookups, pack];
 }
 
-function namespaceScreen(pack: AssetPack, screenName: string): ScreenMap {
-    const keyLookup: ScreenMap = {};
+function namespaceScreen(pack, screenName) {
+    const keyLookup = {};
     keyLookup[screenName] = {};
     for (const asset of pack[screenName]) {
         let newKey = "<pending>";

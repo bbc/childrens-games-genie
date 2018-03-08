@@ -6,10 +6,10 @@ import Group from "./group";
 import { groupLayouts } from "./group-layouts";
 
 export class Layout {
-    public buttons: { [s: string]: Phaser.Button };
-    public root: Phaser.Group;
-    private groups: { [s: string]: Group };
-    private metrics: ViewportMetrics;
+    public buttons;
+    public root;
+    private groups;
+    private metrics;
 
     /**
      * Creates a new layout. Called by engine.create for each screen component
@@ -20,9 +20,9 @@ export class Layout {
      * @param buttons
      */
     constructor(
-        game: Phaser.Game,
-        scaler: Scaler,
-        buttons: any,
+        game,
+        scaler,
+        buttons,
     ) {
         this.root = new Phaser.Group(game, game.world, undefined);
 

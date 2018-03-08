@@ -3,12 +3,12 @@ import * as sinon from "sinon";
 import { accessibleDomElement } from "../../../src/lib/accessibilify/accessible-dom-element";
 
 describe("#accessibleDomElement", () => {
-    let sandbox: sinon.SinonSandbox;
-    let options: AccessibleDomElementOptions;
-    let createElement: sinon.SinonStub;
-    let element: HTMLDivElement;
-    let parentElement: any;
-    let parentAppendChild: sinon.SinonSpy;
+    let sandbox;
+    let options;
+    let createElement;
+    let element;
+    let parentElement;
+    let parentAppendChild;
 
     before(() => {
         sandbox = sinon.sandbox.create();

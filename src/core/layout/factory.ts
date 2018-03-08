@@ -4,13 +4,11 @@ import * as _ from "lodash/fp";
 import * as Scaler from "../scaler";
 import { Layout } from "./layout";
 
-type PhaserElement = Phaser.Sprite | Phaser.Image | Phaser.BitmapText | Phaser.Group;
-
-export function create(game, gameWrapper): LayoutFactory {
+export function create(game, gameWrapper) {
     const root = game.add.group(undefined, "gelGroup", true);
     const background = game.add.group(undefined, "gelBackground");
     const foreground = game.add.group(undefined, "foreground");
-    const keyLookups: ScreenMap = {};
+    const keyLookups = {};
 
     //TODO stageHeight should come from config
     const scaler = Scaler.create(600, game);
@@ -40,7 +38,7 @@ export function create(game, gameWrapper): LayoutFactory {
      * @param buttons - array of standard button names to include. See {@link ./gel-defaults.ts} for available names
      * @returns {Layout}
      */
-    function addLayout(buttons): Layout {
+    function addLayout(buttons) {
         const layout = new Layout(game, scaler, buttons);
 
         addToBackground(layout.root);
@@ -49,14 +47,14 @@ export function create(game, gameWrapper): LayoutFactory {
     }
 
     //TODO these types seem wrong - 'object' shouldn't need casting
-    function addToBackground(object): PIXI.DisplayObject {
+    function addToBackground(object) {
         if ((object as any).anchor) {
             (object as any).anchor.setTo(0.5, 0.5);
         }
         return background.addChild(object);
     }
 
-    function addToForeground(object): PIXI.DisplayObject {
+    function addToForeground(object) {
         return foreground.addChild(object);
     }
 

@@ -1,4 +1,4 @@
-export function accessibleDomElement(options: AccessibleDomElementOptions) {
+export function accessibleDomElement(options) {
     const el = document.createElement("div");
 
     init();
