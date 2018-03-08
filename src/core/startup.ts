@@ -6,12 +6,12 @@ import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
 export interface Config {
-    stageHeightPx: number;
-    backgroundColor?: string;
+    stageHeightPx;
+    backgroundColor?;
     theme: any;
 }
 
-export function startup(transitions, initialAdditionalState): Promise<Phaser.Game> {
+export function startup(transitions, initialAdditionalState?): Promise<Phaser.Game> {
     const gmi: Gmi = (window as any).getGMI({});
     const urlParams = parseUrlParams(window.location.search);
     const qaMode: QAMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
