@@ -3,8 +3,8 @@ import * as _ from "lodash";
 import { loadAssets, Pack, PackList, ScreenMap } from "../core/asset-loader";
 import { Screen } from "../core/screen";
 
-const MASTER_PACK_KEY: string = "MasterAssetPack";
-const GEL_PACK_KEY: string = "GelAssetPack";
+const MASTER_PACK_KEY = "MasterAssetPack";
+const GEL_PACK_KEY = "GelAssetPack";
 
 const gamePacksToLoad: PackList = {
     [MASTER_PACK_KEY]: { url: "asset-master-pack.json" },
@@ -36,7 +36,7 @@ export class Loadscreen extends Screen {
 
     public create() {}
 
-    private updateLoadProgress(progress: number) {
+    private updateLoadProgress(progress) {
         // use progress to update loading bar
         if (this.context.qaMode.active) {
             console.log("Loader progress:", progress);

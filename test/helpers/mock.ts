@@ -5,7 +5,7 @@ import { Screen } from "../../src/core/screen";
 
 const TEST_DIV_ID = "test-div";
 
-export function screenDef(name: string = "__screen_id__"): ScreenDef {
+export function screenDef(name = "__screen_id__"): ScreenDef {
     return {
         name,
         state: screen(),
@@ -41,7 +41,7 @@ export function getGameHolderDiv() {
     return getElementOrThrow(TEST_DIV_ID);
 }
 
-function getElementOrThrow(id: string): HTMLElement {
+function getElementOrThrow(id): HTMLElement {
     const e = document.getElementById(id);
     if (e) {
         return e;

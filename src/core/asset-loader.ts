@@ -30,7 +30,7 @@ export function loadAssets(
     game: Phaser.Game,
     gamePacks: PackList,
     loadscreenPack: Pack,
-    updateCallback: (progress: number) => void,
+    updateCallback: (progress) => void,
 ): Promise<ScreenMap> {
     let gameAssetPack: AssetPack = {};
     let missingScreenPack: PackList = {};
@@ -104,7 +104,7 @@ export function loadAssets(
         }
     }
 
-    function updateLoadProgress(progress: number) {
+    function updateLoadProgress(progress) {
         updateCallback(progress);
     }
 

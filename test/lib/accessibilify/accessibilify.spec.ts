@@ -6,12 +6,12 @@ import * as helperModule from "../../../src/lib/accessibilify/accessible-dom-ele
 describe("#accessibilify", () => {
     let mockButton: any;
     let parentElement: any;
-    let gameWidth: number;
-    let gameHeight: number;
-    let buttonBoundsX: number;
-    let buttonBoundsY: number;
-    let buttonBoundsWidth: number;
-    let buttonBoundsHeight: number;
+    let gameWidth;
+    let gameHeight;
+    let buttonBoundsX;
+    let buttonBoundsY;
+    let buttonBoundsWidth;
+    let buttonBoundsHeight;
     let accessibleDomElement: any;
     let accessibleDomElementVisible: boolean;
     let accessibleDomElementHide: any;

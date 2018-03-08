@@ -36,7 +36,7 @@ export function accessibleDomElement(options: AccessibleDomElementOptions) {
         return el.style.visibility === "visible";
     }
 
-    function position(positionOptions: { x: number, y: number, width: number, height: number }): void {
+    function position(positionOptions: { x, y, width, height }): void {
         el.style.left = positionOptions.x.toString() + "px";
         el.style.top = positionOptions.y.toString() + "px";
         el.style.width = positionOptions.width.toString() + "px";

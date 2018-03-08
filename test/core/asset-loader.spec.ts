@@ -95,7 +95,7 @@ describe("Asset Loader", () => {
     it("Should attempt to load assetPack JSON files that are missing and include them in keyLookups", () => {
         const updateCallback = sinon.spy();
         const loadSpy = sinon.spy();
-        const getJSONStub = sinon.stub(Phaser.Cache, "JSON").callsFake((key: string, clone?: boolean | undefined) => {
+        const getJSONStub = sinon.stub(Phaser.Cache, "JSON").callsFake((key, clone?: boolean | undefined) => {
             if (key === "test-screen") {
                 return {
                     "test-screen": [{ type: "image", key: "test", url: assets.ship, overwrite: false }],

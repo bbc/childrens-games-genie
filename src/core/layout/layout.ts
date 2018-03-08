@@ -59,12 +59,12 @@ export class Layout {
      */
     public setAction = (button: string, callback: () => any) => this.buttons[button].onInputUp.add(callback, this);
 
-    public addToGroup = (groupName: string, item: any, position?: number) =>
+    public addToGroup = (groupName: string, item: any, position?) =>
         this.groups[groupName].addToGroup(item, position);
 
     public destroy = () => this.root.destroy();
 
-    private resize(width: number, height: number, scale: number, stageHeight: number) {
+    private resize(width, height, scale, stageHeight) {
         this.metrics = calculateMetrics(width, height, scale, stageHeight);
 
         if (this.groups) {

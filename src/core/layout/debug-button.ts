@@ -10,7 +10,7 @@ const gelStyle: Phaser.PhaserTextStyle = {
     fontWeight: "bold",
 };
 
-const makeRect = (game: Phaser.Game, color1: number, width: number, height: number) =>
+const makeRect = (game, color1, width, height) =>
     new Phaser.Graphics(game)
         .beginFill(color1)
         .drawRect(0, 0, width, height)
@@ -18,10 +18,10 @@ const makeRect = (game: Phaser.Game, color1: number, width: number, height: numb
         .generateTexture();
 
 export class DebugButton extends Phaser.Button {
-    private buttonSize: string = "desktop";
+    private buttonSize = "desktop";
     private backdrops: any;
 
-    constructor(game: Phaser.Game, spec: GelSpec, isMobile = false) {
+    constructor(game, spec, isMobile = false) {
         super(game);
 
         //TODO heights are hard coded. Probably not an issue with final image based buttons.
@@ -56,7 +56,7 @@ export class DebugButton extends Phaser.Button {
         this.animations.sprite.addChild(text);
     }
 
-    public resize(metrics: ViewportMetrics) {
+    public resize(metrics) {
         this.buttonSize = metrics.isMobile ? "mobile" : "desktop";
         this.texture = this.backdrops[this.buttonSize].up;
     }

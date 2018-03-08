@@ -1,23 +1,23 @@
 import * as _ from "lodash";
 
 export interface PauseManager {
-    update(gameMuted: boolean): void;
-    getButtons(popupScreenContext?: string, name?: string): PauseifiedButton[];
-    destroyButtons(popupScreenContext?: string, name?: string): void;
-    setBackground(background: Phaser.Image): void;
+    update(gameMuted);
+    getButtons(popupScreenContext?, name?): PauseifiedButton[];
+    destroyButtons(popupScreenContext?, name?);
+    setBackground(background: Phaser.Image);
     pauseifyButton(
         button: Phaser.Button,
         hoverAudioSprite: Phaser.AudioSprite,
-        marker: string,
-        popupScreenContext?: string,
+        marker,
+        popupScreenContext?,
     ): PauseifiedButton;
 }
 
 export interface PauseifiedButton {
-    name: string;
-    popupScreenContext?: string;
-    buttonUpdate(gameMuted: boolean): void;
-    destroy(): void;
+    name;
+    popupScreenContext?;
+    buttonUpdate(gameMuted: boolean);
+    destroy();
 }
 
 export function create(game: Phaser.Game, context: Context): PauseManager {
@@ -44,12 +44,12 @@ export function create(game: Phaser.Game, context: Context): PauseManager {
         }
     }
 
-    function getButtons(popupScreenContext?: string, name?: string): PauseifiedButton[] {
+    function getButtons(popupScreenContext?, name?): PauseifiedButton[] {
         const obj = { popupScreenContext, name };
         return _.filter(buttons, _.pickBy(obj));
     }
 
-    function destroyButtons(popupScreenContext?: string, name?: string): void {
+    function destroyButtons(popupScreenContext?, name?): void {
         getButtons(popupScreenContext, name).forEach(c => {
             c.destroy();
         });
@@ -66,8 +66,8 @@ export function create(game: Phaser.Game, context: Context): PauseManager {
     function pauseifyButton(
         button: Phaser.Button,
         hoverAudioSprite: Phaser.AudioSprite,
-        marker: string,
-        popupScreenContext?: string,
+        marker,
+        popupScreenContext?,
     ): PauseifiedButton {
         const self = { name: marker, popupScreenContext, buttonUpdate, destroy };
 

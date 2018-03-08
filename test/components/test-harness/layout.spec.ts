@@ -8,7 +8,7 @@ describe("test harness layout", () => {
     let mockContext: any;
     let mockLayoutFactory: any;
     let sandbox: sinon.SinonSandbox;
-    const qKeyCode: number = 81;
+    const qKeyCode = 81;
     let onKeyUpSpy: any;
     let addKeyStub: any;
 

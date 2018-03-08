@@ -11,7 +11,7 @@ export interface Config {
     theme: any;
 }
 
-export function startup(transitions: ScreenDef[], initialAdditionalState?: GameStateUpdate): Promise<Phaser.Game> {
+export function startup(transitions, initialAdditionalState): Promise<Phaser.Game> {
     const gmi: Gmi = (window as any).getGMI({});
     const urlParams = parseUrlParams(window.location.search);
     const qaMode: QAMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
@@ -34,7 +34,7 @@ export function startup(transitions: ScreenDef[], initialAdditionalState?: GameS
 
     return promisedGame;
 
-    function onStarted(config: Config) {
+    function onStarted(config) {
         // Phaser is now set up and we can use all game properties.
         game.canvas.setAttribute("aria-hidden", "true");
         const context: Context = {
@@ -52,7 +52,7 @@ export function startup(transitions: ScreenDef[], initialAdditionalState?: GameS
 }
 
 class Startup extends Phaser.State {
-    constructor(private gmi: Gmi, private onStarted: (config: Config) => void) {
+    constructor(private gmi, private onStarted: (config) => void) {
         super();
     }
 
@@ -73,7 +73,7 @@ class Startup extends Phaser.State {
     }
 }
 
-function hookErrors(gameDivId: string) {
+function hookErrors(gameDivId) {
     const containerDiv = document.getElementById(gameDivId) || document.body;
     let messageElement: HTMLElement;
 
@@ -94,7 +94,7 @@ function hookErrors(gameDivId: string) {
     });
 }
 
-function getContainerDiv(gmi: Gmi): HTMLElement {
+function getContainerDiv(gmi): HTMLElement {
     const containerDiv = document.getElementById(gmi.gameContainerId);
     if (!containerDiv) {
         throw Error(`Container element "#${gmi.gameContainerId}" not found`);

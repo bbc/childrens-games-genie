@@ -4,5 +4,5 @@ declare interface AccessibleDomElement {
     show: () => void;
     visible: () => boolean;
     remove: () => void;
-    position: (positionOptions: { x: number; y: number; width: number; height: number }) => void;
+    position: (positionOptions: { x; y; width; height }) => void;
 }

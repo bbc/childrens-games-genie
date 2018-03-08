@@ -3,13 +3,13 @@ const BREAK_WIDTH = 770;
 const SAFE_ASPECT_RATIO = 4 / 3;
 
 export const calculateMetrics = (
-    width: number,
-    height: number,
-    scale: number,
-    stageHeight: number,
+    width,
+    height,
+    scale,
+    stageHeight,
 ): ViewportMetrics => {
     const isMobile: boolean = width < BREAK_WIDTH;
-    const safeWidth: number = height * SAFE_ASPECT_RATIO;
+    const safeWidth = height * SAFE_ASPECT_RATIO;
 
     const metrics = {
         width,

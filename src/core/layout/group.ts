@@ -4,16 +4,16 @@ import * as fp from "lodash/fp";
 import * as ButtonFactory from "./button-factory";
 import { DebugButton } from "./debug-button";
 
-const horizontal: HorizontalPositions<(pos: number, width: number, pad: number) => number> = {
-    left: (pos: number, width: number, pad: number) => pos + pad,
-    right: (pos: number, width: number, pad: number) => pos - width - pad,
-    center: (pos: number, width: number, pad: number) => pos - width / 2,
+const horizontal: HorizontalPositions<(pos, width, pad) => number> = {
+    left: (pos, width, pad) => pos + pad,
+    right: (pos, width, pad) => pos - width - pad,
+    center: (pos, width, pad) => pos - width / 2,
 };
 
 const vertical: VerticalPositions = {
-    top: (pos: number, height: number, pad: number) => pos + pad,
-    middle: (pos: number, height: number, pad: number) => pos - height / 2,
-    bottom: (pos: number, height: number, pad: number) => pos - (height + pad),
+    top: (pos, height, pad) => pos + pad,
+    middle: (pos, height, pad) => pos - height / 2,
+    bottom: (pos, height, pad) => pos - (height + pad),
 };
 
 const getGroupPosition = (sizes: GroupSizes) => ({
@@ -33,7 +33,7 @@ const getGroupX = (sizes: GroupSizes) => {
     );
 };
 
-const getGroupY = (sizes: GroupSizes) =>
+const getGroupY = (sizes) =>
     vertical[sizes.pos.v](
         sizes.metrics.verticals[sizes.pos.v] as number,
         sizes.height,
@@ -63,7 +63,7 @@ class Group extends Phaser.Group {
     /**
      * TODO add interface for config
      */
-    public addButton(config: any, position?: number) {
+    public addButton(config, position?) {
         if (position === undefined) {
             position = this.buttons.length;
         }
@@ -117,7 +117,7 @@ class Group extends Phaser.Group {
     };
 
     //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
-    private resetButtons(metrics: ViewportMetrics) {
+    private resetButtons(metrics) {
         this.buttons.forEach(button => button.resize(metrics));
     }
 
@@ -129,7 +129,7 @@ class Group extends Phaser.Group {
         scale: this.scale.x,
     });
 
-    private setPos = (coords: { x: number; y: number }) => {
+    private setPos = (coords: { x; y }) => {
         this.x = coords.x;
         this.y = coords.y;
     };
@@ -140,9 +140,9 @@ export default Group;
 interface GroupSizes {
     metrics: ViewportMetrics;
     pos: { h: string; v: string };
-    width: number;
-    height: number;
-    scale: number;
+    width;
+    height;
+    scale;
 }
 
 interface HorizontalPositions<T> {
@@ -153,8 +153,8 @@ interface HorizontalPositions<T> {
 }
 
 interface VerticalPositions {
-    top: (pos: number, width: number, pad: number) => number;
-    middle: (pos: number, width: number, pad: number) => number;
-    bottom: (pos: number, width: number, pad: number) => number;
-    [key: string]: (pos: number, width: number, pad: number) => number;
+    top: (pos, width, pad) => number;
+    middle: (pos, width, pad) => number;
+    bottom: (pos, width, pad) => number;
+    [key: string]: (pos, width, pad) => number;
 }

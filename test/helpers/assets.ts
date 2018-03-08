@@ -19,6 +19,6 @@ export const assets = {
     ship,
 };
 
-export function objectToJsonDataUrl(object: any): string {
+export function objectToJsonDataUrl(object: any) {
     return "data:application/json;base64," + btoa(JSON.stringify(object));
 }

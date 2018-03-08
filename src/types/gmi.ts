@@ -1,5 +1,5 @@
 declare interface EchoStatsLabel {
-    name: string;
+    name;
     value: any;
 }
 
@@ -7,11 +7,11 @@ declare interface EchoStatsOptions {
     statsLabel: EchoStatsLabel; // Has .name and .value
 }
 
-declare function createEchoStats(appName: string, counterName: string, options: EchoStatsOptions): any; // Returns EchoClient which is very complicated object.
+declare function createEchoStats(appName, counterName, options: EchoStatsOptions): any; // Returns EchoClient which is very complicated object.
 
 declare interface StatsFields {
-    statsCounterName: string;
-    appName: string;
+    statsCounterName;
+    appName;
 }
 
 declare interface GlobalSettings {
@@ -25,10 +25,10 @@ declare type ActionName = "game_loaded" | "game_first_click" | "game_click" | "t
 
 declare class Gmi {
     public embedVars: StatsFields & any;
-    public gameContainerId: string;
-    public gameUrl: string;
-    public gameDir: string;
-    public environment: string;
+    public gameContainerId;
+    public gameUrl;
+    public gameDir;
+    public environment;
     public shouldShowExitButton: boolean;
     public shouldDisplayMuteButton: boolean;
     public shouldLongPressForSettings: boolean;
@@ -36,15 +36,15 @@ declare class Gmi {
     public stats: any; // Actually EchoClient
 
     public getAllSettings(): GlobalSettings;
-    public setGameData(key: string, value: string): void;
+    public setGameData(key, value): void;
     public setAudio(state: boolean): void;
     public setSubtitles(state: boolean): void;
     public setMotion(state: boolean): void;
     public showPrompt(resumeGame: () => void): void;
     public showSettings(): void;
-    public sendStatsEvent(actionName: ActionName, actionType: string, additionalLabels?: any): void;
+    public sendStatsEvent(actionName: ActionName, actionType, additionalLabels?: any): void;
     public exit(): void;
-    public debug(message: string): void;
+    public debug(message): void;
     public gameLoaded(): void;
 }
 

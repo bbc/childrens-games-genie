@@ -1,4 +1,4 @@
-export function parseUrlParams(paramsString: string): any {
+export function parseUrlParams(paramsString): any {
     if (!valid()) {
         return {};
     }
@@ -9,7 +9,7 @@ export function parseUrlParams(paramsString: string): any {
         return Object.assign(params, { [key]: parseBooleans(val) });
     }, {});
 
-    function parseBooleans(val: string) {
+    function parseBooleans(val) {
         const decodedComponent = decodeURIComponent(val);
 
         if (decodedComponent === "true") {

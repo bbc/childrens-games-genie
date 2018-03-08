@@ -1,6 +1,6 @@
 declare interface AccessibleDomElementOptions {
-    id: string;
-    ariaLabel: string;
+    id;
+    ariaLabel;
     onClick: () => void;
     parent: HTMLDivElement;
 }

@@ -1,6 +1,6 @@
 interface GroupLayout {
-    vPos: string;
-    hPos: string;
+    vPos;
+    hPos;
     arrangeV?: boolean;
 }
 

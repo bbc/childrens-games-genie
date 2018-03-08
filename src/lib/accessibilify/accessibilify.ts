@@ -1,7 +1,7 @@
 import { debounce } from "lodash";
 import { accessibleDomElement } from "./accessible-dom-element";
 
-export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?: string): Phaser.Button | Phaser.Sprite {
+export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?): Phaser.Button | Phaser.Sprite {
     const game = button.game;
     const accessibleElement = newAccessibleElement();
     const repositionElement = debounce(setElementPosition, 200);

@@ -20,7 +20,7 @@ loadAssets(
     game: Phaser.Game,
     gamePacks: PackList,
     loadscreenPack: Pack,
-    updateCallback: (progress: number) => void,
+    updateCallback: (progress) => void,
 ).then(keyLookups => {});
 ```
 
@@ -60,7 +60,7 @@ const loadscreenPack: Pack = {
 };
 ```
 
-#### updateCallback: (progress: number) => void
+#### updateCallback: (progress) => void
 
 The updateCallback is a callback which reports the asset loaders current progress.  
 This can be used to update the Loading bar on the Loading screen with the current progress.
@@ -68,7 +68,7 @@ This can be used to update the Loading bar on the Loading screen with the curren
 **Example**
 
 ```
-private updateLoadProgress(progress: number) {
+private updateLoadProgress(progress) {
     // use progress to update loading bar
     this.loadingBar.updateProgress(progress);
 }
