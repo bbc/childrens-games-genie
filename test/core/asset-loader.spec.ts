@@ -86,7 +86,9 @@ describe("Asset Loader", () => {
         };
         return runInPreload(game => {
             return loadAssets(game, gamePacks, loadscreenPack, updateCallback).then(screenMap => {
+                // @ts-ignore - skip error due to type inference. TODO - remove this line after conversion to js
                 expect(screenMap.screen.one).to.equal(assets.imgUrlOnePixel);
+                // @ts-ignore - skip error due to type inference. TODO - remove this line after conversion to js
                 expect(game.cache.checkImageKey(screenMap.screen.one)).to.equal(true);
             });
         });
