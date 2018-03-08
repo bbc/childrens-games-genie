@@ -68,12 +68,15 @@ describe("Layout - Gel Button", () => {
  * @param action Function to run the tests, returning a promise.
  */
 function runInPreload(action: (g) => Promise<void>): Promise<void> {
-    const promisedTest = new PromiseTrigger<void>();
-    const testState = new class extends Screen {
-        public preload() {
-            promisedTest.resolve(action(this.game));
-        }
-    }();
+    let testState;
+    const promisedTest = new Promise(resolve => {
+        testState = new class extends Screen {
+            public preload() {
+                resolve(action(this.game));
+            }
+        }();
+    });
+
     const transitions = [
         {
             name: "loadscreen",

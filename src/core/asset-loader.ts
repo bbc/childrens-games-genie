@@ -1,5 +1,4 @@
 import * as _ from "lodash";
-import { PromiseTrigger } from "./promise-utils";
 
 /**
  * Creates an Asset Loader, which can handle the loading of load screen assets,
@@ -13,53 +12,53 @@ export function loadAssets(
     game,
     gamePacks,
     loadscreenPack,
-    updateCallback,
+    updateCallback: (progress) => void,
 ) {
-    let gameAssetPack = {};
-    let missingScreenPack = {};
-    let keyLookups = {};
-    const promisedScreenMap = new PromiseTrigger();
-    const loadQueue = [
-        () => {
-            loadAssetPackJSON(gamePacks);
-        },
-        () => {
-            [keyLookups, gameAssetPack] = processAssetPackJSON(gamePacks);
-            missingScreenPack = getMissingScreens();
-            loadAssetPackJSON(missingScreenPack);
-        },
-        () => {
-            const [missingKeyLookups, missingScreenAssetPack] = processAssetPackJSON(missingScreenPack);
-            Object.assign(keyLookups, missingKeyLookups);
-            Object.assign(gameAssetPack, missingScreenAssetPack);
-            loadAssetPack(gameAssetPack);
-            if (game.load.totalQueuedPacks() === 0) {
-                updateCallback(100);
-                promisedScreenMap.resolve(keyLookups);
+    let gameAssetPack;
+    let missingScreenPack;
+    let keyLookups;
+
+    return new Promise((resolve, reject) => {
+        const loadQueue: Array<() => void> = [
+            () => {
+                loadAssetPackJSON(gamePacks);
+            },
+            () => {
+                [keyLookups, gameAssetPack] = processAssetPackJSON(gamePacks);
+                missingScreenPack = getMissingScreens();
+                loadAssetPackJSON(missingScreenPack);
+            },
+            () => {
+                const [missingKeyLookups, missingScreenAssetPack] = processAssetPackJSON(missingScreenPack);
+                Object.assign(keyLookups, missingKeyLookups);
+                Object.assign(gameAssetPack, missingScreenAssetPack);
+                loadAssetPack(gameAssetPack);
+                if (game.load.totalQueuedPacks() === 0) {
+                    updateCallback(100);
+                    resolve(keyLookups);
+                }
+                game.load.onFileComplete.add(updateLoadProgress);
+            },
+        ];
+        loadQueue.push(() => {});
+
+        game.load.onLoadComplete.add(startNextLoadInQueue);
+        game.load.pack(loadscreenPack.key, loadscreenPack.url);
+
+        function startNextLoadInQueue() {
+            const loadFunction = loadQueue.shift();
+            if (loadFunction) {
+                loadFunction();
             }
-            game.load.onFileComplete.add(updateLoadProgress);
-        },
-    ];
-    loadQueue.push(() => {});
-
-    game.load.onLoadComplete.add(startNextLoadInQueue);
-    game.load.pack(loadscreenPack.key, loadscreenPack.url);
-
-    return promisedScreenMap;
-
-    function startNextLoadInQueue() {
-        const loadFunction = loadQueue.shift();
-        if (loadFunction) {
-            loadFunction();
+            if (!_.isEmpty(loadQueue)) {
+                game.time.events.add(0, game.load.start, game.load);
+            } else {
+                game.load.onLoadComplete.removeAll();
+                game.load.onFileComplete.removeAll();
+                resolve(keyLookups);
+            }
         }
-        if (!_.isEmpty(loadQueue)) {
-            game.time.events.add(0, game.load.start, game.load);
-        } else {
-            game.load.onLoadComplete.removeAll();
-            game.load.onFileComplete.removeAll();
-            promisedScreenMap.resolve(keyLookups);
-        }
-    }
+    });
 
     function loadAssetPackJSON(packs) {
         for (const key in packs) {
