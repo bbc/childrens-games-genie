@@ -12,14 +12,14 @@ export function loadAssets(
     game,
     gamePacks,
     loadscreenPack,
-    updateCallback: (progress) => void,
+    updateCallback,
 ) {
     let gameAssetPack;
     let missingScreenPack;
     let keyLookups;
 
     return new Promise((resolve, reject) => {
-        const loadQueue: Array<() => void> = [
+        const loadQueue = [
             () => {
                 loadAssetPackJSON(gamePacks);
             },

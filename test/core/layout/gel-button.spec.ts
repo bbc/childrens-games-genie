@@ -3,7 +3,6 @@ import * as fp from "lodash/fp";
 
 import { assert } from "chai";
 import { loadAssets } from "../../../src/core/asset-loader";
-import { PromiseTrigger } from "../../../src/core/promise-utils";
 import { Screen } from "../../../src/core/screen";
 import { startup } from "../../../src/core/startup";
 import { assetPacks } from "../../helpers/asset-packs";
