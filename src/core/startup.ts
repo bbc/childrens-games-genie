@@ -4,12 +4,6 @@ import "../lib/phaser";
 import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
-export interface Config {
-    stageHeightPx;
-    backgroundColor?;
-    theme: any;
-}
-
 export function startup(transitions, initialAdditionalState?): Promise<Phaser.Game> {
     const gmi = (window as any).getGMI({});
     const urlParams = parseUrlParams(window.location.search);
@@ -71,7 +65,7 @@ class Startup extends Phaser.State {
     }
 
     public create() {
-        this.onStarted({} as Config /* this.game.cache.getJSON(CONFIG_KEY) */);
+        this.onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);
     }
 }
 

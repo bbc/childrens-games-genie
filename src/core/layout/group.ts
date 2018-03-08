@@ -60,9 +60,6 @@ class Group extends Phaser.Group {
         this.setGroupPosition();
     }
 
-    /**
-     * TODO add interface for config
-     */
     public addButton(config, position?) {
         if (position === undefined) {
             position = this.buttons.length;
