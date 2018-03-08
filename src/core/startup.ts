@@ -1,7 +1,6 @@
 import * as _ from "lodash";
 import "../lib/phaser";
 
-import { PromiseTrigger } from "../core/promise-utils";
 import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
@@ -30,9 +29,12 @@ export function startup(transitions, initialAdditionalState?): Promise<Phaser.Ga
     (window as any).PhaserGlobal = { hideBanner: true };
 
     const game = new Phaser.Game(phaserConfig);
-    const promisedGame = new PromiseTrigger<Phaser.Game>();
 
-    return promisedGame;
+    let resolvedPromise;
+
+    return new Promise(resolve => {
+        resolvedPromise = resolve;
+    });
 
     function onStarted(config) {
         // Phaser is now set up and we can use all game properties.
@@ -47,7 +49,7 @@ export function startup(transitions, initialAdditionalState?): Promise<Phaser.Ga
         };
         context.sequencer = Sequencer.create(game, context, transitions, getContainerDiv(gmi));
         game.stage.backgroundColor = "#333";
-        promisedGame.resolve(game);
+        resolvedPromise(game);
     }
 }
 
