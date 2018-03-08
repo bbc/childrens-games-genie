@@ -5,7 +5,7 @@ import { Screen } from "../../src/core/screen";
 
 const TEST_DIV_ID = "test-div";
 
-export function screenDef(name = "__screen_id__"): ScreenDef {
+export function screenDef(name = "__screen_id__") {
     return {
         name,
         state: screen(),
@@ -13,7 +13,7 @@ export function screenDef(name = "__screen_id__"): ScreenDef {
     };
 }
 
-export function screen(): Screen {
+export function screen() {
     return sinon.createStubInstance(Screen);
 }
 
@@ -23,7 +23,7 @@ export function installMockGetGmi(propertiesToMerge: any = {}) {
     (window as any).getGMI = () => gmi(propertiesToMerge);
 }
 
-export function gmi(propertiesToMerge: any = {}): Gmi {
+export function gmi(propertiesToMerge: any = {}) {
     const defaultGmi = {
         gameContainerId: TEST_DIV_ID,
         embedVars: { configPath: "" },

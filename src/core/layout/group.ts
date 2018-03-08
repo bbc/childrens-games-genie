@@ -48,10 +48,10 @@ class Group extends Phaser.Group {
     constructor(
         game: Phaser.Game,
         parent: Phaser.Group,
-        private vPos: string,
-        private hPos: string,
+        private vPos,
+        private hPos,
         private metrics: ViewportMetrics,
-        private isVertical: boolean,
+        private isVertical,
     ) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
 

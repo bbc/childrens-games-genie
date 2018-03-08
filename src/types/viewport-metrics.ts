@@ -6,7 +6,7 @@ declare interface ViewportMetrics {
     buttonMin: number;
     buttonPad: number;
     hitMin?: number;
-    isMobile?: boolean;
+    isMobile?;
     horizontals?: {
         left: number;
         center: number;

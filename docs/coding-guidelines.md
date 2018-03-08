@@ -36,7 +36,7 @@ Docs are generated using Typedoc and placed in the docs/api folder
  * @param sfx - Map of all the audio sprites
  * @param soundButton - enable or disable the audio buttons @todo could be parts of the buttons array
  */
-function createLayout(screen: Screen, buttons[], sfx: Phaser.AudioSprite, soundButton?: boolean): Layout {
+function createLayout(screen: Screen, buttons: string[], sfx: Phaser.AudioSprite, soundButton?: boolean): Layout {
     return new Layout(
         game,
         screen,

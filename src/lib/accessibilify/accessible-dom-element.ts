@@ -32,7 +32,7 @@ export function accessibleDomElement(options: AccessibleDomElementOptions) {
         el.style.visibility = "visible";
     }
 
-    function visible(): boolean {
+    function visible() {
         return el.style.visibility === "visible";
     }
 

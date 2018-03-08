@@ -1,7 +1,7 @@
 interface GroupLayout {
     vPos;
     hPos;
-    arrangeV?: boolean;
+    arrangeV?;
 }
 
 export const groupLayouts: GroupLayout[] = [
