@@ -1,4 +1,4 @@
-export function parseUrlParams(paramsString): any {
+export function parseUrlParams(paramsString) {
     if (!valid()) {
         return {};
     }

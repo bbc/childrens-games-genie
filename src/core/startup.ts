@@ -4,13 +4,13 @@ import "../lib/phaser";
 import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
-export function startup(transitions, initialAdditionalState?): Promise<Phaser.Game> {
+export function startup(transitions, initialAdditionalState?) {
     const gmi = (window as any).getGMI({});
     const urlParams = parseUrlParams(window.location.search);
     const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
     hookErrors(gmi.gameContainerId);
 
-    const phaserConfig: Phaser.IGameConfig = {
+    const phaserConfig = {
         width: 1400,
         height: 600,
         renderer: Phaser.AUTO,
@@ -71,7 +71,7 @@ class Startup extends Phaser.State {
 
 function hookErrors(gameDivId) {
     const containerDiv = document.getElementById(gameDivId) || document.body;
-    let messageElement: HTMLElement;
+    let messageElement;
 
     window.addEventListener("error", event => {
         if (!messageElement) {

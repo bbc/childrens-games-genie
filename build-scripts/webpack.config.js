@@ -2,7 +2,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const HappyPack = require("happypack");
-var ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 var phaserModule = path.join(__dirname, "../node_modules/phaser-ce/");
 var phaser = path.join(phaserModule, "build/custom/phaser-split.js"),
@@ -82,10 +81,6 @@ module.exports = {
                     },
                 },
             ],
-        }),
-        new ForkTsCheckerWebpackPlugin({
-            checkSyntacticErrors: true,
-            workers: ForkTsCheckerWebpackPlugin.ONE_CPU,
         }),
         new webpack.SourceMapDevToolPlugin({
             filename: null, // if no value is provided the sourcemap is inlined
