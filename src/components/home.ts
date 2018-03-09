@@ -3,18 +3,18 @@ import * as signal from "../core/signal-bus";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness";
 
 export class Home extends Screen {
-    private keyLookup: { [key: string]: string };
-    private gel: { [key: string]: string };
+    public keyLookup;
+    public gel;
 
     constructor() {
         super();
     }
 
-    public preload() {
+    preload() {
         this.keyLookup = this.layoutFactory.keyLookups[this.game.state.current];
     }
 
-    public create() {
+    create() {
         this.layoutFactory.addToBackground(this.game.add.image(0, 0, this.keyLookup.background));
         this.layoutFactory.addToBackground(this.game.add.image(0, -150, this.keyLookup.title));
         this.layoutFactory.addLayout(["exit", "howToPlay", "play", "audioOff", "settings"]);
