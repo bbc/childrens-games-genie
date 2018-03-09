@@ -1,8 +1,8 @@
 import { GEL_MIN_RATIO_HEIGHT, GEL_MIN_RATIO_WIDTH } from "../../core/scaler";
 
 export function createTestHarnessDisplay(game, context, layoutFactory) {
-    let graphicsBackgroundGroup: Phaser.Group;
-    let graphicsForegroundGroup: Phaser.Group;
+    let graphicsBackgroundGroup;
+    let graphicsForegroundGroup;
 
     if (context.qaMode.active) {
         graphicsBackgroundGroup = game.add.group();
@@ -32,7 +32,7 @@ export function createTestHarnessDisplay(game, context, layoutFactory) {
     function drawGameArea() {
         const [gameAreaWidth, gameAreaHeight] = gameAreaDimensions();
 
-        const graphics: Phaser.Graphics = game.add.graphics();
+        const graphics = game.add.graphics();
         graphics.beginFill(0x32cd32, 0.5);
         graphics.drawRect(-gameAreaWidth * 0.5, -gameAreaHeight * 0.5, gameAreaWidth, gameAreaHeight);
         graphicsBackgroundGroup.add(graphics);
@@ -40,7 +40,7 @@ export function createTestHarnessDisplay(game, context, layoutFactory) {
 
     function drawOuterPadding() {
         const size = layoutFactory.getSize();
-        const graphics: Phaser.Graphics = game.add.graphics();
+        const graphics = game.add.graphics();
         const paddingWidth = getPaddingWidth();
         const gameLeftEdge = 0 + paddingWidth * 0.5;
         const gameTopEdge = 0 + paddingWidth * 0.5;
