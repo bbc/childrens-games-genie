@@ -5,7 +5,7 @@ import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
 export function startup(transitions, initialAdditionalState?) {
-    const gmi = (window as any).getGMI({});
+    const gmi = window.getGMI({});
     const urlParams = parseUrlParams(window.location.search);
     const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
     hookErrors(gmi.gameContainerId);
@@ -20,7 +20,7 @@ export function startup(transitions, initialAdditionalState?) {
         state: new Startup(gmi, onStarted),
     };
     // Keep the console tidy:
-    (window as any).PhaserGlobal = { hideBanner: true };
+    window.PhaserGlobal = { hideBanner: true };
 
     const game = new Phaser.Game(phaserConfig);
 
@@ -48,13 +48,16 @@ export function startup(transitions, initialAdditionalState?) {
 }
 
 class Startup extends Phaser.State {
-    constructor(private gmi, private onStarted: (config) => void) {
+
+    constructor(gmi, onStarted) {
         super();
+        this._gmi = gmi;
+        this._onStarted = onStarted;
     }
 
     public preload() {
-        const gmi = this.gmi;
-        this.game.load.baseURL = this.gmi.gameDir;
+        const gmi = this._gmi;
+        this.game.load.baseURL = this._gmi.gameDir;
 
         // All asset paths are relative to the location of the config.json:
         const theme = gmi.embedVars.configPath;
@@ -65,7 +68,7 @@ class Startup extends Phaser.State {
     }
 
     public create() {
-        this.onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);
+        this._onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);
     }
 }
 

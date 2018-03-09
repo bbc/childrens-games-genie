@@ -46,10 +46,9 @@ export function create(game, gameWrapper) {
         return layout;
     }
 
-    //TODO these types seem wrong - 'object' shouldn't need casting
     function addToBackground(object) {
-        if ((object as any).anchor) {
-            (object as any).anchor.setTo(0.5, 0.5);
+        if ((object).anchor) {
+            (object).anchor.setTo(0.5, 0.5);
         }
         return background.addChild(object);
     }

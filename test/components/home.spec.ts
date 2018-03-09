@@ -4,11 +4,11 @@ import * as sinon from "sinon";
 import { Home } from "../../src/components/home";
 
 describe("Home Screen", () => {
-    let homeScreen: any;
-    let mockGame: any;
-    let addToBackgroundSpy: any;
-    let gameImageSpy: any;
-    let gameButtonSpy: any;
+    let homeScreen;
+    let mockGame;
+    let addToBackgroundSpy;
+    let gameImageSpy;
+    let gameButtonSpy;
 
     const mockNext = () => {
         "nextFunc";
