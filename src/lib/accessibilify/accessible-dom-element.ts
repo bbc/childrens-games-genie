@@ -12,7 +12,7 @@ export function accessibleDomElement(options) {
         remove,
     };
 
-    function init(): void {
+    function init() {
         el.setAttribute("tabindex", "0");
         el.setAttribute("aria-label", options.ariaLabel);
         el.setAttribute("role", "button");
@@ -22,12 +22,12 @@ export function accessibleDomElement(options) {
         options.parent.appendChild(el);
     }
 
-    function hide(): void {
+    function hide() {
         el.setAttribute("tabindex", "-1");
         el.style.visibility = "hidden";
     }
 
-    function show(): void {
+    function show() {
         el.setAttribute("tabindex", "0");
         el.style.visibility = "visible";
     }
@@ -36,14 +36,14 @@ export function accessibleDomElement(options) {
         return el.style.visibility === "visible";
     }
 
-    function position(positionOptions: { x, y, width, height }): void {
+    function position(positionOptions: { x; y; width; height }) {
         el.style.left = positionOptions.x.toString() + "px";
         el.style.top = positionOptions.y.toString() + "px";
         el.style.width = positionOptions.width.toString() + "px";
         el.style.height = positionOptions.height.toString() + "px";
     }
 
-    function keyUp(event: KeyboardEvent): void {
+    function keyUp(event: KeyboardEvent) {
         const enterKey = event.key === "Enter";
         const spaceKey = event.key === " ";
 
@@ -52,7 +52,7 @@ export function accessibleDomElement(options) {
         }
     }
 
-    function remove(): void {
+    function remove() {
         el.remove();
     }
 }

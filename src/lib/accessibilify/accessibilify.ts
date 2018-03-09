@@ -1,7 +1,7 @@
 import { debounce } from "lodash";
 import { accessibleDomElement } from "./accessible-dom-element";
 
-export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?): Phaser.Button | Phaser.Sprite {
+export function accessibilify(button, ariaLabel) {
     const game = button.game;
     const accessibleElement = newAccessibleElement();
     const repositionElement = debounce(setElementPosition, 200);
@@ -15,27 +15,27 @@ export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?)
         return accessibleDomElement({
             id: button.name,
             ariaLabel: ariaLabel ? ariaLabel : button.name,
-            parent: game.canvas.parentElement as HTMLDivElement,
+            parent: game.canvas.parentElement,
             onClick: buttonAction,
         });
     }
 
-    function setElementPosition(): void {
+    function setElementPosition() {
         accessibleElement.position(button.getBounds());
     }
 
-    function assignEvents(): void {
+    function assignEvents() {
         game.scale.onSizeChange.add(repositionElement);
         game.state.onStateChange.addOnce(teardown);
         button.update = checkBounds;
     }
 
-    function teardown(): void {
+    function teardown() {
         accessibleElement.remove();
         game.scale.onSizeChange.remove(repositionElement);
     }
 
-    function checkBounds(): void {
+    function checkBounds() {
         if (isOutsideScreen() && accessibleElement.visible()) {
             accessibleElement.hide();
         } else if (!isOutsideScreen() && !accessibleElement.visible()) {
@@ -55,7 +55,7 @@ export function accessibilify(button: Phaser.Button | Phaser.Sprite, ariaLabel?)
         );
     }
 
-    function buttonAction(): void {
+    function buttonAction() {
         button.events.onInputUp.dispatch(button, game.input.activePointer, false);
     }
 }
