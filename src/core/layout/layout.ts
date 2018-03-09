@@ -6,10 +6,10 @@ import Group from "./group";
 import { groupLayouts } from "./group-layouts";
 
 export class Layout {
-    public buttons;
-    public root;
-    private groups;
-    private metrics;
+    buttons;
+    root;
+    _groups;
+    _metrics;
 
     /**
      * Creates a new layout. Called by engine.create for each screen component
@@ -29,7 +29,7 @@ export class Layout {
         const size = scaler.getSize();
         this.resize(size.width, size.height, size.scale, size.stageHeightPx);
 
-        this.groups = _.zipObject(
+        this._groups = _.zipObject(
             groupLayouts.map(layout => _.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
             groupLayouts.map(
                 layout =>
@@ -38,14 +38,14 @@ export class Layout {
                         this.root,
                         layout.vPos,
                         layout.hPos,
-                        this.metrics,
+                        this._metrics,
                         !!layout.arrangeV,
                     ),
             ),
         );
         this.buttons = _.zipObject(
             buttons,
-            buttons.map((name: string) => this.groups[gel[name].group].addButton(gel[name])),
+            buttons.map((name) => this._groups[gel[name].group].addButton(gel[name])),
         );
 
         scaler.onScaleChange.add(this.resize, this);
@@ -57,18 +57,18 @@ export class Layout {
      * @param button- gel button identifier
      * @param callback - callback function to attach
      */
-    public setAction = (button: string, callback: () => any) => this.buttons[button].onInputUp.add(callback, this);
+    setAction = (button, callback) => this.buttons[button].onInputUp.add(callback, this);
 
-    public addToGroup = (groupName: string, item: any, position?) =>
-        this.groups[groupName].addToGroup(item, position);
+    addToGroup = (groupName, item, position?) =>
+        this._groups[groupName].addToGroup(item, position);
 
-    public destroy = () => this.root.destroy();
+    destroy = () => this.root.destroy();
 
-    private resize(width, height, scale, stageHeight) {
-        this.metrics = calculateMetrics(width, height, scale, stageHeight);
+    resize(width, height, scale, stageHeight) {
+        this._metrics = calculateMetrics(width, height, scale, stageHeight);
 
-        if (this.groups) {
-            _.forOwn(this.groups, (group: Group) => group.reset(this.metrics));
+        if (this._groups) {
+            _.forOwn(this._groups, (group) => group.reset(this._metrics));
         }
     }
 }

@@ -41,9 +41,9 @@ const getGroupY = (sizes) =>
     );
 
 class Group extends Phaser.Group {
-    private buttons = [];
-    private buttonFactory; // TODO use ReturnType<ButtonFactory.create> with TS2.8
-    private setGroupPosition: () => void;
+    _buttons = [];
+    _buttonFactory;
+    _setGroupPosition;
 
     constructor(
         game,
@@ -55,35 +55,35 @@ class Group extends Phaser.Group {
     ) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
 
-        this.buttonFactory = ButtonFactory.create(game);
-        this.setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
-        this.setGroupPosition();
+        this._buttonFactory = ButtonFactory.create(game);
+        this._setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
+        this._setGroupPosition();
     }
 
     /**
      * TODO add interface for config
      */
-    public addButton(config, position = this.buttons.length) {
-        const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key);
+    addButton = (config, position = this._buttons.length) => {
+        const newButton = this._buttonFactory.createButton(this.metrics.isMobile, config.key);
 
         this.addAt(newButton, position);
         //@ts-ignore
-        this.buttons.push(newButton);
+        this._buttons.push(newButton);
 
         this.alignChildren();
-        this.setGroupPosition();
+        this._setGroupPosition();
 
         return newButton;
     }
 
-    public addToGroup(item, position = 0) {
+    addToGroup(item, position = 0) {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
         this.alignChildren();
-        this.setGroupPosition();
+        this._setGroupPosition();
     }
 
-    public reset(metrics) {
+    reset(metrics) {
         if (this.metrics.isMobile !== metrics.isMobile) {
             this.resetButtons(metrics);
             this.alignChildren();
@@ -92,14 +92,14 @@ class Group extends Phaser.Group {
         this.metrics = metrics;
         const invScale = 1 / metrics.scale;
         this.scale.setTo(invScale, invScale);
-        this.setGroupPosition();
+        this._setGroupPosition();
     }
 
-    private alignChildren = () => {
+    alignChildren = () => {
         const pos = { x: 0, y: 0 };
 
         const groupWidth = this.width; //Save here as size changes when you move children below
-        this.children.forEach((childDisplayObject: PIXI.DisplayObject) => {
+        this.children.forEach((childDisplayObject) => {
             const child = childDisplayObject as PIXI.DisplayObjectContainer;
             child.y = pos.y + child.height / 2;
 
@@ -114,12 +114,12 @@ class Group extends Phaser.Group {
     };
 
     //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
-    private resetButtons(metrics) {
+    resetButtons(metrics) {
         //@ts-ignore
-        this.buttons.forEach(button => button.resize(metrics));
+        this._buttons.forEach(button => button.resize(metrics));
     }
 
-    private getSizes = () => ({
+    getSizes = () => ({
         metrics: this.metrics,
         pos: { h: this.hPos, v: this.vPos },
         width: this.width,
