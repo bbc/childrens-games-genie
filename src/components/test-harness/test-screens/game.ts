@@ -1,7 +1,7 @@
 import { Screen } from "../../../core/screen";
 
 export class GameTest extends Screen {
-    private gel: { [key: string]: string };
+    private gel;
 
     constructor() {
         super();
