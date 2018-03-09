@@ -5,7 +5,7 @@ import * as Sequencer from "../core/sequencer";
 import { parseUrlParams } from "../lib/parseUrlParams";
 
 export function startup(transitions, initialAdditionalState?) {
-    const gmi = (window as any).getGMI({});
+    const gmi = window.getGMI({});
     const urlParams = parseUrlParams(window.location.search);
     const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
     hookErrors(gmi.gameContainerId);
@@ -20,7 +20,7 @@ export function startup(transitions, initialAdditionalState?) {
         state: new Startup(gmi, onStarted),
     };
     // Keep the console tidy:
-    (window as any).PhaserGlobal = { hideBanner: true };
+    window.PhaserGlobal = { hideBanner: true };
 
     const game = new Phaser.Game(phaserConfig);
 
