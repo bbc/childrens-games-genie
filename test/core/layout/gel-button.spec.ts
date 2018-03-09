@@ -33,10 +33,10 @@ describe("Layout - Gel Button", () => {
 
                 assert(btn.key === "gel/mobile/play.png");
 
-                btn.resize({ isMobile: false } as any);
+                btn.resize({ isMobile: false });
                 assert(btn.key === "gel/desktop/play.png");
 
-                btn.resize({ isMobile: true } as any);
+                btn.resize({ isMobile: true });
                 assert(btn.key === "gel/mobile/play.png");
             }),
         );

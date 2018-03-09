@@ -7,11 +7,11 @@ import * as Scaler from "../../../src/core/scaler";
 
 describe("Layout - Factory", () => {
     let sandbox: sinon.SinonSandbox;
-    let layoutFactory: any;
-    let mockGame: any;
-    let scalerSpy: any;
-    let scalerMethods: any;
-    let groupMethods: any;
+    let layoutFactory;
+    let mockGame;
+    let scalerSpy;
+    let scalerMethods;
+    let groupMethods;
 
     before(() => {
         sandbox = sinon.sandbox.create();
@@ -101,7 +101,7 @@ describe("Layout - Factory", () => {
     describe("addLayout method", () => {
         const mockButtons = "buttons";
         const mockRoot = { root: { phaserElement: "phaserElement" } };
-        let layoutStub: any;
+        let layoutStub;
 
         beforeEach(() => {
             layoutStub = sandbox.stub(Layout, "Layout").returns(mockRoot);

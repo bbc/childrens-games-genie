@@ -5,14 +5,14 @@ import * as LayoutFactory from "../../src/core/layout/factory";
 import * as Sequencer from "../../src/core/sequencer";
 
 describe("Sequencer", () => {
-    let sequencer: any;
-    let mockGame: any;
-    let mockLayout: any;
+    let sequencer;
+    let mockGame;
+    let mockLayout;
     let next;
 
     const sandbox = sinon.sandbox.create();
-    const mockContext: any = { inState: { transient: {}, persistent: {} } };
-    const mockTransitions: any = [
+    const mockContext = { inState: { transient: {}, persistent: {} } };
+    const mockTransitions = [
         {
             name: "title",
             state: "titlestate",
