@@ -17,13 +17,13 @@ export function screen() {
     return sinon.createStubInstance(Screen);
 }
 
-export function installMockGetGmi(propertiesToMerge: any = {}) {
+export function installMockGetGmi(propertiesToMerge = {}) {
     uninstallMockGetGmi();
     document.body.appendChild(document.createElement("div")).id = TEST_DIV_ID;
-    (window as any).getGMI = () => gmi(propertiesToMerge);
+    window.getGMI = () => gmi(propertiesToMerge);
 }
 
-export function gmi(propertiesToMerge: any = {}) {
+export function gmi(propertiesToMerge = {}) {
     const defaultGmi = {
         gameContainerId: TEST_DIV_ID,
         embedVars: { configPath: "" },
@@ -41,7 +41,7 @@ export function getGameHolderDiv() {
     return getElementOrThrow(TEST_DIV_ID);
 }
 
-function getElementOrThrow(id): HTMLElement {
+function getElementOrThrow(id) {
     const e = document.getElementById(id);
     if (e) {
         return e;
