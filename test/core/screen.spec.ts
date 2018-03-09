@@ -4,11 +4,11 @@ import * as sinon from "sinon";
 import { Screen } from "../../src/core/screen";
 
 describe("Screen", () => {
-    let screen: any;
-    let mockNext: any;
-    let mockLayoutFactory: any;
+    let screen;
+    let mockNext;
+    let mockLayoutFactory;
 
-    const mockContext: any = { inState: "inState" };
+    const mockContext = { inState: "inState" };
 
     beforeEach(() => {
         mockNext = sinon.spy();

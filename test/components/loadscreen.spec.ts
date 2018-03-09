@@ -5,12 +5,12 @@ import { Loadscreen } from "../../src/components/loadscreen";
 import * as AssetLoader from "../../src/core/asset-loader";
 
 describe("Load Screen", () => {
-    let loadScreen: any;
-    let mockGame: any;
-    let mockNext: any;
-    let addLookupsSpy: any;
-    let assetLoaderSpy: any;
-    let assetLoaderCallbackSpy: any;
+    let loadScreen;
+    let mockGame;
+    let mockNext;
+    let addLookupsSpy;
+    let assetLoaderSpy;
+    let assetLoaderCallbackSpy;
 
     const sandbox = sinon.sandbox.create();
 
@@ -84,7 +84,7 @@ describe("Load Screen", () => {
     });
 
     describe("qaMode", () => {
-        let consoleSpy: any;
+        let consoleSpy;
 
         beforeEach(() => {
             consoleSpy = sandbox.spy(console, "log");

@@ -6,10 +6,10 @@ import * as GelButton from "../../../src/core/layout/gel-button";
 import * as accessibilify from "../../../src/lib/accessibilify/accessibilify";
 
 describe("Layout - Button Factory", () => {
-    let accessibilifyStub: any;
-    let buttonFactory: any;
-    let gelButtonStub: any;
-    let mockGame: any;
+    let accessibilifyStub;
+    let buttonFactory;
+    let gelButtonStub;
+    let mockGame;
 
     const sandbox = sinon.sandbox.create();
 
@@ -34,7 +34,7 @@ describe("Layout - Button Factory", () => {
     describe("createButton method", () => {
         const expectedIsMobile = false;
         const expectedKey = "buttonKey";
-        let button: any;
+        let button;
 
         beforeEach(() => {
             button = buttonFactory.createButton(expectedIsMobile, expectedKey);

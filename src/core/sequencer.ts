@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import * as LayoutFactory from "./layout/factory";
 
 export function create(
-    game: Phaser.Game,
+    game,
     context,
     transitions,
     gameWrapper,
@@ -14,12 +14,12 @@ export function create(
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
-    const screenLookup = _.fromPairs(_.map(transitions, (c: any) => [c.name, c]));
+    const screenLookup = _.fromPairs(_.map(transitions, (c) => [c.name, c]));
     game.state.start(currentScreen.name, true, false, context, next, layoutFactory);
 
     return self;
 
-    function next(changedState): void {
+    function next(changedState) {
         //TODO: Use GMI to save persistent state to local storage, if it has been updated
         const newState = _.merge({}, context.inState, changedState);
         const nextScreenName = currentScreen.nextScreenName(newState);
