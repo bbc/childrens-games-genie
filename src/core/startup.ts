@@ -48,13 +48,16 @@ export function startup(transitions, initialAdditionalState?) {
 }
 
 class Startup extends Phaser.State {
-    constructor(private gmi, private onStarted: (config) => void) {
+
+    constructor(gmi, onStarted) {
         super();
+        this._gmi = gmi;
+        this._onStarted = onStarted;
     }
 
     public preload() {
-        const gmi = this.gmi;
-        this.game.load.baseURL = this.gmi.gameDir;
+        const gmi = this._gmi;
+        this.game.load.baseURL = this._gmi.gameDir;
 
         // All asset paths are relative to the location of the config.json:
         const theme = gmi.embedVars.configPath;
@@ -65,7 +68,7 @@ class Startup extends Phaser.State {
     }
 
     public create() {
-        this.onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);
+        this._onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);
     }
 }
 
