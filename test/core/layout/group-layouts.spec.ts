@@ -4,7 +4,6 @@ import { isBoolean, isUndefined } from "util";
 import { groupLayouts } from "../../../src/core/layout/group-layouts";
 
 describe("Group Layouts", () => {
-
     it("matches the test constant", () => {
         const expectedGroupLayouts = [
             { vPos: "top", hPos: "left" },
@@ -19,5 +18,4 @@ describe("Group Layouts", () => {
         ];
         assert.isTrue(fp.isEqual(expectedGroupLayouts, groupLayouts));
     });
-
 });

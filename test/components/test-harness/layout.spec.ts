@@ -4,13 +4,13 @@ import * as sinon from "sinon";
 import { createTestHarnessDisplay } from "../../../src/components/test-harness/layout-harness";
 
 describe("test harness layout", () => {
-    let mockGame: any;
-    let mockContext: any;
-    let mockLayoutFactory: any;
-    let sandbox: sinon.SinonSandbox;
+    let mockGame;
+    let mockContext;
+    let mockLayoutFactory;
+    let sandbox;
     const qKeyCode = 81;
-    let onKeyUpSpy: any;
-    let addKeyStub: any;
+    let onKeyUpSpy;
+    let addKeyStub;
 
     before(() => {
         sandbox = sinon.sandbox.create();

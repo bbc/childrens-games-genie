@@ -4,19 +4,19 @@ import { accessibilify } from "../../../src/lib/accessibilify/accessibilify";
 import * as helperModule from "../../../src/lib/accessibilify/accessible-dom-element";
 
 describe("#accessibilify", () => {
-    let mockButton: any;
-    let parentElement: any;
+    let mockButton;
+    let parentElement;
     let gameWidth;
     let gameHeight;
     let buttonBoundsX;
     let buttonBoundsY;
     let buttonBoundsWidth;
     let buttonBoundsHeight;
-    let accessibleDomElement: any;
-    let accessibleDomElementVisible: boolean;
-    let accessibleDomElementHide: any;
-    let accessibleDomElementShow: any;
-    let sandbox: sinon.SinonSandbox;
+    let accessibleDomElement;
+    let accessibleDomElementVisible;
+    let accessibleDomElementHide;
+    let accessibleDomElementShow;
+    let sandbox;
 
     before(() => {
         sandbox = sinon.sandbox.create();
@@ -46,12 +46,12 @@ describe("#accessibilify", () => {
                 width: gameWidth,
                 scale: {
                     onSizeChange: {
-                        add: (debouncedCallback: () => void) => {},
+                        add: debouncedCallback => {},
                     },
                 },
                 state: {
                     onStateChange: {
-                        addOnce: (teardown: () => void) => {},
+                        addOnce: teardown => {},
                     },
                 },
                 update: {},
@@ -66,7 +66,7 @@ describe("#accessibilify", () => {
             },
         };
         accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({
-            position: (): void => {},
+            position: () => {},
             visible: () => accessibleDomElementVisible,
             hide: accessibleDomElementHide,
             show: accessibleDomElementShow,
@@ -85,7 +85,7 @@ describe("#accessibilify", () => {
                 accessibleDomElement.withArgs({
                     id: mockButton.name,
                     ariaLabel: mockButton.name,
-                    parent: mockButton.game.canvas.parentElement as HTMLDivElement,
+                    parent: mockButton.game.canvas.parentElement,
                     onClick: sinon.match.func,
                 }),
             );
@@ -99,7 +99,7 @@ describe("#accessibilify", () => {
                     accessibleDomElement.withArgs({
                         id: mockButton.name,
                         ariaLabel: "Play Button",
-                        parent: mockButton.game.canvas.parentElement as HTMLDivElement,
+                        parent: mockButton.game.canvas.parentElement,
                         onClick: sinon.match.func,
                     }),
                 );
