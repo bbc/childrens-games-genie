@@ -27,7 +27,7 @@ const getGroupX = (sizes) => {
     ];
 
     return horizontal[sizes.pos.h](
-        horizontals[sizes.pos.h] as number,
+        horizontals[sizes.pos.h],
         sizes.width,
         sizes.metrics.borderPad * sizes.scale,
     );
@@ -35,19 +35,19 @@ const getGroupX = (sizes) => {
 
 const getGroupY = (sizes) =>
     vertical[sizes.pos.v](
-        sizes.metrics.verticals[sizes.pos.v] as number,
+        sizes.metrics.verticals[sizes.pos.v],
         sizes.height,
         sizes.metrics.borderPad * sizes.scale,
     );
 
 class Group extends Phaser.Group {
-    private buttons: DebugButton[] = [];
-    private buttonFactory: any; // TODO use ReturnType<ButtonFactory.create> with TS2.8
+    private buttons = [];
+    private buttonFactory; // TODO use ReturnType<ButtonFactory.create> with TS2.8
     private setGroupPosition: () => void;
 
     constructor(
-        game: Phaser.Game,
-        parent: Phaser.Group,
+        game,
+        parent,
         private vPos,
         private hPos,
         private metrics,
@@ -60,14 +60,14 @@ class Group extends Phaser.Group {
         this.setGroupPosition();
     }
 
-    public addButton(config, position?) {
-        if (position === undefined) {
-            position = this.buttons.length;
-        }
-
+    /**
+     * TODO add interface for config
+     */
+    public addButton(config, position = this.buttons.length) {
         const newButton = this.buttonFactory.createButton(this.metrics.isMobile, config.key);
 
         this.addAt(newButton, position);
+        //@ts-ignore
         this.buttons.push(newButton);
 
         this.alignChildren();
@@ -76,7 +76,7 @@ class Group extends Phaser.Group {
         return newButton;
     }
 
-    public addToGroup(item: any, position = 0) {
+    public addToGroup(item, position = 0) {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
         this.alignChildren();
@@ -115,6 +115,7 @@ class Group extends Phaser.Group {
 
     //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
     private resetButtons(metrics) {
+        //@ts-ignore
         this.buttons.forEach(button => button.resize(metrics));
     }
 
