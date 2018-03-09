@@ -127,8 +127,7 @@ describe("Asset Loader", () => {
  * Wraps a test in asynchronous Phaser setup and shutdown code, and runs it in the preload phase of the first state.
  * @param action Function to run the tests, returning a promise.
  */
-function runInPreload(action: (g: Phaser.Game) => Promise<void>): Promise<void> {
-
+function runInPreload(action) {
     let testState;
 
     const promisedTest = new Promise((resolve, reject) => {

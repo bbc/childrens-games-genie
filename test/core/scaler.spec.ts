@@ -4,7 +4,7 @@ import * as Scaler from "../../src/core/scaler";
 import "../../src/lib/phaser";
 
 describe("Scaler", () => {
-    let mockGame: any;
+    let mockGame;
 
     beforeEach(() => {
         mockGame = {
