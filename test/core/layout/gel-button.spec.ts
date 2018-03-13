@@ -1,5 +1,4 @@
-// @ts-ignore
-import * as fp from "lodash/fp";
+import * as fp from "../../../src/lib/lodash-fp";
 
 import { assert } from "chai";
 import { loadAssets } from "../../../src/core/asset-loader";
