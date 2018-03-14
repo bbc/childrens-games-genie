@@ -2,7 +2,7 @@ import { assert } from "chai";
 import * as sinon from "sinon";
 import * as ButtonFactory from "../../../src/core/layout/button-factory";
 import { calculateMetrics } from "../../../src/core/layout/calculate-metrics";
-import Group from "../../../src/core/layout/group";
+import { Group } from "../../../src/core/layout/group";
 
 describe("Group", () => {
     const sandbox = sinon.sandbox.create();
@@ -145,7 +145,7 @@ describe("Group", () => {
             group.addButton(config);
             group.reset(mobileMetrics);
 
-            assert(group.metrics.isMobile === true);
+            assert(group.getSizes().metrics.isMobile === true);
             sandbox.assert.calledOnce(buttonResizeStub);
         });
 
@@ -157,7 +157,7 @@ describe("Group", () => {
             group.addButton(config);
             group.reset(moreDesktopMetrics);
 
-            assert(group.metrics.isMobile === false);
+            assert(group.getSizes().metrics.isMobile === false);
             sandbox.assert.notCalled(buttonResizeStub);
         });
     });
