@@ -23,17 +23,6 @@ module.exports = {
                 include: /(node_modules[\\\/]phaser-ce)/,
                 use: "happypack/loader?id=script-loader",
             },
-            // {
-            //     test: /\.tsx?$/,
-            //     include: /(src|test)/,
-            //     use: "happypack/loader?id=ts",
-            // },
-            // {
-            //     test: /\.js$/,
-            //     include: /(src|test)/,
-            //     exclude: /node_modules/,
-            //     loader: "happypack/loader?id=babel",
-            // },
         ],
     },
     resolve: {
@@ -46,20 +35,6 @@ module.exports = {
         plugins: [],
     },
     plugins: [
-        // new HappyPack({
-        //     id: "ts",
-        //     threads: 1,
-        //     loaders: [
-        //         {
-        //             path: "babel-loader",
-        //             query: { presets: [["env", { targets: { ie: 11 } }]] },
-        //         },
-        //         {
-        //             path: "ts-loader",
-        //             query: { happyPackMode: true },
-        //         },
-        //     ],
-        // }),
         new HappyPack({
             id: "script-loader",
             threads: 1,
@@ -69,19 +44,6 @@ module.exports = {
                 },
             ],
         }),
-        // new HappyPack({
-        //     id: "babel",
-        //     threads: 1,
-        //     loaders: [
-        //         {
-        //             path: "babel-core",
-        //             query: {
-        //                 presets: [["env", { targets: { ie: 11 } }]],
-        //                 cacheDirectory: true,
-        //             },
-        //         },
-        //     ],
-        // }),
         new webpack.SourceMapDevToolPlugin({
             filename: null, // if no value is provided the sourcemap is inlined
             test: /\.(ts|js)x?$/i, // process .js, .tsx and .ts files only
