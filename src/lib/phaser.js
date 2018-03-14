@@ -7,7 +7,7 @@ import "pixi.js";
 import "p2";
 import "phaser-ce";
 
-(window as any).Phaser.Component.Core.skipTypeChecks = true;
-export const Phaser = (window as any).Phaser;
-export const PIXI = (window as any).PIXI;
-export const p2Obj = (window as any).p2;
+window.Phaser.Component.Core.skipTypeChecks = true;
+export const Phaser = window.Phaser;
+export const PIXI = window.PIXI;
+export const p2Obj = window.p2;
