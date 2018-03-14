@@ -6,7 +6,7 @@ import * as Layout from "../../../src/core/layout/layout";
 import * as Scaler from "../../../src/core/scaler";
 
 describe("Layout - Factory", () => {
-    let sandbox: sinon.SinonSandbox;
+    let sandbox;
     let layoutFactory;
     let mockGame;
     let scalerSpy;

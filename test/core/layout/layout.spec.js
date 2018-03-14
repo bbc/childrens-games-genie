@@ -6,8 +6,8 @@ import { Layout } from "../../../src/core/layout/layout";
 
 describe("Layout", () => {
     const randomKey = "1d67c228681df6ad7f0b05f069cd087c442934ab5e4e86337d70c832e110c61b";
-    let mockGame: any;
-    let mockScaler: any;
+    let mockGame;
+    let mockScaler;
 
     beforeEach(() => {
         return initialiseGame().then(game => {
@@ -63,11 +63,11 @@ describe("Layout", () => {
 
     it("Should add items to the correct group", () => {
         const layout = new Layout(mockGame, mockScaler, []);
-        const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
+        const testElement = new Phaser.Sprite(mockGame, 0, 0);
 
         layout.addToGroup("middleRight", testElement);
 
-        const groupsWithChildren: any = layout.root.children.filter((element: any) => element.length);
+        const groupsWithChildren = layout.root.children.filter((element) => element.length);
 
         expect(groupsWithChildren.length).to.eql(1);
         expect(groupsWithChildren[0].name).to.eql("middleRight");
@@ -75,7 +75,7 @@ describe("Layout", () => {
 
     it("Should correctly insert an item using the index position property", () => {
         const layout = new Layout(mockGame, mockScaler, []);
-        const testElement = new Phaser.Sprite(mockGame, 0, 0) as any;
+        const testElement = new Phaser.Sprite(mockGame, 0, 0);
         testElement.randomKey = randomKey;
 
         layout.addToGroup("topLeft", new Phaser.Sprite(mockGame, 0, 0));
@@ -84,7 +84,7 @@ describe("Layout", () => {
 
         layout.addToGroup("topLeft", testElement, 2);
 
-        const leftTopGroup: any = layout.root.children.find((element: any) => element.name === "topLeft");
+        const leftTopGroup = layout.root.children.find((element) => element.name === "topLeft");
         expect(leftTopGroup.children[2].randomKey).to.eql(randomKey);
     });
 
@@ -104,12 +104,12 @@ describe("Layout", () => {
     });
 });
 
-function initialiseGame(): Promise<Phaser.Game> {
+function initialiseGame() {
     return new Promise(resolve => {
         // tslint:disable-next-line:no-unused-expression
         new Phaser.Game({
             state: new class extends Phaser.State {
-                public create() {
+                create() {
                     resolve(this.game);
                 }
             }(),

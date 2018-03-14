@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import "../../src/lib/phaser";
+import "../../src/lib/phaser.js";
 
 import { expect } from "chai";
 import * as sinon from "sinon";
@@ -97,7 +97,7 @@ describe("Asset Loader", () => {
     it("Should attempt to load assetPack JSON files that are missing and include them in keyLookups", () => {
         const updateCallback = sinon.spy();
         const loadSpy = sinon.spy();
-        const getJSONStub = sinon.stub(Phaser.Cache, "JSON").callsFake((key, clone?) => {
+        const getJSONStub = sinon.stub(Phaser.Cache, "JSON").callsFake((key, clone) => {
             if (key === "test-screen") {
                 return {
                     "test-screen": [{ type: "image", key: "test", url: assets.ship, overwrite: false }],
@@ -132,7 +132,7 @@ function runInPreload(action) {
 
     const promisedTest = new Promise((resolve, reject) => {
         testState = new class extends Screen {
-            public preload() {
+            preload() {
                 resolve(action(this.game));
             }
         }();

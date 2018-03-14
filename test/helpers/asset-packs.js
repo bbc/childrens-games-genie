@@ -32,7 +32,7 @@ export const assetPacks = {
     gelButtonAssetPack,
 };
 
-function createImageAsset(type, key, url, overwrite?) {
+function createImageAsset(type, key, url, overwrite) {
     return {
         type,
         key,
