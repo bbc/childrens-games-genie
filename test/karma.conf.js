@@ -1,26 +1,27 @@
 var checkCoverageFlag = process.argv.toString().includes("--coverage");
-var webpackConfig = checkCoverageFlag
-    ? require("./coverage.webpack.config")
-    : require("../build-scripts/webpack.config.js");
+var webpackConfig = require("../build-scripts/webpack.config.js");
 
 module.exports = function(config) {
     config.set({
-        // basePath: "",
+        basePath: "..",
         frameworks: ["mocha", "chai", "sinon"],
         files: [
-            "../src/lib/phaser.js",
-            "../test/**/*.spec.js",
+            'node_modules/phaser-ce/build/phaser.min.js',
+            { pattern: 'test/**/*.spec.js', watched: false }
         ],
         preprocessors: {
-            "../src/lib/phaser.js": ["webpack"],
-            "../test/**/*.spec.js": ["webpack"],
+            'test/**/*.spec.js': [ 'webpack', 'sourcemap' ]
         },
         client: {
             mocha: {
                 timeout: 20000, // 20 seconds - upped from 2 seconds
             },
         },
-        webpack: webpackConfig,
+        webpack: {
+			module: webpackConfig.module,
+			resolve: webpackConfig.resolve,
+			devtool: 'inline-source-map'
+		},
         webpackMiddleware: {
             stats: "errors-only",
             noInfo: true,
@@ -47,10 +48,7 @@ module.exports = function(config) {
                 flags: ["--disable-webgl"],
             },
         },
-        mime: {
-            "text/x-typescript": ["ts", "tsx"],
-        },
         singleRun: true,
-        concurrency: Infinity,
+        concurrency: Infinity
     });
 };
