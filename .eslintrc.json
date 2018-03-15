@@ -3,13 +3,15 @@
     "extends": "eslint:recommended",
     "parserOptions": {
         "sourceType": "module",
-        "ecmaVersion": 6
+        "ecmaVersion": 2017
     },
     "rules": {
         "indent": ["error", 4],
         "quotes": ["error","double"],
         "semi": ["error","always"],
         "no-undef":[0],
-        "no-console":["warn"]
+        "no-console":["warn"],
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+        "comma-dangle": ["error", "always-multiline"]
     }
 }

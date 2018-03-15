@@ -35,7 +35,7 @@ export function uninstallMockGetGmi() {
     try {
         document.body.removeChild(getGameHolderDiv());
     } catch (e) {
-        console.log("Error:", e);
+        console.log("Error:", e); // eslint-disable-line no-console
     }
 }
 
