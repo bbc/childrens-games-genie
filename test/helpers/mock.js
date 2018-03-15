@@ -34,7 +34,9 @@ export function gmi(propertiesToMerge = {}) {
 export function uninstallMockGetGmi() {
     try {
         document.body.removeChild(getGameHolderDiv());
-    } catch (e) {}
+    } catch (e) {
+        console.log("Error:", e);
+    }
 }
 
 export function getGameHolderDiv() {
