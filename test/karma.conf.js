@@ -7,10 +7,14 @@ module.exports = function(config) {
         frameworks: ["mocha", "chai", "sinon"],
         files: [
             'node_modules/phaser-ce/build/phaser.min.js',
+            { pattern: 'src/components/**/*.js', watched: false },
+            { pattern: 'src/core/**/*.js', watched: false },
             { pattern: 'test/**/*.spec.js', watched: false }
         ],
         preprocessors: {
-            'test/**/*.spec.js': [ 'webpack', 'sourcemap' ]
+            'src/components/**/*.js': [ 'webpack', 'coverage' ],
+            'src/core/**/*.js': [ 'webpack', 'coverage' ],
+            'test/**/*.spec.js': [ 'webpack' ]
         },
         client: {
             mocha: {
