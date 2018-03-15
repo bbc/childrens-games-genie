@@ -4,16 +4,18 @@
 
 ### Basics (line lengths, spaces vs tabs, semi-colons etc)
 
-These are enforced via [prettier](https://github.com/prettier/prettier) and [eslint](https://eslint.org/).
+These are enforced via [Prettier](https://github.com/prettier/prettier) and [ESLint](https://eslint.org/).
 
-Prettier and EsLint plugins are available for most IDEs, or can be run from the command line.
+Prettier and ESLint plugins are available for most IDEs, or can be run from the command line.
 Code checked into source control should be run though Prettier first to prevent extraneous diff lines.
 
 Check the **/.prettierrc** and **/eslintrc.json** files for rule specifics.
 
+For code autocompletion, [TernJS](http://ternjs.net/) may be used.
+
 ### Doc Comments
 
-Doc comments should be added where they will be helpful to explain the API. Docs are generated using [ESDoc](https://esdoc.org/) and placed in the `docs/api` folder.
+Doc comments should be added where they will be helpful to explain the API. Docs are generated using [ESDoc](https://esdoc.org/) and will appear in the `docs/api` folder.
 
 #### ESDoc Example
 
@@ -33,11 +35,6 @@ export default class MyClass {
 }
 ```
 
-### Tests
-
-* Avoid using beforeEach / afterEach unless they actually reduce duplication and simplify the code.
- (In general they make the code more complicated and less cohesive).
-
 ## Branching Strategy
 
 All code should be created in feature branches.
@@ -55,8 +52,8 @@ All code should be created in feature branches.
 * Inform your team there is a pull request (PR) ready for review.
 * Implement/discuss any requested changes from the review. 
 * Once the PR has been approved, it will need to go through the post-amigo process. Inform a BA and QA team member to start this process.
-* Either the dev or QA will merge the branch when the QA process has passed.
+* A dev can then merge the branch into master when the QA process has passed.
 
 ## Deployment Strategy
 
-*stub*
+When a commit to master is made, the [Jenkins job](https://ci-games.tools.bbc.co.uk/job/childrens-games-genie/) will automatically build to [CAGE](https://www.bbc.co.uk/cbeebies/embed/game/childrens-games-genie?versionOverride=latest&viewNonPublished=true).
