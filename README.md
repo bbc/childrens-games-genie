@@ -1,6 +1,6 @@
 # Children's BBC - Genie
 
-A modular framework to simplify the construction of children's games. 
+A modular framework to simplify the construction of children's games.
 
 ## To build:
 
@@ -16,9 +16,9 @@ Alternatively load http://localhost:8080/index.html as a file URL (requires `--a
 
 ## To test:
 
-`npm test` will run tests using karma. 
+`npm test` will run tests using karma.
 
-`npm run test-watch` will run tests using karma in watch mode.  
+`npm run test-watch` will run tests using karma in watch mode.
 
 `npm run test:coverage` and `npm run test-watch:coverage` will calculate test coverage. This runs more **slowly** than running the tests normally.
 
@@ -35,8 +35,6 @@ To access QA mode, add the `qaMode=true` query string to the URL: http://localho
 This will output game loading progress and asset keylookups to the console. Pressing "q" will show the layout overlay, to show the game bounds.
 
 ## Documentation:
-* [Genie Core Doucmentation][1]
-* [Coding Guidelines][2]
 
-[1]: docs/core.md
-[2]: docs/coding-guidelines.md
+*   [Genie Core Doucmentation](https://github.com/bbc/childrens-games-genie/blob/master/docs/core.md)
+*   [Coding Guidelines](https://github.com/bbc/childrens-games-genie/blob/master/docs/coding-guidelines.md)
