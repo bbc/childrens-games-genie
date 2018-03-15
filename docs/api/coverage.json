@@ -1,7 +1,7 @@
 {
-  "coverage": "7.4%",
+  "coverage": "6.48%",
   "expectCount": 108,
-  "actualCount": 8,
+  "actualCount": 7,
   "files": {
     "src/components/home.js": {
       "expectCount": 5,
@@ -134,15 +134,16 @@
     },
     "src/core/layout/layout.js": {
       "expectCount": 10,
-      "actualCount": 3,
+      "actualCount": 2,
       "undocumentLines": [
-        19,
-        24,
-        30,
-        45,
-        49,
-        53,
-        54
+        8,
+        18,
+        23,
+        29,
+        44,
+        48,
+        52,
+        53
       ]
     },
     "src/core/scaler.js": {

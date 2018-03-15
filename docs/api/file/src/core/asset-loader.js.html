@@ -72,13 +72,13 @@ export function loadAssets(
     game,
     gamePacks,
     loadscreenPack,
-    updateCallback,
+    updateCallback
 ) {
     let gameAssetPack;
     let missingScreenPack;
     let keyLookups;
 
-    return new Promise((resolve, reject) =&gt; {
+    return new Promise((resolve) =&gt; {
         const loadQueue = [
             () =&gt; {
                 loadAssetPackJSON(gamePacks);
@@ -155,7 +155,7 @@ export function loadAssets(
         // For loading based on screen ids we&apos;ll ignore the &quot;default&quot; state and anything starting with &quot;__&quot;.
         const missingScreens = _.filter(
             _.keys(game.state.states),
-            k =&gt; k !== &quot;default&quot; &amp;&amp; !_.startsWith(k, &quot;__&quot;),
+            k =&gt; k !== &quot;default&quot; &amp;&amp; !_.startsWith(k, &quot;__&quot;)
         );
         missingScreens.forEach((key) =&gt; {
             if (!gameAssetPack.hasOwnProperty(key) &amp;&amp; loadscreenPack.key !== key) {

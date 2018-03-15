@@ -80,7 +80,7 @@ export function create(stageHeightPx, game) {
 
     const scaleMethods = {
         wide: (width, height) =&gt; height / stageHeightPx,
-        narrow: (width, height) =&gt; width / stageHeightPx / GEL_SAFE_FRAME_RATIO,
+        narrow: (width) =&gt; width / stageHeightPx / GEL_SAFE_FRAME_RATIO,
     };
 
     const getSize = fp.flow(getBounds(game), fp.pick([&quot;width&quot;, &quot;height&quot;]), getScale(scaleMethods, stageHeightPx));

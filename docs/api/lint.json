@@ -4,31 +4,31 @@
     "filePath": "src/core/layout/layout.js",
     "lines": [
       {
-        "lineNumber": 34,
+        "lineNumber": 33,
         "line": "    /**"
       },
       {
-        "lineNumber": 35,
+        "lineNumber": 34,
         "line": "     * Attach a callback to the onInputUp event of a given Gel button"
       },
       {
-        "lineNumber": 36,
+        "lineNumber": 35,
         "line": "     *"
       },
       {
-        "lineNumber": 37,
+        "lineNumber": 36,
         "line": "     * @param button- gel button identifier"
       },
       {
-        "lineNumber": 38,
+        "lineNumber": 37,
         "line": "     * @param callback - callback function to attach"
       },
       {
-        "lineNumber": 39,
+        "lineNumber": 38,
         "line": "     */"
       },
       {
-        "lineNumber": 40,
+        "lineNumber": 39,
         "line": "    setAction(button, callback) {"
       }
     ],
