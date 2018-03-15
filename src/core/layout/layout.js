@@ -10,7 +10,7 @@ export class Layout {
      * Creates a new layout. Called by engine.create for each screen component
      *
      * @param game - Phaser Game Instance
-     * @param {Scaler} scaler
+     * @param scaler
      * @param keyLookup
      * @param buttons
      */
@@ -34,7 +34,7 @@ export class Layout {
     /**
      * Attach a callback to the onInputUp event of a given Gel button
      *
-     * @param button- gel button identifier
+     * @param button - gel button identifier
      * @param callback - callback function to attach
      */
     setAction(button, callback) {
