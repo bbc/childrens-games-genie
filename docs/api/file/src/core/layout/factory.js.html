@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/core/layout/factory.js | genie</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Genie Modular Game Engine"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="genie"><meta property="twitter:description" content="Genie Modular Game Engine"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/bbc/childrens-games-genie"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/home.js~Home.html">Home</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/loadscreen.js~Loadscreen.html">Loadscreen</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#core">core</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/core/screen.js~Screen.html">Screen</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-loadAssets">loadAssets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startup">startup</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GEL_MIN_RATIO_HEIGHT">GEL_MIN_RATIO_HEIGHT</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GEL_MIN_RATIO_WIDTH">GEL_MIN_RATIO_WIDTH</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-GEL_SAFE_FRAME_RATIO">GEL_SAFE_FRAME_RATIO</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-bus">bus</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#core-layout">core/layout</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/core/layout/debug-button.js~DebugButton.html">DebugButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/core/layout/gel-button.js~GelButton.html">GelButton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/core/layout/group.js~Group.html">Group</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/core/layout/layout.js~Layout.html">Layout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-calculateMetrics">calculateMetrics</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-create">create</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-config">config</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-groupLayouts">groupLayouts</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib">lib</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseUrlParams">parseUrlParams</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#lib-accessibilify">lib/accessibilify</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-accessibilify">accessibilify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-accessibleDomElement">accessibleDomElement</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/core/layout/factory.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import * as Scaler from &quot;../scaler.js&quot;;
+import { Layout } from &quot;./layout.js&quot;;
+
+export function create(game, gameWrapper) {
+    const root = game.add.group(undefined, &quot;gelGroup&quot;, true);
+    const background = game.add.group(undefined, &quot;gelBackground&quot;);
+    const foreground = game.add.group(undefined, &quot;foreground&quot;);
+    const keyLookups = {};
+
+    //TODO stageHeight should come from config
+    const scaler = Scaler.create(600, game);
+
+    root.addChild(background);
+    root.addChild(foreground);
+
+    scaler.onScaleChange.add(scaleBackground);
+
+    return {
+        keyLookups,
+        addToBackground,
+        addToForeground,
+        addLayout,
+        removeAll,
+        addLookups,
+        getSize: scaler.getSize,
+    };
+
+    /**
+     * Create a new GEL layout manager for a given Genie {@link Screen}
+     * Called in the create method of a given screen
+     *
+     * @example
+     * layoutFactory.create([&quot;home&quot;, &quot;restart&quot;, &quot;continue&quot;, &quot;pause&quot;]);
+     *
+     * @param buttons - array of standard button names to include. See {@link ./gel-defaults.ts} for available names
+     * @returns {Layout}
+     */
+    function addLayout(buttons) {
+        const layout = new Layout(game, scaler, buttons);
+
+        addToBackground(layout.root);
+
+        return layout;
+    }
+
+    function addToBackground(object) {
+        if ((object).anchor) {
+            (object).anchor.setTo(0.5, 0.5);
+        }
+        return background.addChild(object);
+    }
+
+    function addToForeground(object) {
+        return foreground.addChild(object);
+    }
+
+    function scaleBackground(width, height, scale) {
+        background.scale.set(scale, scale);
+        background.position.set(width / 2, height / 2);
+    }
+
+    function removeAll() {
+        background.removeAll(true);
+        // buttons.removeAll();
+    }
+
+    function addLookups(moreLookups) {
+        Object.assign(keyLookups, moreLookups);
+    }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

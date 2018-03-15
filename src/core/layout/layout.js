@@ -6,7 +6,6 @@ import { Group } from "./group.js";
 import { groupLayouts } from "./group-layouts.js";
 
 export class Layout {
-
     /**
      * Creates a new layout. Called by engine.create for each screen component
      *
@@ -15,11 +14,7 @@ export class Layout {
      * @param keyLookup
      * @param buttons
      */
-    constructor(
-        game,
-        scaler,
-        buttons,
-    ) {
+    constructor(game, scaler, buttons) {
         this.root = new Phaser.Group(game, game.world, undefined);
 
         const size = scaler.getSize();
@@ -28,21 +23,10 @@ export class Layout {
         this._groups = _.zipObject(
             groupLayouts.map(layout => _.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
             groupLayouts.map(
-                layout =>
-                    new Group(
-                        game,
-                        this.root,
-                        layout.vPos,
-                        layout.hPos,
-                        this._metrics,
-                        !!layout.arrangeV,
-                    ),
+                layout => new Group(game, this.root, layout.vPos, layout.hPos, this._metrics, !!layout.arrangeV),
             ),
         );
-        this.buttons = _.zipObject(
-            buttons,
-            buttons.map((name) => this._groups[gel[name].group].addButton(gel[name])),
-        );
+        this.buttons = _.zipObject(buttons, buttons.map(name => this._groups[gel[name].group].addButton(gel[name])));
 
         scaler.onScaleChange.add(this.resize, this);
     }
@@ -58,16 +42,18 @@ export class Layout {
     }
 
     addToGroup(groupName, item, position) {
-	    this._groups[groupName].addToGroup(item, position);
+        this._groups[groupName].addToGroup(item, position);
     }
 
-    destroy() {this.root.destroy();}
+    destroy() {
+        this.root.destroy();
+    }
 
     resize(width, height, scale, stageHeight) {
         this._metrics = calculateMetrics(width, height, scale, stageHeight);
 
         if (this._groups) {
-            _.forOwn(this._groups, (group) => group.reset(this._metrics));
+            _.forOwn(this._groups, group => group.reset(this._metrics));
         }
     }
 }

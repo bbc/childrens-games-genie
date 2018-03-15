@@ -1,0 +1,2724 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "name": "src/components/home.js",
+    "content": "import { Screen } from \"../core/screen.js\";\nimport * as signal from \"../core/signal-bus.js\";\nimport { createTestHarnessDisplay } from \"./test-harness/layout-harness.js\";\n\nexport class Home extends Screen {\n    constructor() {\n        super();\n    }\n\n    preload() {\n        this.keyLookup = this.layoutFactory.keyLookups[this.game.state.current];\n    }\n\n    create() {\n        this.layoutFactory.addToBackground(this.game.add.image(0, 0, this.keyLookup.background));\n        this.layoutFactory.addToBackground(this.game.add.image(0, -150, this.keyLookup.title));\n        this.layoutFactory.addLayout([\"exit\", \"howToPlay\", \"play\", \"audioOff\", \"settings\"]);\n        createTestHarnessDisplay(this.game, this.context, this.layoutFactory);\n\n        //Example Subscription to signal bus\n        signal.bus.subscribe({\n            name: \"GEL-play\",\n            callback: () => {\n                console.log(\"Play was pressed\");\n            },\n        });\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/components/home.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "name": "Home",
+    "memberof": "src/components/home.js",
+    "static": true,
+    "longname": "src/components/home.js~Home",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/components/home.js",
+    "importStyle": "{Home}",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/core/screen.js~Screen"
+    ]
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/components/home.js~Home",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/home.js~Home#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "method",
+    "name": "preload",
+    "memberof": "src/components/home.js~Home",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/home.js~Home#preload",
+    "access": null,
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 4,
+    "kind": "member",
+    "name": "keyLookup",
+    "memberof": "src/components/home.js~Home",
+    "static": false,
+    "longname": "src/components/home.js~Home#keyLookup",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "name": "create",
+    "memberof": "src/components/home.js~Home",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/home.js~Home#create",
+    "access": null,
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 6,
+    "kind": "file",
+    "name": "src/components/loadscreen.js",
+    "content": "import * as _ from \"../lib/lodash/lodash.js\";\n\nimport { loadAssets } from \"../core/asset-loader.js\";\nimport { Screen } from \"../core/screen.js\";\n\nconst MASTER_PACK_KEY = \"MasterAssetPack\";\nconst GEL_PACK_KEY = \"GelAssetPack\";\n\nconst gamePacksToLoad = {\n    [MASTER_PACK_KEY]: { url: \"asset-master-pack.json\" },\n    [GEL_PACK_KEY]: { url: \"gel/gel-pack.json\" },\n};\nconst loadscreenPack = {\n    key: \"loadscreen\",\n    url: \"loader/loadscreen-pack.json\",\n};\n\nexport class Loadscreen extends Screen {\n    /**\n     * Placeholder Loadscreen for development\n     * Example Usage\n     */\n    constructor() {\n        super();\n    }\n\n    preload() {\n        loadAssets(this.game, gamePacksToLoad, loadscreenPack, this.updateLoadProgress.bind(this)).then(keyLookups => {\n            this.layoutFactory.addLookups(keyLookups);\n            if (this.context.qaMode.active) {\n                dumpToConsole(keyLookups);\n            }\n            this.next();\n        });\n    }\n\n    create() {}\n\n    updateLoadProgress(progress) {\n        // use progress to update loading bar\n        if (this.context.qaMode.active) {\n            console.log(\"Loader progress:\", progress);\n        }\n    }\n}\n\nfunction dumpToConsole(keyLookups) {\n    const lines = _.flattenDeep([\n        \"Loaded assets:\",\n        _.flatMap(keyLookups, (keyMap, screenId) => [\n            `    ${screenId}:`,\n            _.map(keyMap, (path, key) => `        ${key}: ${path}`),\n        ]),\n    ]);\n    console.log(_.join(lines, \"\\n\"));\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/components/loadscreen.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 7,
+    "kind": "variable",
+    "name": "MASTER_PACK_KEY",
+    "memberof": "src/components/loadscreen.js",
+    "static": true,
+    "longname": "src/components/loadscreen.js~MASTER_PACK_KEY",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 8,
+    "kind": "variable",
+    "name": "GEL_PACK_KEY",
+    "memberof": "src/components/loadscreen.js",
+    "static": true,
+    "longname": "src/components/loadscreen.js~GEL_PACK_KEY",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 9,
+    "kind": "variable",
+    "name": "gamePacksToLoad",
+    "memberof": "src/components/loadscreen.js",
+    "static": true,
+    "longname": "src/components/loadscreen.js~gamePacksToLoad",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"MASTER_PACK_KEY\": *, \"GEL_PACK_KEY\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 10,
+    "kind": "variable",
+    "name": "loadscreenPack",
+    "memberof": "src/components/loadscreen.js",
+    "static": true,
+    "longname": "src/components/loadscreen.js~loadscreenPack",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"key\": string, \"url\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 11,
+    "kind": "class",
+    "name": "Loadscreen",
+    "memberof": "src/components/loadscreen.js",
+    "static": true,
+    "longname": "src/components/loadscreen.js~Loadscreen",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": "{Loadscreen}",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/core/screen.js~Screen"
+    ]
+  },
+  {
+    "__docId__": 12,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/components/loadscreen.js~Loadscreen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/loadscreen.js~Loadscreen#constructor",
+    "access": null,
+    "description": "Placeholder Loadscreen for development\nExample Usage",
+    "lineNumber": 23
+  },
+  {
+    "__docId__": 13,
+    "kind": "method",
+    "name": "preload",
+    "memberof": "src/components/loadscreen.js~Loadscreen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/loadscreen.js~Loadscreen#preload",
+    "access": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 14,
+    "kind": "method",
+    "name": "create",
+    "memberof": "src/components/loadscreen.js~Loadscreen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/loadscreen.js~Loadscreen#create",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 15,
+    "kind": "method",
+    "name": "updateLoadProgress",
+    "memberof": "src/components/loadscreen.js~Loadscreen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/components/loadscreen.js~Loadscreen#updateLoadProgress",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "params": [
+      {
+        "name": "progress",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 16,
+    "kind": "function",
+    "name": "dumpToConsole",
+    "memberof": "src/components/loadscreen.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/components/loadscreen.js~dumpToConsole",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/components/loadscreen.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "params": [
+      {
+        "name": "keyLookups",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 17,
+    "kind": "file",
+    "name": "src/core/asset-loader.js",
+    "content": "import * as _ from \"../lib/lodash/lodash.js\";\n\n/**\n * Creates an Asset Loader, which can handle the loading of load screen assets,\n * as well as the assets for the rest of the game.\n * @param  game           The Phaser.Game to load assets to.\n * @param  gamePacks      The AssetPacks that should be loaded for states after the loading screen.\n * @param  loadscreenPack The AssetPack to load the loading screen assets.\n * @param  updateCallback A callback to return the load progress and keyLookups.\n */\nexport function loadAssets(\n    game,\n    gamePacks,\n    loadscreenPack,\n    updateCallback,\n) {\n    let gameAssetPack;\n    let missingScreenPack;\n    let keyLookups;\n\n    return new Promise((resolve, reject) => {\n        const loadQueue = [\n            () => {\n                loadAssetPackJSON(gamePacks);\n            },\n            () => {\n                [keyLookups, gameAssetPack] = processAssetPackJSON(gamePacks);\n                missingScreenPack = getMissingScreens();\n                loadAssetPackJSON(missingScreenPack);\n            },\n            () => {\n                const [missingKeyLookups, missingScreenAssetPack] = processAssetPackJSON(missingScreenPack);\n                Object.assign(keyLookups, missingKeyLookups);\n                Object.assign(gameAssetPack, missingScreenAssetPack);\n                loadAssetPack(gameAssetPack);\n                if (game.load.totalQueuedPacks() === 0) {\n                    updateCallback(100);\n                    resolve(keyLookups);\n                }\n                game.load.onFileComplete.add(updateLoadProgress);\n            },\n        ];\n        loadQueue.push(() => {});\n\n        game.load.onLoadComplete.add(startNextLoadInQueue);\n        game.load.pack(loadscreenPack.key, loadscreenPack.url);\n\n        function startNextLoadInQueue() {\n            const loadFunction = loadQueue.shift();\n            if (loadFunction) {\n                loadFunction();\n            }\n            if (!_.isEmpty(loadQueue)) {\n                game.time.events.add(0, game.load.start, game.load);\n            } else {\n                game.load.onLoadComplete.removeAll();\n                game.load.onFileComplete.removeAll();\n                resolve(keyLookups);\n            }\n        }\n    });\n\n    function loadAssetPackJSON(packs) {\n        for (const key in packs) {\n            if (packs.hasOwnProperty(key)) {\n                game.load.json(key, packs[key].url);\n            }\n        }\n    }\n\n    function processAssetPackJSON(packs) {\n        for (const key in packs) {\n            if (packs.hasOwnProperty(key)) {\n                packs[key].data = game.cache.getJSON(key);\n            }\n        }\n        const assetPack = convertPackListToAssetPack(packs);\n        return namespaceAssetsByScreen(assetPack);\n    }\n\n    function loadAssetPack(pack) {\n        for (const screen in pack) {\n            if (pack.hasOwnProperty(screen)) {\n                game.load.pack(screen, undefined, pack);\n            }\n        }\n    }\n\n    function updateLoadProgress(progress) {\n        updateCallback(progress);\n    }\n\n    function getMissingScreens() {\n        const missingScreenList = {};\n        // For loading based on screen ids we'll ignore the \"default\" state and anything starting with \"__\".\n        const missingScreens = _.filter(\n            _.keys(game.state.states),\n            k => k !== \"default\" && !_.startsWith(k, \"__\"),\n        );\n        missingScreens.forEach((key) => {\n            if (!gameAssetPack.hasOwnProperty(key) && loadscreenPack.key !== key) {\n                missingScreenList[key] = { url: key + \".json\" };\n            }\n        });\n        return missingScreenList;\n    }\n}\n\nfunction convertPackListToAssetPack(packs) {\n    const assetPack = {};\n    for (const pack in packs) {\n        if (packs.hasOwnProperty(pack)) {\n            Object.assign(assetPack, packs[pack].data);\n        }\n    }\n    return assetPack;\n}\n\nfunction namespaceAssetsByScreen(pack) {\n    const keyLookups = {};\n    for (const screen in pack) {\n        if (pack.hasOwnProperty(screen)) {\n            if (Object.keys(pack[screen]).length !== 0 && pack[screen].constructor !== Object) {\n                Object.assign(keyLookups, namespaceScreen(pack, screen));\n            } else {\n                return [keyLookups, {}];\n            }\n        }\n    }\n    return [keyLookups, pack];\n}\n\nfunction namespaceScreen(pack, screenName) {\n    const keyLookup = {};\n    keyLookup[screenName] = {};\n    for (const asset of pack[screenName]) {\n        let newKey = \"<pending>\";\n        if (asset.url) {\n            newKey = asset.url;\n        } else if (asset.urls) {\n            newKey = asset.urls[0].replace(/\\.[^.]*$/, \"\");\n        } else {\n            throw Error(\"expected url or urls field for asset key \" + asset.key);\n        }\n        keyLookup[screenName][asset.key] = newKey;\n        asset.key = newKey;\n    }\n    return keyLookup;\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/asset-loader.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 18,
+    "kind": "function",
+    "name": "loadAssets",
+    "memberof": "src/core/asset-loader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/asset-loader.js~loadAssets",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/asset-loader.js",
+    "importStyle": "{loadAssets}",
+    "description": "Creates an Asset Loader, which can handle the loading of load screen assets,\nas well as the assets for the rest of the game.",
+    "lineNumber": 11,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "game",
+        "description": "The Phaser.Game to load assets to."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "gamePacks",
+        "description": "The AssetPacks that should be loaded for states after the loading screen."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "loadscreenPack",
+        "description": "The AssetPack to load the loading screen assets."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "updateCallback",
+        "description": "A callback to return the load progress and keyLookups."
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 19,
+    "kind": "function",
+    "name": "convertPackListToAssetPack",
+    "memberof": "src/core/asset-loader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/asset-loader.js~convertPackListToAssetPack",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/asset-loader.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 109,
+    "undocument": true,
+    "params": [
+      {
+        "name": "packs",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 20,
+    "kind": "function",
+    "name": "namespaceAssetsByScreen",
+    "memberof": "src/core/asset-loader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/asset-loader.js~namespaceAssetsByScreen",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/asset-loader.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 119,
+    "undocument": true,
+    "params": [
+      {
+        "name": "pack",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "function",
+    "name": "namespaceScreen",
+    "memberof": "src/core/asset-loader.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/asset-loader.js~namespaceScreen",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/asset-loader.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 133,
+    "undocument": true,
+    "params": [
+      {
+        "name": "pack",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "screenName",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "file",
+    "name": "src/core/layout/button-factory.js",
+    "content": "import fp from \"../../lib/lodash/fp/fp.js\";\nimport { accessibilify } from \"../../lib/accessibilify/accessibilify.js\";\nimport { GelButton } from \"./gel-button.js\";\n\nconst createButton = fp.curry((game, x, y, isMobile, key) => {\n    const btn = new GelButton(game, 0, 0, isMobile, key); //Instantiate then return or TSC loses non-curried args\n    return accessibilify(btn, \"Test Accessible Button\");\n});\n\nexport const create = (game) => ({ createButton: createButton(game, 0, 0) });\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/button-factory.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 23,
+    "kind": "variable",
+    "name": "createButton",
+    "memberof": "src/core/layout/button-factory.js",
+    "static": true,
+    "longname": "src/core/layout/button-factory.js~createButton",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/button-factory.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "function",
+    "name": "create",
+    "memberof": "src/core/layout/button-factory.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/button-factory.js~create",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/button-factory.js",
+    "importStyle": "{create}",
+    "description": null,
+    "lineNumber": 10,
+    "undocument": true,
+    "params": [
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 25,
+    "kind": "file",
+    "name": "src/core/layout/calculate-metrics.js",
+    "content": "const BORDER_PAD = 0.02;\nconst BREAK_WIDTH = 770;\nconst SAFE_ASPECT_RATIO = 4 / 3;\n\nexport const calculateMetrics = (\n    width,\n    height,\n    scale,\n    stageHeight,\n) => {\n    const isMobile = width < BREAK_WIDTH;\n    const safeWidth = height * SAFE_ASPECT_RATIO;\n\n    const metrics = {\n        width,\n        height: stageHeight,\n        scale,\n        borderPad: Math.floor(Math.max(width, stageHeight) * BORDER_PAD),\n        isMobile,\n        buttonPad: isMobile ? 22 : 24,\n        buttonMin: isMobile ? 42 : 64,\n        hitMin: isMobile ? 64 : 70,\n        horizontals: {\n            left: width / scale * -0.5,\n            center: 0,\n            right: width / scale * 0.5,\n        },\n        safeHorizontals: {\n            left: safeWidth * -0.5,\n            center: 0,\n            right: safeWidth * 0.5,\n        },\n        verticals: {\n            top: stageHeight * -0.5,\n            middle: 0,\n            bottom: stageHeight * 0.5,\n        },\n    };\n\n    return metrics;\n};\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/calculate-metrics.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 26,
+    "kind": "variable",
+    "name": "BORDER_PAD",
+    "memberof": "src/core/layout/calculate-metrics.js",
+    "static": true,
+    "longname": "src/core/layout/calculate-metrics.js~BORDER_PAD",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/calculate-metrics.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 27,
+    "kind": "variable",
+    "name": "BREAK_WIDTH",
+    "memberof": "src/core/layout/calculate-metrics.js",
+    "static": true,
+    "longname": "src/core/layout/calculate-metrics.js~BREAK_WIDTH",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/calculate-metrics.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 28,
+    "kind": "variable",
+    "name": "SAFE_ASPECT_RATIO",
+    "memberof": "src/core/layout/calculate-metrics.js",
+    "static": true,
+    "longname": "src/core/layout/calculate-metrics.js~SAFE_ASPECT_RATIO",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/calculate-metrics.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 29,
+    "kind": "function",
+    "name": "calculateMetrics",
+    "memberof": "src/core/layout/calculate-metrics.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/calculate-metrics.js~calculateMetrics",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/calculate-metrics.js",
+    "importStyle": "{calculateMetrics}",
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "params": [
+      {
+        "name": "width",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "height",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "scale",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "stageHeight",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 30,
+    "kind": "file",
+    "name": "src/core/layout/debug-button.js",
+    "content": "/**\n * Phaser button with text overlay\n *\n * example game.add.existing(new DebugButton( ...parameters))\n */\nconst gelStyle = {\n    font: \"ReithSans\",\n    fontSize: 20, //40,\n    fill: \"#FFFFFF\",\n    fontWeight: \"bold\",\n};\n\nconst makeRect = (game, color1, width, height) =>\n    new Phaser.Graphics(game)\n        .beginFill(color1)\n        .drawRect(0, 0, width, height)\n        .endFill()\n        .generateTexture();\n\nexport class DebugButton extends Phaser.Button {\n    constructor(game, spec, isMobile = false) {\n        super(game);\n\n        //TODO heights are hard coded. Probably not an issue with final image based buttons.\n        this.backdrops = {\n            mobile: {\n                up: makeRect(game, 0xf6931e, spec.width, 42),\n                over: makeRect(game, 0xffaa46, spec.width, 42),\n            },\n            desktop: {\n                up: makeRect(game, 0xf6931e, spec.width, 64),\n                over: makeRect(game, 0xffaa46, spec.width, 64),\n            },\n        };\n\n        this.buttonSize = isMobile ? \"mobile\" : \"desktop\";\n\n        this.texture = this.backdrops[this.buttonSize].up;\n\n        this.animations.sprite.anchor.setTo(0.5, 0.5);\n        this.onInputUp.add(spec.click, this);\n\n        this.animations.sprite.events.onInputOver.add(() => {\n            this.texture = this.backdrops[this.buttonSize].over;\n        });\n\n        this.animations.sprite.events.onInputOut.add(() => {\n            this.texture = this.backdrops[this.buttonSize].up;\n        });\n\n        const text = new Phaser.Text(game, 0, 0, spec.text, gelStyle);\n        text.anchor.setTo(0.5, 0.5);\n        this.animations.sprite.addChild(text);\n    }\n\n     resize(metrics) {\n        this.buttonSize = metrics.isMobile ? \"mobile\" : \"desktop\";\n        this.texture = this.backdrops[this.buttonSize].up;\n    }\n\n    /**\n     * Disables input and makes button semi-transparent\n     */\n    setEnabled(bool = true) {\n        this.animations.sprite.inputEnabled = bool;\n        this.animations.sprite.alpha = bool ? 1 : 0.5;\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/debug-button.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 31,
+    "kind": "variable",
+    "name": "gelStyle",
+    "memberof": "src/core/layout/debug-button.js",
+    "static": true,
+    "longname": "src/core/layout/debug-button.js~gelStyle",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/debug-button.js",
+    "importStyle": null,
+    "description": "Phaser button with text overlay\n\nexample game.add.existing(new DebugButton( ...parameters))",
+    "lineNumber": 6,
+    "type": {
+      "types": [
+        "{\"font\": string, \"fontSize\": number, \"fill\": string, \"fontWeight\": string}"
+      ]
+    }
+  },
+  {
+    "__docId__": 32,
+    "kind": "function",
+    "name": "makeRect",
+    "memberof": "src/core/layout/debug-button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/debug-button.js~makeRect",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/debug-button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "color1",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "width",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "height",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 33,
+    "kind": "class",
+    "name": "DebugButton",
+    "memberof": "src/core/layout/debug-button.js",
+    "static": true,
+    "longname": "src/core/layout/debug-button.js~DebugButton",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/debug-button.js",
+    "importStyle": "{DebugButton}",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Phaser~Phaser.Button"
+    ]
+  },
+  {
+    "__docId__": 34,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "member",
+    "name": "backdrops",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#backdrops",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"mobile\": *, \"desktop\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 36,
+    "kind": "member",
+    "name": "buttonSize",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#buttonSize",
+    "access": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "member",
+    "name": "texture",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#texture",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 40,
+    "kind": "method",
+    "name": "resize",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#resize",
+    "access": null,
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "params": [
+      {
+        "name": "metrics",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 43,
+    "kind": "method",
+    "name": "setEnabled",
+    "memberof": "src/core/layout/debug-button.js~DebugButton",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/debug-button.js~DebugButton#setEnabled",
+    "access": null,
+    "description": "Disables input and makes button semi-transparent",
+    "lineNumber": 64,
+    "params": [
+      {
+        "name": "bool",
+        "optional": true,
+        "types": [
+          "boolean"
+        ],
+        "defaultRaw": true,
+        "defaultValue": "true"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 44,
+    "kind": "file",
+    "name": "src/core/layout/factory.js",
+    "content": "import * as Scaler from \"../scaler.js\";\nimport { Layout } from \"./layout.js\";\n\nexport function create(game, gameWrapper) {\n    const root = game.add.group(undefined, \"gelGroup\", true);\n    const background = game.add.group(undefined, \"gelBackground\");\n    const foreground = game.add.group(undefined, \"foreground\");\n    const keyLookups = {};\n\n    //TODO stageHeight should come from config\n    const scaler = Scaler.create(600, game);\n\n    root.addChild(background);\n    root.addChild(foreground);\n\n    scaler.onScaleChange.add(scaleBackground);\n\n    return {\n        keyLookups,\n        addToBackground,\n        addToForeground,\n        addLayout,\n        removeAll,\n        addLookups,\n        getSize: scaler.getSize,\n    };\n\n    /**\n     * Create a new GEL layout manager for a given Genie {@link Screen}\n     * Called in the create method of a given screen\n     *\n     * @example\n     * layoutFactory.create([\"home\", \"restart\", \"continue\", \"pause\"]);\n     *\n     * @param buttons - array of standard button names to include. See {@link ./gel-defaults.ts} for available names\n     * @returns {Layout}\n     */\n    function addLayout(buttons) {\n        const layout = new Layout(game, scaler, buttons);\n\n        addToBackground(layout.root);\n\n        return layout;\n    }\n\n    function addToBackground(object) {\n        if ((object).anchor) {\n            (object).anchor.setTo(0.5, 0.5);\n        }\n        return background.addChild(object);\n    }\n\n    function addToForeground(object) {\n        return foreground.addChild(object);\n    }\n\n    function scaleBackground(width, height, scale) {\n        background.scale.set(scale, scale);\n        background.position.set(width / 2, height / 2);\n    }\n\n    function removeAll() {\n        background.removeAll(true);\n        // buttons.removeAll();\n    }\n\n    function addLookups(moreLookups) {\n        Object.assign(keyLookups, moreLookups);\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/factory.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 45,
+    "kind": "function",
+    "name": "create",
+    "memberof": "src/core/layout/factory.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/factory.js~create",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/factory.js",
+    "importStyle": "{create}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "gameWrapper",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"keyLookups\": *, \"addToBackground\": *, \"addToForeground\": *, \"addLayout\": *, \"removeAll\": *, \"addLookups\": *, \"getSize\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 46,
+    "kind": "file",
+    "name": "src/core/layout/gel-button.js",
+    "content": "import fp from \"../../lib/lodash/fp/fp.js\";\nimport * as signal from \"../signal-bus.js\";\n\nexport class GelButton extends Phaser.Button {\n    constructor(game, x, y, isMobile, key) {\n        super(game, 0, 0, assetPath({ key, isMobile }), publish(key));\n        this._id = key;\n        this.animations.sprite.anchor.setTo(0.5, 0.5);\n    }\n\n    resize(metrics) {\n        this.animations.sprite.loadTexture(assetPath({ key: this._id, isMobile: metrics.isMobile }));\n    }\n}\n\nconst paths = [\n    [x => x.isMobile, x => \"gel/mobile/\" + x.key + \".png\"],\n    [x => !x.isMobile, x => \"gel/desktop/\" + x.key + \".png\"],\n];\n\nconst signalId = key => \"GEL-\" + key;\nconst assetPath = fp.cond(paths);\nconst publish = key => () => signal.bus.publish({ name: signalId(key) });\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/gel-button.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 47,
+    "kind": "class",
+    "name": "GelButton",
+    "memberof": "src/core/layout/gel-button.js",
+    "static": true,
+    "longname": "src/core/layout/gel-button.js~GelButton",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/gel-button.js",
+    "importStyle": "{GelButton}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Phaser~Phaser.Button"
+    ]
+  },
+  {
+    "__docId__": 48,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/core/layout/gel-button.js~GelButton",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/gel-button.js~GelButton#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true
+  },
+  {
+    "__docId__": 49,
+    "kind": "member",
+    "name": "_id",
+    "memberof": "src/core/layout/gel-button.js~GelButton",
+    "static": false,
+    "longname": "src/core/layout/gel-button.js~GelButton#_id",
+    "access": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "name": "resize",
+    "memberof": "src/core/layout/gel-button.js~GelButton",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/gel-button.js~GelButton#resize",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [
+      {
+        "name": "metrics",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 51,
+    "kind": "variable",
+    "name": "paths",
+    "memberof": "src/core/layout/gel-button.js",
+    "static": true,
+    "longname": "src/core/layout/gel-button.js~paths",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/gel-button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "function",
+    "name": "signalId",
+    "memberof": "src/core/layout/gel-button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/gel-button.js~signalId",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/gel-button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 53,
+    "kind": "variable",
+    "name": "assetPath",
+    "memberof": "src/core/layout/gel-button.js",
+    "static": true,
+    "longname": "src/core/layout/gel-button.js~assetPath",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/gel-button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "function",
+    "name": "publish",
+    "memberof": "src/core/layout/gel-button.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/gel-button.js~publish",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/gel-button.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [
+      {
+        "name": "key",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 55,
+    "kind": "file",
+    "name": "src/core/layout/gel-defaults.js",
+    "content": "const config = {\n    exit: {\n        group: \"topLeft\",\n        title: \"Exit\",\n        key: \"exit\",\n        ariaLabel: \"Exit Game\",\n    },\n    home: {\n        group: \"topLeft\",\n        title: \"Home\",\n        key: \"home\",\n        ariaLabel: \"Home\",\n    },\n    achievements: {\n        group: \"bottomLeft\",\n        title: \"Achievements\",\n        key: \"achievements\",\n        ariaLabel: \"Your Achievements\",\n    },\n    howToPlay: {\n        group: \"bottomRight\",\n        title: \"How To Play\",\n        key: \"how-to-play\",\n        ariaLabel: \"Game Instructions\",\n    },\n    play: {\n        group: \"middleCenterV\",\n        title: \"Play\",\n        key: \"play\",\n        ariaLabel: \"Play Game\",\n    },\n    settings: {\n        group: \"topRight\",\n        title: \"Settings\",\n        key: \"settings\",\n        ariaLabel: \"Game Settings\",\n    },\n    audioOff: {\n        group: \"topRight\",\n        title: \"Sound Off\",\n        key: \"audio-off\",\n        ariaLabel: \"Disable Sound\",\n    },\n    audioOn: {\n        group: \"topRight\",\n        title: \"Sound On\",\n        key: \"audioOn\",\n        ariaLabel: \"Enable Sound\",\n    },\n    previous: {\n        group: \"middleLeft\",\n        title: \"Previous\",\n        key: \"previous\",\n        ariaLabel: \"Previous Item\",\n    },\n    next: {\n        group: \"middleRight\",\n        title: \"Next\",\n        key: \"next\",\n        ariaLabel: \"Next Item\",\n    },\n    continue: {\n        group: \"bottomCenter\",\n        title: \"Continue\",\n        key: \"continue\",\n        ariaLabel: \"Continue Game\",\n    },\n    restart: {\n        group: \"bottomCenter\",\n        title: \"Restart\",\n        key: \"restart\",\n        ariaLabel: \"Restart Game\",\n    },\n    back: {\n        group: \"topLeft\",\n        title: \"Back\",\n        key: \"back\",\n        ariaLabel: \"Back\",\n    },\n    pause: {\n        group: \"topRight\",\n        title: \"Pause\",\n        key: \"pause\",\n        ariaLabel: \"Pause Game\",\n    },\n};\n\nexport default config;\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/gel-defaults.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 56,
+    "kind": "variable",
+    "name": "config",
+    "memberof": "src/core/layout/gel-defaults.js",
+    "static": true,
+    "longname": "src/core/layout/gel-defaults.js~config",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/gel-defaults.js",
+    "importStyle": "config",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"exit\": *, \"home\": *, \"achievements\": *, \"howToPlay\": *, \"play\": *, \"settings\": *, \"audioOff\": *, \"audioOn\": *, \"previous\": *, \"next\": *, \"continue\": *, \"restart\": *, \"back\": *, \"pause\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "file",
+    "name": "src/core/layout/group-layouts.js",
+    "content": "export const groupLayouts = [\n    { vPos: \"top\", hPos: \"left\" },\n    { vPos: \"top\", hPos: \"right\" },\n    { vPos: \"bottom\", hPos: \"left\" },\n    { vPos: \"bottom\", hPos: \"right\" },\n    { vPos: \"middle\", hPos: \"left\" },\n    { vPos: \"middle\", hPos: \"right\" },\n    { vPos: \"bottom\", hPos: \"center\" },\n    { vPos: \"middle\", hPos: \"center\" },\n    { vPos: \"middle\", hPos: \"center\", arrangeV: true },\n];\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/group-layouts.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 58,
+    "kind": "variable",
+    "name": "groupLayouts",
+    "memberof": "src/core/layout/group-layouts.js",
+    "static": true,
+    "longname": "src/core/layout/group-layouts.js~groupLayouts",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/group-layouts.js",
+    "importStyle": "{groupLayouts}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "file",
+    "name": "src/core/layout/group.js",
+    "content": "import fp from \"../../lib/lodash/fp/fp.js\";\n\nimport * as ButtonFactory from \"./button-factory.js\";\n\nconst horizontal = {\n    left: (pos, width, pad) => pos + pad,\n    right: (pos, width, pad) => pos - width - pad,\n    center: (pos, width, pad) => pos - width / 2,\n};\n\nconst vertical = {\n    top: (pos, height, pad) => pos + pad,\n    middle: (pos, height, pad) => pos - height / 2,\n    bottom: (pos, height, pad) => pos - (height + pad),\n};\n\nconst getGroupPosition = sizes => ({\n    x: getGroupX(sizes),\n    y: getGroupY(sizes),\n});\n\nconst getGroupX = sizes => {\n    const horizontals = sizes.metrics[sizes.pos.v === \"middle\" ? \"safeHorizontals\" : \"horizontals\"];\n\n    return horizontal[sizes.pos.h](horizontals[sizes.pos.h], sizes.width, sizes.metrics.borderPad * sizes.scale);\n};\n\nconst getGroupY = sizes =>\n    vertical[sizes.pos.v](sizes.metrics.verticals[sizes.pos.v], sizes.height, sizes.metrics.borderPad * sizes.scale);\n\nexport class Group extends Phaser.Group {\n    constructor(game, parent, vPos, hPos, metrics, isVertical) {\n        super(game, parent, fp.camelCase([vPos, hPos, isVertical ? \"v\" : \"\"].join(\" \")));\n\n        this._vPos = vPos;\n        this._hPos = hPos;\n        this._metrics = metrics;\n        this._isVertical = isVertical;\n        this._buttons = [];\n\n        this._buttonFactory = ButtonFactory.create(game);\n        this._setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);\n        this._setGroupPosition();\n    }\n\n    /**\n     * TODO add interface for config\n     */\n    addButton(config, position = this._buttons.length) {\n        const newButton = this._buttonFactory.createButton(this._metrics.isMobile, config.key);\n\n        this.addAt(newButton, position);\n        this._buttons.push(newButton);\n\n        this.alignChildren();\n        this._setGroupPosition();\n\n        return newButton;\n    }\n\n    addToGroup(item, position = 0) {\n        item.anchor.setTo(0.5, 0.5);\n        this.addAt(item, position);\n        this.alignChildren();\n        this._setGroupPosition();\n    }\n\n    reset(metrics) {\n        if (this._metrics.isMobile !== metrics.isMobile) {\n            this.resetButtons(metrics);\n            this.alignChildren();\n        }\n\n        this._metrics = metrics;\n        const invScale = 1 / metrics.scale;\n        this.scale.setTo(invScale, invScale);\n        this._setGroupPosition();\n    }\n\n    alignChildren() {\n        const pos = { x: 0, y: 0 };\n\n        const groupWidth = this.width; //Save here as size changes when you move children below\n        this.children.forEach(childDisplayObject => {\n            const child = childDisplayObject;\n            child.y = pos.y + child.height / 2;\n\n            if (this._isVertical) {\n                child.x = groupWidth / 2;\n                pos.y += child.height + this._metrics.buttonPad;\n            } else {\n                child.x = pos.x + child.width / 2;\n                pos.x += child.width + this._metrics.buttonPad;\n            }\n        }, this);\n    }\n\n    //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals\n    resetButtons(metrics) {\n        this._buttons.forEach(button => button.resize(metrics));\n    }\n\n    getSizes() {\n        return {\n            metrics: this._metrics,\n            pos: { h: this._hPos, v: this._vPos },\n            width: this.width,\n            height: this.height,\n            scale: this.scale.x,\n        };\n    }\n\n    setPos({ x, y }) {\n        this.x = x;\n        this.y = y;\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/group.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 60,
+    "kind": "variable",
+    "name": "horizontal",
+    "memberof": "src/core/layout/group.js",
+    "static": true,
+    "longname": "src/core/layout/group.js~horizontal",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"left\": *, \"right\": *, \"center\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "variable",
+    "name": "vertical",
+    "memberof": "src/core/layout/group.js",
+    "static": true,
+    "longname": "src/core/layout/group.js~vertical",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "type": {
+      "types": [
+        "{\"top\": *, \"middle\": *, \"bottom\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "function",
+    "name": "getGroupPosition",
+    "memberof": "src/core/layout/group.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/group.js~getGroupPosition",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sizes",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 63,
+    "kind": "function",
+    "name": "getGroupX",
+    "memberof": "src/core/layout/group.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/group.js~getGroupX",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sizes",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "function",
+    "name": "getGroupY",
+    "memberof": "src/core/layout/group.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/layout/group.js~getGroupY",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sizes",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 65,
+    "kind": "class",
+    "name": "Group",
+    "memberof": "src/core/layout/group.js",
+    "static": true,
+    "longname": "src/core/layout/group.js~Group",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/group.js",
+    "importStyle": "{Group}",
+    "description": null,
+    "lineNumber": 31,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Phaser~Phaser.Group"
+    ]
+  },
+  {
+    "__docId__": 66,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 32,
+    "undocument": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "member",
+    "name": "_vPos",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_vPos",
+    "access": null,
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "member",
+    "name": "_hPos",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_hPos",
+    "access": null,
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "member",
+    "name": "_metrics",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_metrics",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "member",
+    "name": "_isVertical",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_isVertical",
+    "access": null,
+    "description": null,
+    "lineNumber": 38,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "member",
+    "name": "_buttons",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_buttons",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*[]"
+      ]
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "member",
+    "name": "_buttonFactory",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_buttonFactory",
+    "access": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "member",
+    "name": "_setGroupPosition",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#_setGroupPosition",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "name": "addButton",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#addButton",
+    "access": null,
+    "description": "TODO add interface for config",
+    "lineNumber": 49,
+    "params": [
+      {
+        "name": "config",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "position",
+        "optional": true,
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "method",
+    "name": "addToGroup",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#addToGroup",
+    "access": null,
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "params": [
+      {
+        "name": "item",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "position",
+        "optional": true,
+        "types": [
+          "number"
+        ],
+        "defaultRaw": 0,
+        "defaultValue": "0"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "reset",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#reset",
+    "access": null,
+    "description": null,
+    "lineNumber": 68,
+    "undocument": true,
+    "params": [
+      {
+        "name": "metrics",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 78,
+    "kind": "method",
+    "name": "alignChildren",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#alignChildren",
+    "access": null,
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 79,
+    "kind": "method",
+    "name": "resetButtons",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#resetButtons",
+    "access": null,
+    "description": null,
+    "lineNumber": 99,
+    "undocument": true,
+    "params": [
+      {
+        "name": "metrics",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "getSizes",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#getSizes",
+    "access": null,
+    "description": null,
+    "lineNumber": 103,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "{\"metrics\": *, \"pos\": *, \"width\": *, \"height\": *, \"scale\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "setPos",
+    "memberof": "src/core/layout/group.js~Group",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#setPos",
+    "access": null,
+    "description": null,
+    "lineNumber": 113,
+    "undocument": true,
+    "params": [
+      {
+        "name": "objectPattern",
+        "types": [
+          "{\"x\": *, \"y\": *}"
+        ],
+        "defaultRaw": {
+          "x": null,
+          "y": null
+        },
+        "defaultValue": "{\"x\":null,\"y\":null}"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 82,
+    "kind": "member",
+    "name": "x",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#x",
+    "access": null,
+    "description": null,
+    "lineNumber": 114,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 83,
+    "kind": "member",
+    "name": "y",
+    "memberof": "src/core/layout/group.js~Group",
+    "static": false,
+    "longname": "src/core/layout/group.js~Group#y",
+    "access": null,
+    "description": null,
+    "lineNumber": 115,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "file",
+    "name": "src/core/layout/layout.js",
+    "content": "import * as _ from \"../../lib/lodash/lodash.js\";\n\nimport { calculateMetrics } from \"./calculate-metrics.js\";\nimport gel from \"./gel-defaults.js\";\nimport { Group } from \"./group.js\";\nimport { groupLayouts } from \"./group-layouts.js\";\n\nexport class Layout {\n\n    /**\n     * Creates a new layout. Called by engine.create for each screen component\n     *\n     * @param game - Phaser Game Instance\n     * @param {Scaler} scaler\n     * @param keyLookup\n     * @param buttons\n     */\n    constructor(\n        game,\n        scaler,\n        buttons,\n    ) {\n        this.root = new Phaser.Group(game, game.world, undefined);\n\n        const size = scaler.getSize();\n        this.resize(size.width, size.height, size.scale, size.stageHeightPx);\n\n        this._groups = _.zipObject(\n            groupLayouts.map(layout => _.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? \"v\" : \"\"].join(\" \"))),\n            groupLayouts.map(\n                layout =>\n                    new Group(\n                        game,\n                        this.root,\n                        layout.vPos,\n                        layout.hPos,\n                        this._metrics,\n                        !!layout.arrangeV,\n                    ),\n            ),\n        );\n        this.buttons = _.zipObject(\n            buttons,\n            buttons.map((name) => this._groups[gel[name].group].addButton(gel[name])),\n        );\n\n        scaler.onScaleChange.add(this.resize, this);\n    }\n\n    /**\n     * Attach a callback to the onInputUp event of a given Gel button\n     *\n     * @param button- gel button identifier\n     * @param callback - callback function to attach\n     */\n    setAction(button, callback) {\n        this.buttons[button].onInputUp.add(callback, this);\n    }\n\n    addToGroup(groupName, item, position) {\n\t    this._groups[groupName].addToGroup(item, position);\n    }\n\n    destroy() {this.root.destroy();}\n\n    resize(width, height, scale, stageHeight) {\n        this._metrics = calculateMetrics(width, height, scale, stageHeight);\n\n        if (this._groups) {\n            _.forOwn(this._groups, (group) => group.reset(this._metrics));\n        }\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/layout/layout.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 85,
+    "kind": "class",
+    "name": "Layout",
+    "memberof": "src/core/layout/layout.js",
+    "static": true,
+    "longname": "src/core/layout/layout.js~Layout",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/layout/layout.js",
+    "importStyle": "{Layout}",
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "interface": false
+  },
+  {
+    "__docId__": 86,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#constructor",
+    "access": null,
+    "description": "Creates a new layout. Called by engine.create for each screen component",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "game",
+        "description": "Phaser Game Instance"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Scaler"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "scaler",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "keyLookup",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "buttons",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 87,
+    "kind": "member",
+    "name": "root",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#root",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "member",
+    "name": "_groups",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#_groups",
+    "access": null,
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "member",
+    "name": "buttons",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#buttons",
+    "access": null,
+    "description": null,
+    "lineNumber": 42,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "setAction",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#setAction",
+    "access": null,
+    "description": "Attach a callback to the onInputUp event of a given Gel button",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "button-",
+        "description": "gel button identifier"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "callback function to attach"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 91,
+    "kind": "method",
+    "name": "addToGroup",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#addToGroup",
+    "access": null,
+    "description": null,
+    "lineNumber": 60,
+    "undocument": true,
+    "params": [
+      {
+        "name": "groupName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "item",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "position",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 92,
+    "kind": "method",
+    "name": "destroy",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#destroy",
+    "access": null,
+    "description": null,
+    "lineNumber": 64,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 93,
+    "kind": "method",
+    "name": "resize",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#resize",
+    "access": null,
+    "description": null,
+    "lineNumber": 66,
+    "undocument": true,
+    "params": [
+      {
+        "name": "width",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "height",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "scale",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "stageHeight",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 94,
+    "kind": "member",
+    "name": "_metrics",
+    "memberof": "src/core/layout/layout.js~Layout",
+    "static": false,
+    "longname": "src/core/layout/layout.js~Layout#_metrics",
+    "access": null,
+    "description": null,
+    "lineNumber": 67,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "file",
+    "name": "src/core/scaler.js",
+    "content": "export const GEL_MIN_RATIO_WIDTH = 4;\nexport const GEL_MIN_RATIO_HEIGHT = 3;\nexport const GEL_SAFE_FRAME_RATIO = GEL_MIN_RATIO_WIDTH / GEL_MIN_RATIO_HEIGHT;\n\nimport fp from \"../lib/lodash/fp/fp.js\";\n\nconst getScale = fp.curry((scaleMethods, stageHeightPx, { width, height }) => {\n    const scale = scaleMethods[width / height >= GEL_SAFE_FRAME_RATIO ? \"wide\" : \"narrow\"](width, height);\n    return { width, height, scale, stageHeightPx };\n});\n\nconst getBounds = (game) => () => game.scale.getParentBounds();\n\nexport function create(stageHeightPx, game) {\n    // Will be immediately resized:\n    game.scale.setGameSize(2, 2);\n    game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;\n\n    const onScaleChange = new Phaser.Signal();\n\n    const scaleMethods = {\n        wide: (width, height) => height / stageHeightPx,\n        narrow: (width, height) => width / stageHeightPx / GEL_SAFE_FRAME_RATIO,\n    };\n\n    const getSize = fp.flow(getBounds(game), fp.pick([\"width\", \"height\"]), getScale(scaleMethods, stageHeightPx));\n\n    const setSize = ({ width, height, scale, stageHeightPx: stageHeight }) => {\n        game.scale.setGameSize(width, height);\n        onScaleChange.dispatch(width, height, scale, stageHeight);\n    };\n\n    const onSizeChange = fp.flow(getSize, setSize);\n\n    game.scale.onSizeChange.add(onSizeChange);\n\n    return {\n        onScaleChange,\n        getSize,\n    };\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/scaler.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 96,
+    "kind": "variable",
+    "name": "GEL_MIN_RATIO_WIDTH",
+    "memberof": "src/core/scaler.js",
+    "static": true,
+    "longname": "src/core/scaler.js~GEL_MIN_RATIO_WIDTH",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": "{GEL_MIN_RATIO_WIDTH}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "variable",
+    "name": "GEL_MIN_RATIO_HEIGHT",
+    "memberof": "src/core/scaler.js",
+    "static": true,
+    "longname": "src/core/scaler.js~GEL_MIN_RATIO_HEIGHT",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": "{GEL_MIN_RATIO_HEIGHT}",
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 98,
+    "kind": "variable",
+    "name": "GEL_SAFE_FRAME_RATIO",
+    "memberof": "src/core/scaler.js",
+    "static": true,
+    "longname": "src/core/scaler.js~GEL_SAFE_FRAME_RATIO",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": "{GEL_SAFE_FRAME_RATIO}",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "variable",
+    "name": "getScale",
+    "memberof": "src/core/scaler.js",
+    "static": true,
+    "longname": "src/core/scaler.js~getScale",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "function",
+    "name": "getBounds",
+    "memberof": "src/core/scaler.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/scaler.js~getBounds",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 101,
+    "kind": "function",
+    "name": "create",
+    "memberof": "src/core/scaler.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/scaler.js~create",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/scaler.js",
+    "importStyle": "{create}",
+    "description": null,
+    "lineNumber": 14,
+    "undocument": true,
+    "params": [
+      {
+        "name": "stageHeightPx",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"onScaleChange\": *, \"getSize\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 102,
+    "kind": "file",
+    "name": "src/core/screen.js",
+    "content": "import * as _ from \"../lib/lodash/lodash.js\";\n\nexport class Screen extends Phaser.State {\n    get context() {\n        return this._context;\n    }\n\n    set context(newContext) {\n        this._context = _.merge({}, this._context, newContext);\n    }\n\n    init(context, next, layoutFactory) {\n        this.layoutFactory = layoutFactory;\n        this._context = context;\n        this._next = next;\n    }\n\n    next(changedState) {\n        this._next(changedState);\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/screen.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 103,
+    "kind": "class",
+    "name": "Screen",
+    "memberof": "src/core/screen.js",
+    "static": true,
+    "longname": "src/core/screen.js~Screen",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/screen.js",
+    "importStyle": "{Screen}",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Phaser~Phaser.State"
+    ]
+  },
+  {
+    "__docId__": 104,
+    "kind": "get",
+    "name": "context",
+    "memberof": "src/core/screen.js~Screen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/screen.js~Screen#context",
+    "access": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 105,
+    "kind": "set",
+    "name": "context",
+    "memberof": "src/core/screen.js~Screen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/screen.js~Screen#context",
+    "access": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "member",
+    "name": "_context",
+    "memberof": "src/core/screen.js~Screen",
+    "static": false,
+    "longname": "src/core/screen.js~Screen#_context",
+    "access": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 107,
+    "kind": "method",
+    "name": "init",
+    "memberof": "src/core/screen.js~Screen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/screen.js~Screen#init",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [
+      {
+        "name": "context",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "next",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "layoutFactory",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 108,
+    "kind": "member",
+    "name": "layoutFactory",
+    "memberof": "src/core/screen.js~Screen",
+    "static": false,
+    "longname": "src/core/screen.js~Screen#layoutFactory",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "member",
+    "name": "_next",
+    "memberof": "src/core/screen.js~Screen",
+    "static": false,
+    "longname": "src/core/screen.js~Screen#_next",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "method",
+    "name": "next",
+    "memberof": "src/core/screen.js~Screen",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/screen.js~Screen#next",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [
+      {
+        "name": "changedState",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 112,
+    "kind": "file",
+    "name": "src/core/sequencer.js",
+    "content": "import * as _ from \"../lib/lodash/lodash.js\";\nimport * as LayoutFactory from \"./layout/factory.js\";\n\nexport function create(\n    game,\n    context,\n    transitions,\n    gameWrapper,\n)  {\n    let currentScreen = transitions[0];\n\n    const self = { getTransitions };\n    const layoutFactory = LayoutFactory.create(game, gameWrapper);\n\n    transitions.forEach(transition => game.state.add(transition.name, transition.state));\n\n    const screenLookup = _.fromPairs(_.map(transitions, (c) => [c.name, c]));\n    game.state.start(currentScreen.name, true, false, context, next, layoutFactory);\n\n    return self;\n\n    function next(changedState) {\n        //TODO: Use GMI to save persistent state to local storage, if it has been updated\n        const newState = _.merge({}, context.inState, changedState);\n        const nextScreenName = currentScreen.nextScreenName(newState);\n        context.inState = newState;\n        layoutFactory.removeAll();\n        game.state.start(nextScreenName, true, false, context, next, layoutFactory);\n\n        currentScreen = screenLookup[nextScreenName];\n    }\n\n    function getTransitions() {\n        return transitions;\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/sequencer.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 113,
+    "kind": "function",
+    "name": "create",
+    "memberof": "src/core/sequencer.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/sequencer.js~create",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/sequencer.js",
+    "importStyle": "{create}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [
+      {
+        "name": "game",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "context",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "transitions",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "gameWrapper",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "file",
+    "name": "src/core/signal-bus.js",
+    "content": "import fp from \"../lib/lodash/fp/fp.js\";\n\nexport const create = () => {\n    const _bus = {};\n\n    const addSignal = message => {\n        if (!_bus[message.name]) {\n            _bus[message.name] = new Phaser.Signal();\n        }\n        return message;\n    };\n\n    const remove = name => {\n        _bus[name].dispose();\n        delete _bus[name];\n    };\n\n    const addSubscription = message => _bus[message.name].add(message.callback);\n    const publishMessage = message => _bus[message.name].dispatch(message.data);\n\n    const subscribe = fp.flow(addSignal, addSubscription);\n    const publish = fp.flow(addSignal, publishMessage);\n\n    return { remove, subscribe, publish };\n};\n\n//Single instance\nexport const bus = create();\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/signal-bus.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 115,
+    "kind": "function",
+    "name": "create",
+    "memberof": "src/core/signal-bus.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/signal-bus.js~create",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/signal-bus.js",
+    "importStyle": "{create}",
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "{\"remove\": *, \"subscribe\": *, \"publish\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 116,
+    "kind": "variable",
+    "name": "bus",
+    "memberof": "src/core/signal-bus.js",
+    "static": true,
+    "longname": "src/core/signal-bus.js~bus",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/signal-bus.js",
+    "importStyle": "{bus}",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 117,
+    "kind": "file",
+    "name": "src/core/startup.js",
+    "content": "import * as _ from \"../lib/lodash/lodash.js\";\n\nimport * as Sequencer from \"../core/sequencer.js\";\nimport { parseUrlParams } from \"../lib/parseUrlParams.js\";\n\nexport function startup(transitions, initialAdditionalState) {\n    const gmi = window.getGMI({});\n    const urlParams = parseUrlParams(window.location.search);\n    const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };\n    hookErrors(gmi.gameContainerId);\n\n    const phaserConfig = {\n        width: 1400,\n        height: 600,\n        renderer: Phaser.AUTO,\n        antialias: true,\n        multiTexture: false,\n        parent: getContainerDiv(gmi),\n        state: new Startup(gmi, onStarted),\n    };\n    // Keep the console tidy:\n    window.PhaserGlobal = { hideBanner: true };\n\n    const game = new Phaser.Game(phaserConfig);\n\n    let resolvedPromise;\n\n    return new Promise(resolve => {\n        resolvedPromise = resolve;\n    });\n\n    function onStarted(config) {\n        // Phaser is now set up and we can use all game properties.\n        game.canvas.setAttribute(\"aria-hidden\", \"true\");\n        const context = {\n            gmi,\n            inState: _.merge({ transient: {}, persistent: {} }, initialAdditionalState),\n            popupScreens: [],\n            gameMuted: true,\n            qaMode,\n            sequencer: { getTransitions: () => [] },\n        };\n        context.sequencer = Sequencer.create(game, context, transitions, getContainerDiv(gmi));\n        game.stage.backgroundColor = \"#333\";\n        resolvedPromise(game);\n    }\n}\n\nclass Startup extends Phaser.State {\n    constructor(gmi, onStarted) {\n        super();\n        this._gmi = gmi;\n        this._onStarted = onStarted;\n    }\n\n    preload() {\n        const gmi = this._gmi;\n        this.game.load.baseURL = this._gmi.gameDir;\n\n        // All asset paths are relative to the location of the config.json:\n        const theme = gmi.embedVars.configPath;\n        const configDir = theme.split(/([^/]+$)/, 2)[0];\n        this.game.load.path = configDir;\n\n        //this.load.json(CONFIG_KEY, configFile); xxx\n    }\n\n    create() {\n        this._onStarted({} /* this.game.cache.getJSON(CONFIG_KEY) */);\n    }\n}\n\nfunction hookErrors(gameDivId) {\n    const containerDiv = document.getElementById(gameDivId) || document.body;\n    let messageElement;\n\n    window.addEventListener(\"error\", event => {\n        if (!messageElement) {\n            messageElement = containerDiv.appendChild(document.createElement(\"pre\"));\n            const padding = \"2em\";\n            const style = messageElement.style;\n            style.position = \"absolute\";\n            style.top = style.left = \"0\";\n            style.backgroundColor = \"black\";\n            style.color = \"white\";\n            style.padding = padding;\n            style.width = style.height = `calc(100% - 2 * ${padding})`;\n        }\n        messageElement.innerText = `Something isn't working:\\n\\n${event.error.message || event.error}\\n\\n${event.error\n            .stack || \"\"}`;\n    });\n}\n\nfunction getContainerDiv(gmi) {\n    const containerDiv = document.getElementById(gmi.gameContainerId);\n    if (!containerDiv) {\n        throw Error(`Container element \"#${gmi.gameContainerId}\" not found`);\n    } else {\n        return containerDiv;\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/core/startup.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 118,
+    "kind": "function",
+    "name": "startup",
+    "memberof": "src/core/startup.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/startup.js~startup",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/core/startup.js",
+    "importStyle": "{startup}",
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "params": [
+      {
+        "name": "transitions",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "initialAdditionalState",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 119,
+    "kind": "class",
+    "name": "Startup",
+    "memberof": "src/core/startup.js",
+    "static": true,
+    "longname": "src/core/startup.js~Startup",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/startup.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 49,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Phaser~Phaser.State"
+    ]
+  },
+  {
+    "__docId__": 120,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/core/startup.js~Startup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/startup.js~Startup#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 50,
+    "undocument": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "member",
+    "name": "_gmi",
+    "memberof": "src/core/startup.js~Startup",
+    "static": false,
+    "longname": "src/core/startup.js~Startup#_gmi",
+    "access": null,
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 122,
+    "kind": "member",
+    "name": "_onStarted",
+    "memberof": "src/core/startup.js~Startup",
+    "static": false,
+    "longname": "src/core/startup.js~Startup#_onStarted",
+    "access": null,
+    "description": null,
+    "lineNumber": 53,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 123,
+    "kind": "method",
+    "name": "preload",
+    "memberof": "src/core/startup.js~Startup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/startup.js~Startup#preload",
+    "access": null,
+    "description": null,
+    "lineNumber": 56,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 124,
+    "kind": "method",
+    "name": "create",
+    "memberof": "src/core/startup.js~Startup",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/core/startup.js~Startup#create",
+    "access": null,
+    "description": null,
+    "lineNumber": 68,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 125,
+    "kind": "function",
+    "name": "hookErrors",
+    "memberof": "src/core/startup.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/startup.js~hookErrors",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/startup.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 73,
+    "undocument": true,
+    "params": [
+      {
+        "name": "gameDivId",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 126,
+    "kind": "function",
+    "name": "getContainerDiv",
+    "memberof": "src/core/startup.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/core/startup.js~getContainerDiv",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/core/startup.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 94,
+    "undocument": true,
+    "params": [
+      {
+        "name": "gmi",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 127,
+    "kind": "file",
+    "name": "src/lib/accessibilify/accessibilify.js",
+    "content": "import debounce from \"../../lib/lodash/debounce.js\";\nimport { accessibleDomElement } from \"./accessible-dom-element.js\";\n\nexport function accessibilify(button, ariaLabel) {\n    const game = button.game;\n    const accessibleElement = newAccessibleElement();\n    const repositionElement = debounce(setElementPosition, 200);\n\n    assignEvents();\n    repositionElement();\n\n    return button;\n\n    function newAccessibleElement() {\n        return accessibleDomElement({\n            id: button.name,\n            ariaLabel: ariaLabel ? ariaLabel : button.name,\n            parent: game.canvas.parentElement,\n            onClick: buttonAction,\n        });\n    }\n\n    function setElementPosition() {\n        accessibleElement.position(button.getBounds());\n    }\n\n    function assignEvents() {\n        game.scale.onSizeChange.add(repositionElement);\n        game.state.onStateChange.addOnce(teardown);\n        button.update = checkBounds;\n    }\n\n    function teardown() {\n        accessibleElement.remove();\n        game.scale.onSizeChange.remove(repositionElement);\n    }\n\n    function checkBounds() {\n        if (isOutsideScreen() && accessibleElement.visible()) {\n            accessibleElement.hide();\n        } else if (!isOutsideScreen() && !accessibleElement.visible()) {\n            accessibleElement.show();\n        }\n    }\n\n    function isOutsideScreen() {\n        const pixiBounds = button.getBounds();\n        const buttonBounds = new Phaser.Rectangle(pixiBounds.x, pixiBounds.y, pixiBounds.width, pixiBounds.height);\n\n        return (\n            buttonBounds.top > game.height ||\n            buttonBounds.bottom < 0 ||\n            buttonBounds.left > game.width ||\n            buttonBounds.right < 0\n        );\n    }\n\n    function buttonAction() {\n        button.events.onInputUp.dispatch(button, game.input.activePointer, false);\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/lib/accessibilify/accessibilify.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 128,
+    "kind": "function",
+    "name": "accessibilify",
+    "memberof": "src/lib/accessibilify/accessibilify.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/accessibilify/accessibilify.js~accessibilify",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/lib/accessibilify/accessibilify.js",
+    "importStyle": "{accessibilify}",
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "params": [
+      {
+        "name": "button",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "ariaLabel",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 129,
+    "kind": "file",
+    "name": "src/lib/accessibilify/accessible-dom-element.js",
+    "content": "export function accessibleDomElement(options) {\n    const el = document.createElement(\"div\");\n\n    init();\n\n    return {\n        el,\n        hide,\n        show,\n        visible,\n        position,\n        remove,\n    };\n\n    function init() {\n        el.setAttribute(\"tabindex\", \"0\");\n        el.setAttribute(\"aria-label\", options.ariaLabel);\n        el.setAttribute(\"role\", \"button\");\n        el.style.position = \"absolute\";\n        el.style.cursor = \"pointer\";\n        el.addEventListener(\"keyup\", keyUp);\n        el.addEventListener(\"click\", options.onClick);\n        options.parent.appendChild(el);\n    }\n\n    function hide() {\n        el.setAttribute(\"tabindex\", \"-1\");\n        el.style.visibility = \"hidden\";\n    }\n\n    function show() {\n        el.setAttribute(\"tabindex\", \"0\");\n        el.style.visibility = \"visible\";\n    }\n\n    function visible() {\n        return el.style.visibility === \"visible\";\n    }\n\n    function position(positionOptions) {\n        el.style.left = positionOptions.x.toString() + \"px\";\n        el.style.top = positionOptions.y.toString() + \"px\";\n        el.style.width = positionOptions.width.toString() + \"px\";\n        el.style.height = positionOptions.height.toString() + \"px\";\n    }\n\n    function keyUp(event) {\n        const enterKey = event.key === \"Enter\";\n        const spaceKey = event.key === \" \";\n\n        if (enterKey || spaceKey) {\n            options.onClick();\n        }\n    }\n\n    function remove() {\n        el.remove();\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/lib/accessibilify/accessible-dom-element.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 130,
+    "kind": "function",
+    "name": "accessibleDomElement",
+    "memberof": "src/lib/accessibilify/accessible-dom-element.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/accessibilify/accessible-dom-element.js~accessibleDomElement",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/lib/accessibilify/accessible-dom-element.js",
+    "importStyle": "{accessibleDomElement}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "params": [
+      {
+        "name": "options",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "{\"el\": *, \"hide\": *, \"show\": *, \"visible\": *, \"position\": *, \"remove\": *}"
+      ]
+    }
+  },
+  {
+    "__docId__": 131,
+    "kind": "file",
+    "name": "src/lib/parseUrlParams.js",
+    "content": "export function parseUrlParams(paramsString) {\n    if (!valid()) {\n        return {};\n    }\n\n    const keyValues = paramsString.slice(paramsString.indexOf(\"?\") + 1).split(\"&\");\n    return keyValues.reduce((params, hash) => {\n        const [key, val] = hash.split(\"=\");\n        return Object.assign(params, { [key]: parseBooleans(val) });\n    }, {});\n\n    function parseBooleans(val) {\n        const decodedComponent = decodeURIComponent(val);\n\n        if (decodedComponent === \"true\") {\n            return true;\n        } else if (decodedComponent === \"false\") {\n            return false;\n        } else {\n            return decodedComponent;\n        }\n    }\n\n    function valid() {\n        const hasQuestionMark = paramsString.indexOf(\"?\") >= 0;\n        const hasEqualsSymbol = paramsString.indexOf(\"=\") >= 0;\n\n        return hasQuestionMark && hasEqualsSymbol;\n    }\n}\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/lib/parseUrlParams.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 132,
+    "kind": "function",
+    "name": "parseUrlParams",
+    "memberof": "src/lib/parseUrlParams.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/lib/parseUrlParams.js~parseUrlParams",
+    "access": null,
+    "export": true,
+    "importPath": "genie/src/lib/parseUrlParams.js",
+    "importStyle": "{parseUrlParams}",
+    "description": null,
+    "lineNumber": 1,
+    "undocument": true,
+    "params": [
+      {
+        "name": "paramsString",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 133,
+    "kind": "file",
+    "name": "src/main.js",
+    "content": "//import \"babel-polyfill\";\n\nimport { Home } from \"./components/home.js\";\nimport { Loadscreen } from \"./components/loadscreen.js\";\nimport { GameTest } from \"./components/test-harness/test-screens/game.js\";\nimport { ResultsTest } from \"./components/test-harness/test-screens/results.js\";\nimport { startup } from \"./core/startup.js\";\n\nconst transitions = [\n    {\n        name: \"loadscreen\",\n        state: new Loadscreen(),\n        nextScreenName: () => \"home\",\n    },\n    {\n        name: \"home\",\n        state: new Home(),\n        nextScreenName: () => \"game\",\n    },\n    {\n        name: \"game\",\n        state: new GameTest(),\n        nextScreenName: () => \"results\",\n    },\n    {\n        name: \"results\",\n        state: new ResultsTest(),\n        nextScreenName: () => \"home\",\n    },\n];\n\nstartup(transitions);\n",
+    "static": true,
+    "longname": "/Users/kenyol04/childrens-games-genie/src/main.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 134,
+    "kind": "variable",
+    "name": "transitions",
+    "memberof": "src/main.js",
+    "static": true,
+    "longname": "src/main.js~transitions",
+    "access": null,
+    "export": false,
+    "importPath": "genie/src/main.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "undefined[]"
+      ]
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# Children's BBC - Genie\n\nA modular framework to simplify the construction of children's games. \n\n## To build:\n\n`npm run build` runs `webpack --config build-scripts/webpack.config.js`\n\n`npm run build-watch` runs the compiler and creates a bundle. This means you can view index.html in a browser without having to run a webserver.\n\n## To view:\n\n`npm start` then navigate to http://localhost:8080/\n\nAlternatively load http://localhost:8080/index.html as a file URL (requires `--allow-file-access-from-files` in Chrome.)\n\n## To test:\n\n`npm test` will run tests using karma. \n\n`npm run test-watch` will run tests using karma in watch mode.  \n\n`npm run test:coverage` and `npm run test-watch:coverage` will calculate test coverage. This runs more **slowly** than running the tests normally.\n\n## Auto documentation:\n\n`npm run docs` opens the documentation.\n\n`npm run autodocs` generates documentation using [ESDoc](https://esdoc.org/) and outputs to `docs/api/index.html`.\n\n## QA Mode:\n\nTo access QA mode, add the `qaMode=true` query string to the URL: http://localhost:8080/?qaMode=true\n\nThis will output game loading progress and asset keylookups to the console. Pressing \"q\" will show the layout overlay, to show the game bounds.\n\n## Documentation:\n* [Genie Core Doucmentation][1]\n* [Coding Guidelines][2]\n\n[1]: docs/core.md\n[2]: docs/coding-guidelines.md\n",
+    "longname": "/Users/kenyol04/childrens-games-genie/README.md",
+    "name": "./README.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n    \"name\": \"genie\",\n    \"version\": \"0.0.1\",\n    \"description\": \"Genie Modular Game Engine\",\n    \"license\": \"UNLICENSED\",\n    \"private\": true,\n    \"author\": \"BBC\",\n    \"repository\": {\n        \"type\": \"git\",\n        \"url\": \"https://github.com/bbc/childrens-games-genie\"\n    },\n    \"dependencies\": {\n        \"babel-polyfill\": \"^6.26.0\",\n        \"lodash\": \"^4.17.4\",\n        \"phaser-ce\": \"^2.10\",\n        \"script-loader\": \"^0.7.2\"\n    },\n    \"devDependencies\": {\n        \"babel-core\": \"^6.26.0\",\n        \"babel-loader\": \"^7.1.2\",\n        \"babel-preset-env\": \"^1.6.1\",\n        \"chai\": \"^4.1.2\",\n        \"cross-env\": \"^5.1.3\",\n        \"esdoc\": \"1.0.4\",\n        \"esdoc-standard-plugin\": \"1.0.0\",\n        \"happypack\": \"^4.0.1\",\n        \"http-server\": \"^0.11.1\",\n        \"istanbul-instrumenter-loader\": \"^3.0.0\",\n        \"karma\": \"^2.0.0\",\n        \"karma-chai\": \"^0.1.0\",\n        \"karma-chrome-launcher\": \"^2.2.0\",\n        \"karma-coverage\": \"^1.1.1\",\n        \"karma-mocha\": \"^1.3.0\",\n        \"karma-mocha-reporter\": \"^2.2.5\",\n        \"karma-remap-coverage\": \"^0.1.5\",\n        \"karma-sinon\": \"^1.0.5\",\n        \"karma-sourcemap-loader\": \"^0.3.7\",\n        \"karma-webpack\": \"^2.0.9\",\n        \"mocha\": \"^4.1.0\",\n        \"npm\": \"^5.7.1\",\n        \"requirejs\": \"^2.3.5\",\n        \"sinon\": \"^4.1.5\",\n        \"webpack\": \"^3.11.0\"\n    },\n    \"scripts\": {\n        \"start\": \"http-server -c-1\",\n        \"build\": \"webpack --config build-scripts/webpack.config.js\",\n        \"build-watch\": \"webpack --config build-scripts/webpack.config.js --watch\",\n        \"test\": \"karma start test/karma.conf.js\",\n        \"test:coverage\": \"NODE_OPTIONS=--max_old_space_size=4096 karma start test/karma.conf.js --coverage\",\n        \"test-watch\": \"karma start test/karma.conf.js --no-single-run --auto-watch\",\n        \"test-watch:coverage\": \"NODE_OPTIONS=--max_old_space_size=4096 karma start test/karma.conf.js --no-single-run --auto-watch --coverage\",\n        \"docs\": \"open ./docs/api/index.html\",\n        \"autodocs\": \"./node_modules/.bin/esdoc\"\n    }\n}\n",
+    "longname": "/Users/kenyol04/childrens-games-genie/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

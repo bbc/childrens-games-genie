@@ -1,0 +1,8 @@
+{
+  "source": "./src",
+  "destination": "./docs/api",
+  "excludes": ["lib/lodash", "lib/phaser.js", "components/test-harness"],
+  "plugins": [
+      {"name": "esdoc-standard-plugin"}
+  ]
+}

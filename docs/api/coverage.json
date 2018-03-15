@@ -1,0 +1,233 @@
+{
+  "coverage": "7.4%",
+  "expectCount": 108,
+  "actualCount": 8,
+  "files": {
+    "src/components/home.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        10,
+        11,
+        14
+      ]
+    },
+    "src/components/loadscreen.js": {
+      "expectCount": 10,
+      "actualCount": 1,
+      "undocumentLines": [
+        6,
+        7,
+        9,
+        13,
+        18,
+        27,
+        37,
+        39,
+        47
+      ]
+    },
+    "src/core/asset-loader.js": {
+      "expectCount": 4,
+      "actualCount": 1,
+      "undocumentLines": [
+        109,
+        119,
+        133
+      ]
+    },
+    "src/core/layout/button-factory.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        10
+      ]
+    },
+    "src/core/layout/calculate-metrics.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        5
+      ]
+    },
+    "src/core/layout/debug-button.js": {
+      "expectCount": 9,
+      "actualCount": 2,
+      "undocumentLines": [
+        13,
+        20,
+        21,
+        25,
+        36,
+        38,
+        56
+      ]
+    },
+    "src/core/layout/factory.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/core/layout/gel-button.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        11,
+        16,
+        21,
+        22,
+        23
+      ]
+    },
+    "src/core/layout/gel-defaults.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/core/layout/group-layouts.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/core/layout/group.js": {
+      "expectCount": 23,
+      "actualCount": 1,
+      "undocumentLines": [
+        5,
+        11,
+        17,
+        22,
+        28,
+        31,
+        32,
+        35,
+        36,
+        37,
+        38,
+        39,
+        41,
+        42,
+        61,
+        68,
+        80,
+        99,
+        103,
+        113,
+        114,
+        115
+      ]
+    },
+    "src/core/layout/layout.js": {
+      "expectCount": 10,
+      "actualCount": 3,
+      "undocumentLines": [
+        19,
+        24,
+        30,
+        45,
+        49,
+        53,
+        54
+      ]
+    },
+    "src/core/scaler.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        7,
+        12,
+        14
+      ]
+    },
+    "src/core/screen.js": {
+      "expectCount": 8,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        8,
+        9,
+        12,
+        13,
+        15,
+        18
+      ]
+    },
+    "src/core/sequencer.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/core/signal-bus.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        28
+      ]
+    },
+    "src/core/startup.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        49,
+        50,
+        52,
+        53,
+        56,
+        68,
+        73,
+        94
+      ]
+    },
+    "src/lib/accessibilify/accessibilify.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/lib/accessibilify/accessible-dom-element.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/lib/parseUrlParams.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/main.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    }
+  }
+}

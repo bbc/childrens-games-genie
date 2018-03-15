@@ -1,4 +1,6 @@
-# GENIE
+# Children's BBC - Genie
+
+A modular framework to simplify the construction of children's games. 
 
 ## To build:
 
@@ -19,6 +21,12 @@ Alternatively load http://localhost:8080/index.html as a file URL (requires `--a
 `npm run test-watch` will run tests using karma in watch mode.  
 
 `npm run test:coverage` and `npm run test-watch:coverage` will calculate test coverage. This runs more **slowly** than running the tests normally.
+
+## Auto documentation:
+
+`npm run docs` opens the documentation.
+
+`npm run autodocs` generates documentation using [ESDoc](https://esdoc.org/) and outputs to `docs/api/index.html`.
 
 ## QA Mode:
 
