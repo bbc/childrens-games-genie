@@ -22,11 +22,11 @@ const getGroupPosition = sizes => ({
 const getGroupX = sizes => {
     const horizontals = sizes.metrics[sizes.pos.v === "middle" ? "safeHorizontals" : "horizontals"];
 
-    return horizontal[sizes.pos.h](horizontals[sizes.pos.h], sizes.width, sizes.metrics.borderPad * sizes.scale);
+    return horizontal[sizes.pos.h](sizes.width, sizes.metrics.borderPad * sizes.scale, horizontals[sizes.pos.h]);
 };
 
 const getGroupY = sizes =>
-    vertical[sizes.pos.v](sizes.metrics.verticals[sizes.pos.v], sizes.height, sizes.metrics.borderPad * sizes.scale);
+    vertical[sizes.pos.v](sizes.height, sizes.metrics.borderPad * sizes.scale, sizes.metrics.verticals[sizes.pos.v]);
 
 export class Group extends Phaser.Group {
     constructor(game, parent, vPos, hPos, metrics, isVertical) {
