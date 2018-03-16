@@ -22,7 +22,7 @@ export function create(game) {
         addLayout,
         removeAll,
         addLookups,
-        getSize: scaler.getSize
+        getSize: scaler.getSize,
     };
 
     /**
