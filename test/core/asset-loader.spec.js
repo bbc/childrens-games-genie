@@ -24,13 +24,12 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return runInPreload(game => {
-            loadAssets(game, gamePacks, loadscreenPack, updateCallback)
-                .then(() => {
-                    sinon.assert.calledOnce(updateCallback);
-                    sinon.assert.alwaysCalledWithExactly(updateCallback, 100);
-                });
-        });
+        return runInPreload(game =>
+            loadAssets(game, gamePacks, loadscreenPack, updateCallback).then(() => {
+                sinon.assert.calledOnce(updateCallback);
+                sinon.assert.alwaysCalledWithExactly(updateCallback, 100);
+            })
+        );
     });
 
     it("Should be called 4 times (at 25% intervals) when 4 files are to be loaded in gamePacks.", () => {
@@ -43,7 +42,7 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return runInPreload(game => {
+        return runInPreload(game =>
             loadAssets(game, gamePacks, loadscreenPack, updateCallback).then(() => {
                 sinon.assert.callOrder(
                     updateCallback.withArgs(25),
@@ -52,8 +51,8 @@ describe("Asset Loader", () => {
                     updateCallback.withArgs(100)
                 );
                 sinon.assert.callCount(updateCallback, 4);
-            });
-        });
+            })
+        );
     });
 
     it("Should resolve the returned Promise with keyLookups for each gamePack screen.", () => {
@@ -66,14 +65,14 @@ describe("Asset Loader", () => {
             key: "loadscreen",
             url: assetPacks.loadscreenPack,
         };
-        return runInPreload(game => {
+        return runInPreload(game =>
             loadAssets(game, gamePacks, loadscreenPack, updateCallback).then(screenMap => {
                 expect(screenMap).to.haveOwnProperty("screen1");
                 expect(screenMap).to.haveOwnProperty("screen2");
                 expect(screenMap).to.haveOwnProperty("screen");
                 expect(screenMap).to.not.haveOwnProperty("loadscreen");
-            });
-        });
+            })
+        );
     });
 
     it("Should correctly namespace assets by their URL and return it in keyLookups.", () => {

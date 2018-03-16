@@ -1,9 +1,12 @@
-import * as _ from "../../lib/lodash/lodash.js";
+import fp from "../../lib/lodash/fp/fp.js";
 
 import { calculateMetrics } from "./calculate-metrics.js";
 import gel from "./gel-defaults.js";
 import { Group } from "./group.js";
 import { groupLayouts } from "./group-layouts.js";
+
+const getOrder = fp.curry((object, name) => object[name].order);
+const tabSort = fp.sortBy(getOrder(gel));
 
 export class Layout {
     /**
@@ -11,24 +14,28 @@ export class Layout {
      *
      * @param game - Phaser Game Instance
      * @param scaler
-     * @param keyLookup
      * @param buttons
      */
     constructor(game, scaler, buttons) {
         this.root = new Phaser.Group(game, game.world, undefined);
 
         const size = scaler.getSize();
-        this.resize(size.width, size.height, size.scale, size.stageHeightPx);
+        this._metrics = calculateMetrics(size.width, size.height, size.scale, size.stageHeightPx);
 
-        this._groups = _.zipObject(
-            groupLayouts.map(layout => _.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
+        this._groups = fp.zipObject(
+            groupLayouts.map(layout => fp.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
             groupLayouts.map(
                 layout => new Group(game, this.root, layout.vPos, layout.hPos, this._metrics, !!layout.arrangeV),
             ),
         );
-        this.buttons = _.zipObject(buttons, buttons.map(name => this._groups[gel[name].group].addButton(gel[name])));
+
+        this.buttons = fp.zipObject(
+            tabSort(buttons),
+            tabSort(buttons).map(name => this._groups[gel[name].group].addButton(gel[name])),
+        );
 
         scaler.onScaleChange.add(this.resize, this);
+        this.resize();
     }
 
     /**
@@ -53,7 +60,7 @@ export class Layout {
         this._metrics = calculateMetrics(width, height, scale, stageHeight);
 
         if (this._groups) {
-            _.forOwn(this._groups, group => group.reset(this._metrics));
+            fp.forOwn(group => group.reset(this._metrics), this._groups);
         }
     }
 }
