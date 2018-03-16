@@ -2,29 +2,18 @@
 var webpackConfig = require("../build-scripts/webpack.config");
 const webpack = require("webpack");
 const HappyPack = require("happypack");
+const path = require("path");
 
-module.exports = {
-    module: {
-        rules: webpackConfig.module.rules.concat([
-            {
-                enforce: "post",
-                test: /\.tsx?$/,
-                include: /(src)/,
-                exclude: /(node_modules|resources\/js\/vendor)/,
-                loader: "happypack/loader?id=istanbul-instrumenter",
-            },
-        ]),
+webpackConfig.module.rules = webpackConfig.module.rules.concat([
+    {
+        test: /\.js$|\.jsx$/,
+        use: {
+            loader: 'istanbul-instrumenter-loader',
+            options: { esModules: true }
+        },
+        enforce: 'post',
+        include: path.resolve("./src/"),
+        exclude: path.resolve("./src/lib/")
     },
-    resolve: webpackConfig.resolve,
-    plugins: webpackConfig.plugins.concat([
-        new HappyPack({
-            id: "istanbul-instrumenter",
-            threads: 1,
-            loaders: [
-                {
-                    path: "istanbul-instrumenter-loader",
-                },
-            ],
-        }),
-    ]),
-};
+]);
+module.exports = webpackConfig;
