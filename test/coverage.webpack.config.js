@@ -1,6 +1,5 @@
 /*jshint esversion: 6 */
 var webpackConfig = require("../build-scripts/webpack.config");
-const webpack = require("webpack");
 const HappyPack = require("happypack");
 
 module.exports = {
