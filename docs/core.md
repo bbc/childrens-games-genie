@@ -7,9 +7,7 @@
 * [Asset Loader][1npm docs]
 * [Design Patterns Used](#design-patterns-used)
 
-## Startup
 
-This extends `Phaser.State` and creates a new `Phaser.Game`, as well as a new `Sequencer`. It also instantiates the `Context` object.
 
 ## Context
 
@@ -19,11 +17,7 @@ This object is passed through the game to provide information about the game's c
 
 The `Screen` class extends `Phaser.State`, providing the `Context` to objects that extend from it.
 
-## Sequencer
 
-The sequencer provides a way of showing the game screens in the order defined in `main.ts`. It is a singleton, created in `startup.ts` and added to `context.sequencer`. On creation, it adds the screens to the game state, and starts the first one. It also provides a `next()` function to start the next screen.
-
-State can also be passed from screen to screen. The state object has transient or persistent state set on it. Transient state is for storing information about the current game, and persistent state will save the data to local storage. This means that if a player has unlocked certain items in a game, they will be remembered for return visits.
 
 #### Phaser Buttons and Sequence
 
