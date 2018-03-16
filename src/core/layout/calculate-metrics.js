@@ -18,18 +18,18 @@ export const calculateMetrics = (width, height, scale, stageHeight) => {
         horizontals: {
             left: width / scale * -0.5,
             center: 0,
-            right: width / scale * 0.5
+            right: width / scale * 0.5,
         },
         safeHorizontals: {
             left: safeWidth * -0.5,
             center: 0,
-            right: safeWidth * 0.5
+            right: safeWidth * 0.5,
         },
         verticals: {
             top: stageHeight * -0.5,
             middle: 0,
-            bottom: stageHeight * 0.5
-        }
+            bottom: stageHeight * 0.5,
+        },
     };
 
     return metrics;
