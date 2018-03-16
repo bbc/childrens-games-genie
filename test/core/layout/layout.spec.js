@@ -151,6 +151,7 @@ describe("Layout", () => {
         const groupResetStub = sandbox.stub(Group.prototype, "reset");
 
         assert(resizeFuncSpy.calledOnce);
+        new Layout(mockGame, mockScaler, []);
         assert(groupResetStub.callCount === 9);
     });
 });
