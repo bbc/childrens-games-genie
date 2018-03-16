@@ -40,5 +40,5 @@ This will output game loading progress and asset keylookups to the console. Pres
 
 ## Documentation:
 
-*   [Genie Core Documentation](https://github.com/bbc/childrens-games-genie/blob/master/docs/core.md)
+*   [Notes on Genie Core](https://github.com/bbc/childrens-games-genie/blob/master/docs/notes-on-genie-core.md)
 *   [Coding Guidelines](https://github.com/bbc/childrens-games-genie/blob/master/docs/coding-guidelines.md)

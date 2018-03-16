@@ -1,22 +1,13 @@
-# Core Documentation
+# Notes on Genie Core
 
-* [Startup](#startup)
 * [Context](#context)
-* [Screen](#screen)
-* [Sequencer](#sequencer)
-* [Asset Loader][1npm docs]
+* [Phaser Buttons and Sequence](#phaser-buttons-and-sequence)
 * [Design Patterns Used](#design-patterns-used)
-
 
 
 ## Context
 
 This object is passed through the game to provide information about the game's config. It has the GMI (Game Messaging Interface), game state and the sequencer instance on it, and it sets various other properties of the game (e.g. `gameMuted` and `qaMode`).
-
-## Screen
-
-The `Screen` class extends `Phaser.State`, providing the `Context` to objects that extend from it.
-
 
 
 #### Phaser Buttons and Sequence
