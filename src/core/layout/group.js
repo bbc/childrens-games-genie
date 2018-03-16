@@ -3,15 +3,15 @@ import fp from "../../lib/lodash/fp/fp.js";
 import * as ButtonFactory from "./button-factory.js";
 
 const horizontal = {
-    left: (pos, width, pad) => pos + pad,
-    right: (pos, width, pad) => pos - width - pad,
-    center: (pos, width, pad) => pos - width / 2,
+    left: (width, pad, pos) => pos + pad,
+    right: (width, pad, pos) => pos - width - pad,
+    center: (width, pad, pos) => pos - width / 2,
 };
 
 const vertical = {
-    top: (pos, height, pad) => pos + pad,
-    middle: (pos, height, pad) => pos - height / 2,
-    bottom: (pos, height, pad) => pos - (height + pad),
+    top: (height, pad, pos) => pos + pad,
+    middle: (height, pad, pos) => pos - height / 2,
+    bottom: (height, pad, pos) => pos - (height + pad),
 };
 
 const getGroupPosition = sizes => ({
