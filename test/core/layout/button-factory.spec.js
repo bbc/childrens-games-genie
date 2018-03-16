@@ -36,7 +36,7 @@ describe("Layout - Button Factory", () => {
         const expectedKey = "buttonKey";
 
         beforeEach(() => {
-            button = buttonFactory.createButton(expectedIsMobile, expectedKey);
+            buttonFactory.createButton(expectedIsMobile, expectedKey);
         });
 
         it("creates a GEL button", () => {
