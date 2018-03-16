@@ -36,39 +36,39 @@ describe("#accessibilify", () => {
             name: "play",
             game: {
                 input: {
-                    activePointer: {}
+                    activePointer: {},
                 },
                 canvas: {
-                    parentElement
+                    parentElement,
                 },
                 height: gameHeight,
                 width: gameWidth,
                 scale: {
                     onSizeChange: {
                         // add: debouncedCallback => {},
-                    }
+                    },
                 },
                 state: {
                     onStateChange: {
                         // addOnce: teardown => {},
-                    }
+                    },
                 },
-                update: {}
+                update: {},
             },
             getBounds: () => {
                 return {
                     x: buttonBoundsX,
                     y: buttonBoundsY,
                     width: buttonBoundsWidth,
-                    height: buttonBoundsHeight
+                    height: buttonBoundsHeight,
                 };
-            }
+            },
         };
         accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({
             position: () => {},
             visible: () => accessibleDomElementVisible,
             hide: accessibleDomElementHide,
-            show: accessibleDomElementShow
+            show: accessibleDomElementShow,
         });
     });
 
@@ -85,8 +85,8 @@ describe("#accessibilify", () => {
                     id: mockButton.name,
                     ariaLabel: mockButton.name,
                     parent: mockButton.game.canvas.parentElement,
-                    onClick: sinon.match.func
-                })
+                    onClick: sinon.match.func,
+                }),
             );
         });
 
@@ -99,8 +99,8 @@ describe("#accessibilify", () => {
                         id: mockButton.name,
                         ariaLabel: "Play Button",
                         parent: mockButton.game.canvas.parentElement,
-                        onClick: sinon.match.func
-                    })
+                        onClick: sinon.match.func,
+                    }),
                 );
             });
         });
