@@ -24,7 +24,7 @@ module.exports = function(config) {
                 enforce: "post",
                 test: /\.jsx?$/,
                 include: path.resolve('src'),
-                exclude: path.resolve('lib/lodash'),
+                exclude: path.resolve('src/lib/lodash'),
                 loader: "istanbul-instrumenter-loader"
             }])} : webpackConfig.module,
 			resolve: webpackConfig.resolve,
