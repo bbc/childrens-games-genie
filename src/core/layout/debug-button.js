@@ -7,7 +7,7 @@ const gelStyle = {
     font: "ReithSans",
     fontSize: 20, //40,
     fill: "#FFFFFF",
-    fontWeight: "bold"
+    fontWeight: "bold",
 };
 
 const makeRect = (game, color1, width, height) =>
@@ -25,12 +25,12 @@ export class DebugButton extends Phaser.Button {
         this.backdrops = {
             mobile: {
                 up: makeRect(game, 0xf6931e, spec.width, 42),
-                over: makeRect(game, 0xffaa46, spec.width, 42)
+                over: makeRect(game, 0xffaa46, spec.width, 42),
             },
             desktop: {
                 up: makeRect(game, 0xf6931e, spec.width, 64),
-                over: makeRect(game, 0xffaa46, spec.width, 64)
-            }
+                over: makeRect(game, 0xffaa46, spec.width, 64),
+            },
         };
 
         this.buttonSize = isMobile ? "mobile" : "desktop";
