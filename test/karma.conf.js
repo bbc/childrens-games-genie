@@ -1,3 +1,5 @@
+var path = require('path');
+
 var checkCoverageFlag = process.argv.toString().includes("--coverage");
 var webpackConfig = require("../build-scripts/webpack.config.js");
 
@@ -7,13 +9,9 @@ module.exports = function(config) {
         frameworks: ["mocha", "chai", "sinon"],
         files: [
             'node_modules/phaser-ce/build/phaser.min.js',
-            { pattern: 'src/components/**/*.js', watched: false },
-            { pattern: 'src/core/**/*.js', watched: false },
             { pattern: 'test/**/*.spec.js', watched: false }
         ],
         preprocessors: {
-            'src/components/**/*.js': [ 'webpack', 'coverage' ],
-            'src/core/**/*.js': [ 'webpack', 'coverage' ],
             'test/**/*.spec.js': [ 'webpack' ]
         },
         client: {
@@ -22,7 +20,13 @@ module.exports = function(config) {
             },
         },
         webpack: {
-			module: webpackConfig.module,
+			module: checkCoverageFlag ? {rules: webpackConfig.module.rules.concat([{
+                enforce: "post",
+                test: /\.jsx?$/,
+                include: path.resolve('src'),
+                exclude: path.resolve('lib/lodash'),
+                loader: "istanbul-instrumenter-loader"
+            }])} : webpackConfig.module,
 			resolve: webpackConfig.resolve,
 			devtool: 'inline-source-map'
 		},
