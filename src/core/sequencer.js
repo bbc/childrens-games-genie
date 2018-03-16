@@ -1,12 +1,7 @@
 import * as _ from "../lib/lodash/lodash.js";
 import * as LayoutFactory from "./layout/factory.js";
 
-export function create(
-    game,
-    context,
-    transitions,
-    gameWrapper
-)  {
+export function create(game, context, transitions) {
     let currentScreen = transitions[0];
 
     const self = { getTransitions };
@@ -14,7 +9,7 @@ export function create(
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
-    const screenLookup = _.fromPairs(_.map(transitions, (c) => [c.name, c]));
+    const screenLookup = _.fromPairs(_.map(transitions, c => [c.name, c]));
     game.state.start(currentScreen.name, true, false, context, next, layoutFactory);
 
     return self;
