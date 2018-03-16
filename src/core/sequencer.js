@@ -10,7 +10,7 @@ export function create(
     let currentScreen = transitions[0];
 
     const self = { getTransitions };
-    const layoutFactory = LayoutFactory.create(game, gameWrapper);
+    const layoutFactory = LayoutFactory.create(game);
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
