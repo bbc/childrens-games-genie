@@ -22,6 +22,10 @@ Alternatively load http://localhost:8080/index.html as a file URL (requires `--a
 
 `npm run test:coverage` and `npm run test-watch:coverage` will calculate test coverage. This runs more **slowly** than running the tests normally.
 
+## Code linting:
+
+`npm run eslint` runs [ESLint](https://eslint.org/).
+
 ## Auto documentation:
 
 `npm run docs` opens the documentation.
@@ -36,5 +40,5 @@ This will output game loading progress and asset keylookups to the console. Pres
 
 ## Documentation:
 
-*   [Genie Core Doucmentation](https://github.com/bbc/childrens-games-genie/blob/master/docs/core.md)
+*   [Notes on Genie Core](https://github.com/bbc/childrens-games-genie/blob/master/docs/notes-on-genie-core.md)
 *   [Coding Guidelines](https://github.com/bbc/childrens-games-genie/blob/master/docs/coding-guidelines.md)

@@ -1,6 +1,24 @@
 import * as _ from "../lib/lodash/lodash.js";
 import * as LayoutFactory from "./layout/factory.js";
 
+/**
+ * The Sequencer provides a way of showing the game screens in the order defined in `main.ts`. 
+ * It is a singleton, created in `startup.ts` and added to `context.sequencer`. On creation, it adds 
+ * the screens to the game state, and starts the first one. It also provides a `next()` function to start 
+ * the next screen.
+ *
+ * State can also be passed from screen to screen. The state object has transient or persistent state 
+ * set on it. Transient state is for storing information about the current game, and persistent state will
+ * save the data to local storage. This means that if a player has unlocked certain items in a game, they 
+ * will be remembered for return visits.
+ *
+ * @param  game The instance of Phaser.Game.
+ * @param  context The context object.
+ * @param  transitions A JSON object with transitions, from the main.js file.
+ * @param  gameWrapper The game container <div> as set by the GMI.
+ * @return {object} Returns an object with the following methods: getTransitions().
+ */
+
 export function create(
     game,
     context,

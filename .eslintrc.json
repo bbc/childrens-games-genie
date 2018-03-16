@@ -5,12 +5,16 @@
         "sourceType": "module",
         "ecmaVersion": 2017
     },
+    "plugins": [
+        "no-only-tests"
+    ],
     "rules": {
         "indent": ["error", 4],
         "quotes": ["error","double"],
         "semi": ["error","always"],
         "no-undef":[0],
         "no-console":["warn"],
+        "no-only-tests/no-only-tests": [2],
         "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
         "comma-dangle": ["error", "always-multiline"]
     }
