@@ -21,6 +21,7 @@ export class Home extends Screen {
         signal.bus.subscribe({
             name: "GEL-play",
             callback: () => {
+                console.log("Play was pressed"); // eslint-disable-line no-console
             },
         });
     }
