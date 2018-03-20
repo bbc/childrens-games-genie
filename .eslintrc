@@ -1,22 +1,21 @@
 {
     "env": { "es6": true },
-    "extends": ["plugin:prettier/recommended"],
+    "extends": [
+        "plugin:prettier/recommended"
+    ],
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": 2017
     },
     "plugins": [
-        "no-only-tests",
-        "prettier"
+        "no-only-tests"
     ],
     "rules": {
-        "indent": ["error", 4],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
         "no-undef": [0],
         "no-console": ["warn"],
         "no-only-tests/no-only-tests": [2],
-        "comma-dangle": ["error", "always-multiline"],
-        "prettier/prettier": "error"
+        "comma-dangle": ["error", "always-multiline"]
     }
 }
