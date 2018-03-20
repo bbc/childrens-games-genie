@@ -1,12 +1,13 @@
 {
     "env": { "es6": true },
-    "extends": "eslint:recommended",
+    "extends": ["plugin:prettier/recommended"],
     "parserOptions": {
         "sourceType": "module",
         "ecmaVersion": 2017
     },
     "plugins": [
-        "no-only-tests"
+        "no-only-tests",
+        "prettier"
     ],
     "rules": {
         "indent": ["error", 4],
@@ -15,6 +16,7 @@
         "no-undef": [0],
         "no-console": ["warn"],
         "no-only-tests/no-only-tests": [2],
-        "comma-dangle": ["error", "always-multiline"]
+        "comma-dangle": ["error", "always-multiline"],
+        "prettier/prettier": "error"
     }
 }
