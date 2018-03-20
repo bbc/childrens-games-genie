@@ -19,16 +19,16 @@ module.exports = function(config) {
         webpack: {
             module: checkCoverageFlag
                 ? {
-                    rules: webpackConfig.module.rules.concat([
-                        {
-                            enforce: "post",
-                            test: /\.jsx?$/,
-                            include: path.resolve("src"),
-                            exclude: path.resolve("src/lib/lodash"),
-                            loader: "istanbul-instrumenter-loader",
-                        },
-                    ]),
-                }
+                      rules: webpackConfig.module.rules.concat([
+                          {
+                              enforce: "post",
+                              test: /\.jsx?$/,
+                              include: path.resolve("src"),
+                              exclude: path.resolve("src/lib/lodash"),
+                              loader: "istanbul-instrumenter-loader",
+                          },
+                      ]),
+                  }
                 : webpackConfig.module,
             resolve: webpackConfig.resolve,
             devtool: "inline-source-map",
