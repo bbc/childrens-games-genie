@@ -1,5 +1,18 @@
+/**
+ * Pants module.
+ * @module Signal Bus
+ * @see module:my/shirt
+ */
 import fp from "../lib/lodash/fp/fp.js";
 
+/**
+ * Creates a new signal bus.
+ * Use the exported const "bus" for a project global singleton
+ *
+ * @name Signal Bus
+ *
+ * @returns {{remove: (function(*)), subscribe: *, publish: *}}
+ */
 export const create = () => {
     const _bus = {};
 
