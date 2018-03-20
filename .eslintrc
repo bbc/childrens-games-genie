@@ -15,7 +15,6 @@
         "semi": ["error", "always"],
         "no-undef": [0],
         "no-console": ["warn"],
-        "no-only-tests/no-only-tests": [2],
-        "comma-dangle": ["error", "always-multiline"]
+        "no-only-tests/no-only-tests": [2]
     }
 }
