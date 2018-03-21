@@ -21,17 +21,12 @@ import * as _ from "../lib/lodash/lodash.js";
  * @param {updateCallback} updateCallback - A callback to return the load progress and keyLookups.
  * @returns {Promise} A Promise which resolves on load complete
  */
-export function loadAssets(
-    game,
-    gamePacks,
-    loadscreenPack,
-    updateCallback
-) {
+export function loadAssets(game, gamePacks, loadscreenPack, updateCallback) {
     let gameAssetPack;
     let missingScreenPack;
     let keyLookups;
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         const loadQueue = [
             () => {
                 loadAssetPackJSON(gamePacks);
@@ -106,11 +101,8 @@ export function loadAssets(
     function getMissingScreens() {
         const missingScreenList = {};
         // For loading based on screen ids we'll ignore the "default" state and anything starting with "__".
-        const missingScreens = _.filter(
-            _.keys(game.state.states),
-            k => k !== "default" && !_.startsWith(k, "__")
-        );
-        missingScreens.forEach((key) => {
+        const missingScreens = _.filter(_.keys(game.state.states), k => k !== "default" && !_.startsWith(k, "__"));
+        missingScreens.forEach(key => {
             if (!gameAssetPack.hasOwnProperty(key) && loadscreenPack.key !== key) {
                 missingScreenList[key] = { url: key + ".json" };
             }

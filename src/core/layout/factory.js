@@ -16,10 +16,9 @@ import { Layout } from "./layout.js";
 /**
  *
  * @param game
- * @param gameWrapper
  * @returns {{keyLookups: {}, addToBackground: addToBackground, addToForeground: addToForeground, addLayout: addLayout, removeAll: removeAll, addLookups: addLookups, getSize}}
  */
-export function create(game, gameWrapper) {
+export function create(game) {
     const root = game.add.group(undefined, "gelGroup", true);
     const background = game.add.group(undefined, "gelBackground");
     const foreground = game.add.group(undefined, "foreground");
@@ -62,8 +61,8 @@ export function create(game, gameWrapper) {
     }
 
     function addToBackground(object) {
-        if ((object).anchor) {
-            (object).anchor.setTo(0.5, 0.5);
+        if (object.anchor) {
+            object.anchor.setTo(0.5, 0.5);
         }
         return background.addChild(object);
     }

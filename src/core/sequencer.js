@@ -25,16 +25,15 @@ import * as LayoutFactory from "./layout/factory.js";
  * @param  game The instance of Phaser.Game.
  * @param  context The context object.
  * @param  transitions A JSON object with transitions, from the main.js file.
- * @param  gameWrapper The game container <div> as set by the GMI.
  * @returns {{getTransitions: function}}
  */
-export function create(game, context, transitions, gameWrapper) {
+export function create(game, context, transitions) {
     let currentScreen = transitions[0];
     const layoutFactory = LayoutFactory.create(game, gameWrapper);
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
-    const screenLookup = _.fromPairs(_.map(transitions, c => [c.name, c]));
+    const screenLookup = _.fromPairs(_.map(transitions, (c) => [c.name, c]));
     game.state.start(currentScreen.name, true, false, context, next, layoutFactory);
 
     function next(changedState) {
