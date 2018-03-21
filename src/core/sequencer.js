@@ -9,17 +9,11 @@
  * save the data to local storage. This means that if a player has unlocked certain items in a game, they
  * will be remembered for return visits.
  *
- * @module Sequencer
+ * @module core/sequencer
  */
 
 import * as _ from "../lib/lodash/lodash.js";
 import * as LayoutFactory from "./layout/factory.js";
-
-/**
- * @private
- * @typedef {Object} Sequencer
- * @property {Function} getTransitions
- */
 
 /**
  * @param  game The instance of Phaser.Game.

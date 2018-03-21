@@ -18,7 +18,7 @@ import fp from "../lib/lodash/fp/fp.js";
  * Creates a new signal bus.
  * Use the exported const "bus" for a project global singleton
  * @function
- * @returns {Object} - { {@link module:core/signal-bus.remove remove}, {@link module:core/signal-bus.subscribe subscribe}, {@link module:core/signal-bus.publish publish} }
+ * @returns {{remove: function, subscribe: function, publish: function}} - { {@link module:core/signal-bus.remove remove}, {@link module:core/signal-bus.subscribe subscribe}, {@link module:core/signal-bus.publish publish} }
  */
 export const create = () => {
     const _bus = {};
@@ -34,7 +34,7 @@ export const create = () => {
      * Remove a given signal identifier from the bus.
      *
      * @function
-     * @param {string} message - Signal identifier
+     * @param {string} name - Signal identifier
      * @memberof module:core/signal-bus
      */
     const remove = name => {
