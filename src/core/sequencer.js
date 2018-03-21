@@ -29,7 +29,7 @@ import * as LayoutFactory from "./layout/factory.js";
  */
 export function create(game, context, transitions) {
     let currentScreen = transitions[0];
-    const layoutFactory = LayoutFactory.create(game, gameWrapper);
+    const layoutFactory = LayoutFactory.create(game);
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
