@@ -15,9 +15,9 @@ For code autocompletion, [TernJS](http://ternjs.net/) may be used.
 
 ### Doc Comments
 
-Doc comments should be added where they will be helpful to explain the API. Docs are generated using [ESDoc](https://esdoc.org/) and will appear in the `docs/api` folder.
+Doc comments should be added where they will be helpful to explain the API. Docs are generated using [JSDoc](https://usejsdoc.org/) and will appear in the `docs/api` folder.
 
-#### ESDoc Example
+#### JSDoc Example
 
 ```JAVASCRIPT
 /**
