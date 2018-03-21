@@ -33,7 +33,7 @@ export function create(game, context, transitions) {
 
     transitions.forEach(transition => game.state.add(transition.name, transition.state));
 
-    const screenLookup = _.fromPairs(_.map(transitions, (c) => [c.name, c]));
+    const screenLookup = _.fromPairs(_.map(transitions, c => [c.name, c]));
     game.state.start(currentScreen.name, true, false, context, next, layoutFactory);
 
     function next(changedState) {
