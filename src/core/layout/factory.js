@@ -1,6 +1,24 @@
+/**
+ *
+ *
+ * @example
+ * import bus from "signal-bus.js";
+ * const myCallback = data => console.log(data);
+ * bus.subscribe('mySignalName', myCallBack)
+ *
+ * bus.publish('mySignalName', {some: 'data'})
+ *
+ * @module Layout Factory
+ */
 import * as Scaler from "../scaler.js";
 import { Layout } from "./layout.js";
 
+/**
+ *
+ * @param game
+ * @param gameWrapper
+ * @returns {{keyLookups: {}, addToBackground: addToBackground, addToForeground: addToForeground, addLayout: addLayout, removeAll: removeAll, addLookups: addLookups, getSize}}
+ */
 export function create(game, gameWrapper) {
     const root = game.add.group(undefined, "gelGroup", true);
     const background = game.add.group(undefined, "gelBackground");

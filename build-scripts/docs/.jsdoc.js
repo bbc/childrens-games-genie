@@ -3,7 +3,7 @@
 module.exports = {
     //plugins: ['plugins/markdown']
     "source": {
-        "include": ["./src", "./README.md", './package.json'],
+        "include": ["./src", "./README.md"],    // './package.json'],
         "exclude": ["./src/lib"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
@@ -14,12 +14,22 @@ module.exports = {
         //"template": "./node_modules/@freshes/jsdoc-template",
         //"template": "./node_modules/jaguarjs-jsdoc",
         //"template": "node_modules/minami",
+        //"template": "node_modules/jsdoc-baseline",
         "recurse": true,
-        "destination": "./docs/jsdoc",
+        "destination": "./docs/api",
     },
     "templates": {
         "default": {
-            "layoutFile": "./docs/template/layout.tmpl"
+            "layoutFile": "./build-scripts/docs/layout.tmpl",
+            "staticFiles": {
+            "include": ["./build-scripts/docs/static"]
+          }
         }
     }
 };
+
+
+
+
+
+

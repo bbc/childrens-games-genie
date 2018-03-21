@@ -1,8 +1,3 @@
-/**
- * Phaser button with text overlay
- *
- * example game.add.existing(new DebugButton( ...parameters))
- */
 const gelStyle = {
     font: "ReithSans",
     fontSize: 20, //40,
@@ -17,6 +12,19 @@ const makeRect = (game, color1, width, height) =>
         .endFill()
         .generateTexture();
 
+/**
+ * @class DebugButton
+ *
+ * Phaser button with built in gel defaults, configurable size, text overlay and automatic imagery generation
+ * Compatible with {@link module:accessibilify}
+ *
+ * @example
+ * game.add.existing(new DebugButton( ...parameters))
+ *
+ * @param {Phaser.Game} game
+ * @param {object} spec
+ * @param {Boolean} isMobile
+ */
 export class DebugButton extends Phaser.Button {
     constructor(game, spec, isMobile = false) {
         super(game);
@@ -53,13 +61,18 @@ export class DebugButton extends Phaser.Button {
         this.animations.sprite.addChild(text);
     }
 
-     resize(metrics) {
+    /**
+     * Resize when device width shifts across breakpoint value
+     * @param {Object} metrics - Viewport metrics
+     */
+    resize(metrics) {
         this.buttonSize = metrics.isMobile ? "mobile" : "desktop";
         this.texture = this.backdrops[this.buttonSize].up;
     }
 
     /**
      * Disables input and makes button semi-transparent
+     * @param {Boolean} bool
      */
     setEnabled(bool = true) {
         this.animations.sprite.inputEnabled = bool;
