@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-if [ "$1" != "major" ] && [ "$1" != "minor" ] && [ "$1" != "patch" ]
-  then
-    echo -e "\033[0;31mERROR: Please provide a version type of either patch, minor or major\033[0m"
-    exit
+if [ "$1" != "major" ] && [ "$1" != "minor" ] && [ "$1" != "patch" ] 
+then
+  echo -e "\033[0;31mERROR: Please provide a version type of either patch, minor or major\033[0m"
+  exit
 fi
 
-if [ -z "$2" ]
-  then
-    echo -e "\033[0;31mERROR: Please provide a version description\033[0m"
-    exit
+if [ -z "$2" ] 
+then
+  echo -e "\033[0;31mERROR: Please provide a version description\033[0m"
+  exit
 fi
 
-if [ `git branch --list new-package-version` ]
+if [ `git branch --list new-package-version` ] 
 then
   while true; do
     echo "The branch new-package-version already exists locally. Would you like to delete this branch?"
