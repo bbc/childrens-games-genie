@@ -30,7 +30,7 @@ Alternatively load http://localhost:8080/index.html as a file URL (requires `--a
 
 `npm run docs` opens the documentation.
 
-`npm run autodocs` generates documentation using [ESDoc](https://esdoc.org/) and outputs to `docs/api/index.html`.
+`npm run gendocs` generates documentation using [JSDoc](https://usejsdoc.org/) and outputs to `docs/api/index.html`.
 
 ## QA Mode:
 
