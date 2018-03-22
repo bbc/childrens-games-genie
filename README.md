@@ -28,7 +28,7 @@ This will output game loading progress and asset keylookups to the console. Pres
 
 ## To tag a new release on GitHub
 
-Run `./tag-release.sh $VERSION_BUMP_TYPE $RELEASE_NOTES` where `$VERSION_BUMP_TYPE` is either patch, minor or major and `$RELEASE_NOTES` are the release notes you want to be committed with ther version bump. For example, to create a new minor version of GENIE you might do something like:
+Run `./tag-release.sh $VERSION_BUMP_TYPE $RELEASE_NOTES` where `$VERSION_BUMP_TYPE` is either patch, minor or major and `$RELEASE_NOTES` are the release notes you want to be committed with the version bump. For example, to create a new minor version of GENIE you might do something like:
 
 ```
 ./tag-release.sh minor "Did some work on something, including:
@@ -37,7 +37,7 @@ Run `./tag-release.sh $VERSION_BUMP_TYPE $RELEASE_NOTES` where `$VERSION_BUMP_TY
 "
 ```
 
-Upon running this script successfully a new tag will be created for the latest commit on master and then pushed to GitHub along with a new branch called `new-package-version` which will contain the updated package.json and package-lock.json files along with the release notes. Open a PR for this branch and merge this branch as soon as it has finished building.
+After running this script successfully, the version number in `package.json` and `package-lock.json` will be incremented and new release notes will be added to `release-notes.md`. These files will then be committed to a new branch called `new-package-version` and this latest commit will then be tagged as a release. This new branch and tag will automatically be pushed to GitHub. Open a PR for this branch and merge this branch as soon as it has finished building. Ensure you delete the `new-package-version` once it has been merged.
 
 ## Documentation:
 * [Genie Core Doucmentation][1]
