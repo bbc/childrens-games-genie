@@ -42,8 +42,8 @@ npm version $VERSION_BUMP_TYPE -m "Bumped to v%s"
 
 # Create the release notes
 NEW_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
-printf "%s\n" "# GENIE v${NEW_PACKAGE_VERSION} Release Notes" $RELEASE_NOTES > ./release-notes.md
+printf "# GENIE v${NEW_PACKAGE_VERSION} Release Notes\n${$RELEASE_NOTES}" > ./release-notes.md
 git add ./release-notes.md
-git commit -m "Updated release notes for v"$NEW_PACKAGE_VERSION
+git commit -m "Updated release notes for v${NEW_PACKAGE_VERSION}"
 
 git push
