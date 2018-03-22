@@ -34,16 +34,16 @@ fi
 VERSION_BUMP_TYPE=$1
 RELEASE_NOTES=$2
 
-# Bump package.json version and git tag
 git checkout master
 git pull
 git checkout -b new-package-version
-npm version $VERSION_BUMP_TYPE -m "Bumped to v%s"
 
-# Create the release notes
+npm version $VERSION_BUMP_TYPE
+
 NEW_PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
 printf "# GENIE v${NEW_PACKAGE_VERSION} Release Notes\n${RELEASE_NOTES}" > ./release-notes.md
-git add ./release-notes.md
-git commit -m "Updated release notes for v${NEW_PACKAGE_VERSION}"
 
+git add ./release-notes.md ./package.json ./package-lock.json
+git commit -m "Bumped to v${NEW_PACKAGE_VERSION}"
+git tag "v${NEW_PACKAGE_VERSION}"
 git push
