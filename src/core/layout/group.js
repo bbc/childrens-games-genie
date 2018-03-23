@@ -47,13 +47,18 @@ export class Group extends Phaser.Group {
      * TODO add interface for config
      */
     addButton(config, position = this._buttons.length) {
-        const newButton = this._buttonFactory.createButton(this._metrics.isMobile, config.key);
+        const newButton = this._buttonFactory.createButton(
+            this._metrics.isMobile,
+            config.key,
+            this.getLocalBounds().halfWidth,
+            this.getLocalBounds().halfHeight,
+        );
 
         this.addAt(newButton, position);
         this._buttons.push(newButton);
 
-        // this.alignChildren();
-        // this._setGroupPosition();
+        this.alignChildren();
+        //this._setGroupPosition();
 
         return newButton;
     }
@@ -61,7 +66,7 @@ export class Group extends Phaser.Group {
     addToGroup(item, position = 0) {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
-        // this.alignChildren();
+        this.alignChildren();
         // this._setGroupPosition();
     }
 
