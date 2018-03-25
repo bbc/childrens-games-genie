@@ -1,7 +1,8 @@
-import { assert, expect } from "chai";
+import { assert } from "chai";
 import * as sinon from "sinon";
 
 import { Home } from "../../src/components/home";
+import * as layoutHarness from "../../src/components/test-harness/layout-harness.js";
 
 describe("Home Screen", () => {
     let homeScreen;
@@ -16,6 +17,8 @@ describe("Home Screen", () => {
     const sandbox = sinon.sandbox.create();
 
     beforeEach(() => {
+        sandbox.spy(layoutHarness, "createTestHarnessDisplay");
+
         addToBackgroundSpy = sandbox.spy();
         gameImageSpy = sandbox.spy();
         gameButtonSpy = sandbox.spy();
@@ -26,7 +29,7 @@ describe("Home Screen", () => {
                 button: gameButtonSpy,
             },
             state: {
-                current: "currentState",
+                current: "homeScreen",
             },
         };
 
@@ -34,15 +37,16 @@ describe("Home Screen", () => {
         homeScreen.layoutFactory = {
             addToBackground: addToBackgroundSpy,
             keyLookups: {
-                currentState: "gameState",
+                homeScreen: { keylookups: "keylookups" },
                 gelDesktop: "thisIsGel",
                 background: "backgroundImage",
                 title: "titleImage",
             },
         };
         homeScreen.game = mockGame;
-        homeScreen.preload();
         homeScreen.nextFunc = mockNext;
+
+        homeScreen.preload();
     });
 
     afterEach(() => {
@@ -51,7 +55,8 @@ describe("Home Screen", () => {
 
     describe("preload method", () => {
         it("adds current game state to the layout key lookups", () => {
-            expect(homeScreen.keyLookup).to.equal("gameState");
+            const expectedKeylookups = homeScreen.layoutFactory.keyLookups.homeScreen;
+            assert.deepEqual(homeScreen.keyLookup, expectedKeylookups);
         });
 
         it("adds a key lookup to the current screen", () => {
