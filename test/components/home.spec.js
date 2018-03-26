@@ -122,7 +122,8 @@ describe("Home Screen", () => {
         });
 
         it("adds a callback for the play button", () => {
-            //TODO
+            signalSpy.getCall(0).args[0].callback();
+            assert(homeScreen.next.callCount === 1, "next function should have been called once");
         });
     });
 });
