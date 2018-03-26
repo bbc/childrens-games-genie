@@ -16,7 +16,6 @@ describe("Select Screen", () => {
     let gameSpriteSpy;
     let addLayoutSpy;
 
-    const mockNext = () => "nextFunc";
     const sandbox = sinon.sandbox.create();
     const mockSprite = { visible: "" };
 
