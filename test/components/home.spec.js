@@ -80,8 +80,8 @@ describe("Home Screen", () => {
             const expectedImageCall = [0, 0, "backgroundImage"];
             assert.deepEqual(actualImageCall.args, expectedImageCall);
 
-            // const addToBackgroundCall = addToBackgroundSpy.getCall(0);
-            // assert.deepEqual(addToBackgroundCall.args, ["background"]);
+            const addToBackgroundCall = addToBackgroundSpy.getCall(0);
+            assert.deepEqual(addToBackgroundCall.args, ["background"]);
         });
 
         it("adds a title image", () => {
@@ -89,8 +89,8 @@ describe("Home Screen", () => {
             const expectedImageCall = [0, -150, "titleImage"];
             assert.deepEqual(actualImageCall.args, expectedImageCall);
 
-            // const addToBackgroundCall = addToBackgroundSpy.getCall(1);
-            // assert.deepEqual(addToBackgroundCall.args, ["title"]);
+            const addToBackgroundCall = addToBackgroundSpy.getCall(1);
+            assert.deepEqual(addToBackgroundCall.args, ["title"]);
         });
 
         it("adds GEL buttons to layout", () => {
