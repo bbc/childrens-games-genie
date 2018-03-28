@@ -17,7 +17,15 @@ describe("Select Screen", () => {
     let addLayoutSpy;
 
     const sandbox = sinon.sandbox.create();
-    const mockSprite = { visible: "" };
+    const dangerMouseSprite = { visible: "" };
+    const dangerMouseNameSprite = { visible: "" };
+    const barneySprite = { visible: "" };
+    const barneyNameSprite = { visible: "" };
+    const jamillahSprite = { visible: "" };
+    const jamillahNameSprite = { visible: "" };
+    const CENTER_X = 0;
+    const CHAR_Y_POSITION = -30;
+    const CHAR_TEXT_Y_POSITION = 170;
 
     beforeEach(() => {
         layoutHarnessSpy = sandbox.spy(layoutHarness, "createTestHarnessDisplay");
@@ -25,7 +33,13 @@ describe("Select Screen", () => {
         gameImageSpy = sandbox.stub().returns("sprite");
         gameImageSpy.onCall(0).returns("background");
         gameButtonSpy = sandbox.spy();
-        gameSpriteSpy = sandbox.stub().returns(mockSprite);
+        gameSpriteSpy = sandbox.stub();
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_Y_POSITION, "dangermouse").returns(dangerMouseSprite);
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_TEXT_Y_POSITION, "dangermouseName").returns(dangerMouseNameSprite);
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_Y_POSITION, "barney").returns(barneySprite);
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_TEXT_Y_POSITION, "barneyName").returns(barneyNameSprite);
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_Y_POSITION, "jamillah").returns(jamillahSprite);
+        gameSpriteSpy.withArgs(CENTER_X, CHAR_TEXT_Y_POSITION, "jamillahName").returns(jamillahNameSprite);
         addLayoutSpy = sandbox.spy();
 
         mockGame = {
@@ -120,19 +134,19 @@ describe("Select Screen", () => {
         });
 
         it("adds each sprite to the background", () => {
-            assert.deepEqual(addToBackgroundSpy.getCall(1).args, [mockSprite]);
-            assert.deepEqual(addToBackgroundSpy.getCall(2).args, [mockSprite]);
-            assert.deepEqual(addToBackgroundSpy.getCall(3).args, [mockSprite]);
-            assert.deepEqual(addToBackgroundSpy.getCall(4).args, [mockSprite]);
-            assert.deepEqual(addToBackgroundSpy.getCall(5).args, [mockSprite]);
-            assert.deepEqual(addToBackgroundSpy.getCall(6).args, [mockSprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(1).args, [dangerMouseSprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(2).args, [dangerMouseNameSprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(3).args, [barneySprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(4).args, [barneyNameSprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(5).args, [jamillahSprite]);
+            assert.deepEqual(addToBackgroundSpy.getCall(6).args, [jamillahNameSprite]);
         });
 
         it("adds the choices", () => {
             const expectedChoices = [
-                { main: mockSprite, name: mockSprite },
-                { main: mockSprite, name: mockSprite },
-                { main: mockSprite, name: mockSprite },
+                { main: dangerMouseSprite, name: dangerMouseNameSprite },
+                { main: barneySprite, name: barneyNameSprite },
+                { main: jamillahSprite, name: jamillahNameSprite },
             ];
             assert.deepEqual(selectScreen.choice, expectedChoices);
         });
@@ -182,46 +196,42 @@ describe("Select Screen", () => {
                 assert(selectScreen.currentIndex === 1, "previous button should move to the previous item");
             });
 
-            // it("hides all the choices except the current one", () => {
-            //     selectScreen.currentIndex = 3;
-            //     signalSpy.getCall(1).args[0].callback();
-            //     console.log(0, selectScreen.choice[0].main.visible);
-            //     console.log(1, selectScreen.choice[1].main.visible);
-            //     console.log(2, selectScreen.choice[2].main.visible);
-            //
-            //
-            //     assert(selectScreen.choice[0].main.visible === false, "choice should be hidden");
-            //     assert(selectScreen.choice[0].name.visible === false, "choice should be hidden");
-            //     assert(selectScreen.choice[1].main.visible === true, "choice should be showing");
-            //     assert(selectScreen.choice[1].name.visible === true, "choice should be showing");
-            //     assert(selectScreen.choice[2].main.visible === false, "choice should be hidden");
-            //     assert(selectScreen.choice[2].name.visible === false, "choice should be hidden");
-            // });
+            it("hides all the choices except the current one", () => {
+                selectScreen.currentIndex = 3;
+                signalSpy.getCall(1).args[0].callback();
+
+                assert(selectScreen.choice[0].main.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[0].name.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[1].main.visible === true, "choice should be showing");
+                assert(selectScreen.choice[1].name.visible === true, "choice should be showing");
+                assert(selectScreen.choice[2].main.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[2].name.visible === false, "choice should be hidden");
+            });
         });
 
-        // describe.only("next button", () => {
-        //     it("switches to the first item when the last item is showing", () => {
-        //         selectScreen.currentIndex = 3;
-        //         signalSpy.getCall(2).args[0].callback();
-        //         assert(selectScreen.currentIndex === 1, "next button should move to the first item");
-        //     });
-        //
-        //     it("switches to the next item when any other choice is showing", () => {
-        //         selectScreen.currentIndex = 2;
-        //         signalSpy.getCall(2).args[0].callback();
-        //         assert(selectScreen.currentIndex === 1, "next button should move to the next item");
-        //     });
-        //
-        //     it("hides all the choices except the current one", () => {
-        //         selectScreen.currentIndex = 1;
-        //         signalSpy.getCall(2).args[0].callback();
-        //         assert(selectScreen.choice[0].main.visible === false, "choice should be hidden");
-        //         assert(selectScreen.choice[0].name.visible === false, "choice should be hidden");
-        //         assert(selectScreen.choice[1].main.visible === true, "choice should be showing");
-        //         assert(selectScreen.choice[1].name.visible === true, "choice should be showing");
-        //         assert(selectScreen.choice[2].main.visible === false, "choice should be hidden");
-        //         assert(selectScreen.choice[2].name.visible === false, "choice should be hidden");
-        //     });
-        // });
+        describe("next button", () => {
+            it("switches to the first item when the last item is showing", () => {
+                selectScreen.currentIndex = 3;
+                signalSpy.getCall(2).args[0].callback();
+                assert(selectScreen.currentIndex === 1, "next button should move to the first item");
+            });
+
+            it("switches to the next item when any other choice is showing", () => {
+                selectScreen.currentIndex = 2;
+                signalSpy.getCall(2).args[0].callback();
+                assert(selectScreen.currentIndex === 3, "next button should move to the next item");
+            });
+
+            it("hides all the choices except the current one", () => {
+                selectScreen.currentIndex = 1;
+                signalSpy.getCall(2).args[0].callback();
+                assert(selectScreen.choice[0].main.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[0].name.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[1].main.visible === true, "choice should be showing");
+                assert(selectScreen.choice[1].name.visible === true, "choice should be showing");
+                assert(selectScreen.choice[2].main.visible === false, "choice should be hidden");
+                assert(selectScreen.choice[2].name.visible === false, "choice should be hidden");
+            });
+        });
     });
 });
