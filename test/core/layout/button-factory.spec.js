@@ -65,7 +65,7 @@ describe("Layout - Button Factory", () => {
                 key: "play",
                 action: defaultAction,
             };
-            signal.bus.clearAll()
+            signal.bus.clearAll();
 
             buttonFactory.createButton(expectedIsMobile, config);
 
@@ -74,7 +74,7 @@ describe("Layout - Button Factory", () => {
 
             expect(defaultAction.callCount).to.equal(2);
 
-            signal.bus.clearAll()
+            signal.bus.clearAll();
         });
     });
 });
