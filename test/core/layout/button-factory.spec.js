@@ -32,7 +32,7 @@ describe("Layout - Button Factory", () => {
         });
     });
 
-    describe.only("createButton method", () => {
+    describe("createButton method", () => {
         const expectedIsMobile = false;
         const expectedKey = "play";
         const config = {
