@@ -55,7 +55,7 @@ describe("Layout - Button Factory", () => {
             expect(actualParams[4]).to.equal(expectedKey);
         });
 
-        it("makes the button accessibile", () => {
+        it("makes the button accessible", () => {
             expect(accessibilifyStub.called).to.equal(true);
         });
 
