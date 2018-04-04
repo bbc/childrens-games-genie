@@ -1,3 +1,7 @@
+const pauseClicked = () => {console.log("pause clicked")}
+const howToPlayClicked = () => {console.log("how to play clicked")}
+
+
 const config = {
     exit: {
         group: "topLeft",
@@ -5,7 +9,7 @@ const config = {
         key: "exit",
         ariaLabel: "Exit Game",
         order: 0,
-        id: "gel-exit",
+        id: "gel-exit"
     },
     home: {
         group: "topLeft",
@@ -54,6 +58,7 @@ const config = {
         ariaLabel: "Pause Game",
         order: 6,
         id: "gel-pause",
+        action: pauseClicked
     },
     previous: {
         group: "middleLeft",
@@ -110,6 +115,7 @@ const config = {
         ariaLabel: "Game Instructions",
         order: 13,
         id: "gel-how-to-play",
+        action: howToPlayClicked
     },
 };
 
