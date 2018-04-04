@@ -1,7 +1,7 @@
 /**
  * A Gel Button Factory exists on each layout group. It has one method {@link module:layout/button-factory.createButton createButton}
  *
- * @module layout/button-factory
+ * @module core/layout/button-factory
  */
 import fp from "../../lib/lodash/fp/fp.js";
 import { accessibilify } from "../../lib/accessibilify/accessibilify.js";

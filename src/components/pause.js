@@ -1,6 +1,18 @@
+/**
+ * Pause is an overlay screen created every time the pause button is pressed.
+ * It tears itself down again on close.
+ *
+ * @module components/pause
+ */
+
 import fp from "../lib/lodash/fp/fp.js";
 
 import * as signal from "../core/signal-bus.js";
+
+/**
+ * @param {Phaser.Game} game - The Phaser Game instance
+ * @param {Screen} screen - The current screen (underneath the pause overlay)
+ */
 
 export function create(game, screen) {
     pauseGame();
