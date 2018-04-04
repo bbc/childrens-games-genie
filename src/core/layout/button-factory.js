@@ -18,7 +18,9 @@ import { GelButton } from "./gel-button.js";
  */
 const createButton = fp.curry((game, isMobile, key, x = 0, y = 0) => {
     const btn = new GelButton(game, x, y, isMobile, key); //Instantiate then return or TSC loses non-curried args
-    return accessibilify(btn, "Test Accessible Button");
+    // Temporarily comments this until buttons can be properly cleared down
+    // return accessibilify(btn, "Test Accessible Button");
+    return btn;
 });
 
 export const create = game => ({ createButton: createButton(game) });
