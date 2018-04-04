@@ -34,9 +34,14 @@ describe("Layout - Button Factory", () => {
     describe("createButton method", () => {
         const expectedIsMobile = false;
         const expectedKey = "buttonKey";
+        const config = {
+            id: "expectedId",
+            ariaLabel: "expectedAriaLabel",
+            key: expectedKey,
+        };
 
         beforeEach(() => {
-            buttonFactory.createButton(expectedIsMobile, expectedKey);
+            buttonFactory.createButton(expectedIsMobile, config);
         });
 
         it("creates a GEL button", () => {
@@ -49,7 +54,7 @@ describe("Layout - Button Factory", () => {
             expect(actualParams[4]).to.equal(expectedKey);
         });
 
-        // Temporarily comments this until buttons can be properly cleared down
+        // Temporarily comments this out until accessible button DOM elements can be properly cleared down
         // it("makes the button accessibile", () => {
         //     expect(accessibilifyStub.called).to.equal(true);
         // });
