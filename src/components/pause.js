@@ -34,14 +34,24 @@ export function create(game, screen) {
         return screen.layoutFactory.addToBackground(backgroundImage);
     }
 
-    function addGelButtons() {
+    function moveButtonsToTop(gelLayout) {
         const priorityID = 999;
-        const layout = screen.layoutFactory.addLayout(["home", "audioOff", "settings", "play", "restart", "howToPlay"]);
-
         fp.forOwn(button => {
             button.input.priorityID = priorityID + screen.context.popupScreens.length;
-        }, layout.buttons);
-        return layout;
+        }, gelLayout.buttons);
+    }
+
+    function addGelButtons() {
+        const gelLayout = screen.layoutFactory.addLayout([
+            "home",
+            "audioOff",
+            "settings",
+            "play",
+            "restart",
+            "howToPlay",
+        ]);
+        moveButtonsToTop(gelLayout);
+        return gelLayout;
     }
 
     function addSignals() {
