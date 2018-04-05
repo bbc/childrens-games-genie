@@ -29,7 +29,7 @@ const getGroupY = sizes =>
     vertical[sizes.pos.v](sizes.height, sizes.metrics.borderPad * sizes.scale, sizes.metrics.verticals[sizes.pos.v]);
 
 export class Group extends Phaser.Group {
-    constructor(game, parent, vPos, hPos, metrics, isVertical) {
+    constructor(game, parent, screen, vPos, hPos, metrics, isVertical) {
         super(game, parent, fp.camelCase([vPos, hPos, isVertical ? "v" : ""].join(" ")));
 
         this._vPos = vPos;
@@ -38,7 +38,7 @@ export class Group extends Phaser.Group {
         this._isVertical = isVertical;
         this._buttons = [];
 
-        this._buttonFactory = ButtonFactory.create(game);
+        this._buttonFactory = ButtonFactory.create(game, screen);
         this._setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
         this._setGroupPosition();
     }

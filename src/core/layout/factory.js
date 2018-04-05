@@ -50,13 +50,14 @@ export function create(game) {
      *
      * @example
      * layoutFactory.create(["home", "restart", "continue", "pause"]);
-     *
+     * @param {Object} screen - Instance of {@link module:Screen}
      * @param {Array} buttons - Array of standard button names to include. See {@link ./gel-defaults.js} for available names
+     *
      * @memberof module:layout/factory
      * @returns {Layout}
      */
-    function addLayout(buttons) {
-        const layout = new Layout(game, scaler, buttons);
+    function addLayout(screen, buttons) {
+        const layout = new Layout(game, scaler, screen, buttons);
 
         addToBackground(layout.root);
 

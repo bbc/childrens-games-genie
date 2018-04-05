@@ -31,12 +31,12 @@ const defaultAction = config => {
  * @param {Boolean} isMobile - Whether to use mobile or desktop sized assets
  * @param {Object} config - Gel configuration for this button
  */
-const createButton = fp.curry((game, isMobile, config, x = 0, y = 0) => {
-    const btn = new GelButton(game, x, y, isMobile, config.key); //Instantiate then return or TSC loses non-curried args
+const createButton = fp.curry((game, screen, isMobile, config, x = 0, y = 0) => {
+    const btn = new GelButton(game, screen, x, y, isMobile, config.key); //Instantiate then return or TSC loses non-curried args
 
     defaultAction(config);
 
     return accessibilify(btn, config);
 });
 
-export const create = game => ({ createButton: createButton(game) });
+export const create = (game, screen) => ({ createButton: createButton(game, screen) });
