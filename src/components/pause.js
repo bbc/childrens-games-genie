@@ -14,7 +14,7 @@ import * as signal from "../core/signal-bus.js";
  * @param {Screen} screen - The current screen (underneath the pause overlay)
  */
 
-export function create(game, screen) {
+export function create({game, screen}) {
     pauseGame();
 
     const background = addBackground();
@@ -42,7 +42,7 @@ export function create(game, screen) {
     }
 
     function addGelButtons() {
-        const gelLayout = screen.layoutFactory.addLayout([
+        const gelLayout = screen.layoutFactory.addLayout(screen, [
             "home",
             "audioOff",
             "settings",

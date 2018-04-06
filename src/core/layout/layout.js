@@ -54,6 +54,10 @@ export class Layout {
         this._groups[groupName].addToGroup(item, position);
     }
 
+    destroy() {
+        this.root.destroy();
+    }
+
     resize(width, height, scale, stageHeight) {
         this._metrics = calculateMetrics(width, height, scale, stageHeight);
 
