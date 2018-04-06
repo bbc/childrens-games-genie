@@ -13,11 +13,10 @@ export class Layout {
      * Creates a new layout. Called by engine.create for each screen component
      *
      * @param game - Phaser Game Instance
-     * @param {Object} screen - Instance of {@link module:Screen}
      * @param scaler
      * @param buttons
      */
-    constructor(game, scaler, screen, buttons) {
+    constructor(game, scaler, buttons) {
         this.scaler = scaler;
         this.root = new Phaser.Group(game, game.world, undefined);
 
@@ -27,7 +26,7 @@ export class Layout {
         this._groups = fp.zipObject(
             groupLayouts.map(layout => fp.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
             groupLayouts.map(
-                layout => new Group(game, this.root, screen, layout.vPos, layout.hPos, this._metrics, !!layout.arrangeV),
+                layout => new Group(game, this.root, layout.vPos, layout.hPos, this._metrics, !!layout.arrangeV),
             ),
         );
 

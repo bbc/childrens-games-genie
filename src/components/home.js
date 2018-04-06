@@ -20,10 +20,7 @@ export class Home extends Screen {
     create() {
         this.layoutFactory.addToBackground(this.game.add.image(0, 0, this.keyLookup.background));
         this.layoutFactory.addToBackground(this.game.add.image(0, -150, this.keyLookup.title));
-
-        //TODO the 'this' passed in here is passed through 4 files so it can be used in the gel button signal
-        //TODO it can possibly refactored out to some extent.
-        this.layoutFactory.addLayout(this, ["exit", "howToPlay", "play", "audioOff", "settings"]);
+        this.layoutFactory.addLayout(["exit", "howToPlay", "play", "audioOff", "settings"]);
         createTestHarnessDisplay(this.game, this.context, this.layoutFactory);
 
         signal.bus.subscribe({

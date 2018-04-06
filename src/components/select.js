@@ -19,7 +19,7 @@ export class Select extends Screen {
 
     create() {
         this.layoutFactory.addToBackground(this.game.add.image(0, 0, this.keyLookup.background));
-        this.layoutFactory.addLayout(this, ["exit", "audioOff", "pause", "previous", "next", "continue"]);
+        this.layoutFactory.addLayout(["exit", "audioOff", "pause", "previous", "next", "continue"]);
         createTestHarnessDisplay(this.game, this.context, this.layoutFactory);
 
         const theme = this.context.config.theme[this.game.state.current];

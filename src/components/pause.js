@@ -4,17 +4,15 @@
  *
  * @module components/pause
  */
-
 import fp from "../lib/lodash/fp/fp.js";
 
 import * as signal from "../core/signal-bus.js";
 
 /**
  * @param {Phaser.Game} game - The Phaser Game instance
- * @param {Screen} screen - The current screen (underneath the pause overlay)
  */
-
-export function create({game, screen}) {
+export function create({ game }) {
+    const screen = game.state.states[game.state.current];
     pauseGame();
 
     const background = addBackground();
@@ -42,7 +40,7 @@ export function create({game, screen}) {
     }
 
     function addGelButtons() {
-        const gelLayout = screen.layoutFactory.addLayout(screen, [
+        const gelLayout = screen.layoutFactory.addLayout([
             "home",
             "audioOff",
             "settings",
