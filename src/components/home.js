@@ -25,8 +25,7 @@ export class Home extends Screen {
 
         signal.bus.subscribe({
             name: "GEL-play",
-            callback: data => {
-                console.log(data);
+            callback: () => {
                 this.next();
             },
         });
