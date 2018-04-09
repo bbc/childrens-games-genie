@@ -27,7 +27,7 @@ Alternatively load http://localhost:8080/index.html as a file URL (requires `--a
 To automatically bump the package version and create a corresponding Github release tag, use the following command (please replace `patch` with `minor` or `major` as required):
 
 ```
-npm version patch --force -m "Write your release notes here"
+npm version patch -m "Write your release notes here"
 ```
 
 Then push to Github to see the new version appear.
