@@ -32,6 +32,8 @@ npm version patch -m "Write your release notes here"
 
 Then push to Github to see the new version appear.
 
+(Please note you will need to create a branch, rather than doing this directly on master, as master is currently protected.)
+
 ## Code linting:
 
 `npm run eslint` runs [ESLint](https://eslint.org/).
