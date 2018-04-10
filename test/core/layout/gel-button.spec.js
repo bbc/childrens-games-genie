@@ -66,9 +66,9 @@ describe("Layout - Gel Button", () => {
             return runInPreload(game =>
                 loadAssets(game, gamePacks, gelPack, () => {}).then(() => {
                     const button = new GelButton(game, 0, 0, true, "play");
-                    const expectedArgs = { channel: "gel-buttons", name: "play" };
                     button.events.onInputUp.dispatch(button, game.input.activePointer, false);
-                    assert.deepEqual(signalSpy.getCall(0).args[0], expectedArgs);
+                    assert.equal(signalSpy.getCall(0).args[0].channel, "gel-buttons");
+                    assert.equal(signalSpy.getCall(0).args[0].name, "play");
                 }),
             );
         });
