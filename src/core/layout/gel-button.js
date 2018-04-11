@@ -18,11 +18,11 @@ const paths = [
     [x => !x.isMobile, x => "gel/desktop/" + x.key + ".png"],
 ];
 
-const signalId = key => "GEL-" + key;
 const assetPath = fp.cond(paths);
 
 const publish = (key, data) => () =>
     signal.bus.publish({
-        name: signalId(key),
+        channel: "gel-buttons",
+        name: key,
         data,
     });

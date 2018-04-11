@@ -1,7 +1,7 @@
 import * as pause from "../../components/pause.js";
 
 const howToPlayClicked = () => {
-    console.log("how to play clicked");
+    console.log("how to play clicked"); // eslint-disable-line no-console
 };
 
 const config = {
