@@ -1,7 +1,7 @@
 import * as pause from "../../components/pause.js";
 
 const howToPlayClicked = () => {
-    console.log("how to play clicked");
+    console.log("how to play clicked"); // eslint-disable-line no-console
 };
 
 const config = {
@@ -20,6 +20,10 @@ const config = {
         ariaLabel: "Home",
         order: 1,
         id: "gel-home",
+        action: ({ game }) => {
+            const screen = game.state.states[game.state.current];
+            screen.next({ transient: { home: true } });
+        },
     },
     back: {
         group: "topLeft",
