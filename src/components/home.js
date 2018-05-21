@@ -27,7 +27,7 @@ export class Home extends Screen {
             channel: "gel-buttons",
             name: "play",
             callback: () => {
-                this.next();
+                this.navigation.next();
             },
         });
     }

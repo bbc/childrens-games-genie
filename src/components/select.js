@@ -43,7 +43,7 @@ export class Select extends Screen {
             channel: "gel-buttons",
             name: "exit",
             callback: () => {
-                this.next({ transient: { home: true } });
+                this.navigation.home();
             },
         });
 
@@ -90,6 +90,6 @@ export class Select extends Screen {
     }
 
     startGame() {
-        this.next({ transient: { [this.game.state.current]: this.currentIndex } });
+        this.navigation.next({ characterSelected: this.currentIndex });
     }
 }

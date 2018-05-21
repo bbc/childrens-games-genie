@@ -39,7 +39,8 @@ export class Loadscreen extends Screen {
             }
             initGameAssets(this.game);
             this.startMusic();
-            this.next();
+
+            this.navigation.next();
         });
     }
 

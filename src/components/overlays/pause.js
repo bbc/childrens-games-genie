@@ -65,11 +65,11 @@ export function create({ game }) {
 
     function restartGame() {
         destroy();
-        screen.next({ transient: { restart: true } });
+        screen.navigation.restart(screen.transientData);
     }
 
     function goHome() {
         destroy();
-        screen.next({ transient: { home: true } });
+        screen.navigation.home();
     }
 }
