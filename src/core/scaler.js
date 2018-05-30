@@ -18,8 +18,7 @@ const getBounds = game => () => game.scale.getParentBounds();
 
 export function create(stageHeightPx, game) {
     // Will be immediately resized:
-    game.scale.setGameSize(2, 2);
-    game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
     const onScaleChange = new Phaser.Signal();
 

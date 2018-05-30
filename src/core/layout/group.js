@@ -94,7 +94,7 @@ export class Group extends Phaser.Group {
     }
 
     alignChildren() {
-        const pos = { x: 0, y: 0 };
+        const pos = { x: this.game.world.centerX, y: this.game.world.centerY };
 
         const halfWidth = this.getLocalBounds().halfWidth; //Save here as size changes when you move children below
         this.children.forEach(childDisplayObject => {

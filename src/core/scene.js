@@ -36,24 +36,28 @@ const addToGroup = fp.curry((group, object) => group.addChild(object));
  */
 export function create(game) {
     let _layouts = [];
-    const root = game.add.group(undefined, "root", true);
+    //const root = game.add.group(undefined, "root", true);
     const unscaled = game.add.group(undefined, "unscaled", true);
     const background = game.add.group(undefined, "background");
     const foreground = game.add.group(undefined, "foreground");
 
     const resize = (width, height, scale) => {
-        root.scale.set(scale, scale);
-        root.position.set(width / 2, height / 2);
+        //root.scale.set(scale, scale);
+        //root.position.set(width / 2, height / 2);
+        background.scale.set(scale, scale);
+        background.position.set(width / 2, height / 2);
+        foreground.scale.set(scale, scale);
+        foreground.position.set(width / 2, height / 2);
     };
 
     //TODO stageHeight should come from config
     const scaler = Scaler.create(600, game);
 
-    root.addChild(background);
-    root.addChild(foreground);
-    if (game.debug.sprite) {
-        root.addChild(game.debug.sprite);
-    }
+    //root.addChild(background);
+    //root.addChild(foreground);
+    //if (game.debug.sprite) {
+    //    root.addChild(game.debug.sprite);
+    //}
 
     scaler.onScaleChange.add(resize);
 
@@ -70,7 +74,7 @@ export function create(game) {
      */
     const addLayout = buttons => {
         const layout = Layout.create(game, scaler, buttons);
-        addToGroup(background, layout.root);
+        //addToGroup(background, layout.root);
         _layouts.push(layout);
         return layout;
     };
