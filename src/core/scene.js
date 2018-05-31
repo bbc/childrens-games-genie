@@ -15,9 +15,10 @@
  *
  * @module core/scene
  */
-import * as Scaler from "./scaler.js";
-import * as Layout from "./layout/layout.js";
 import fp from "../../lib/lodash/fp/fp.js";
+import * as signal from "../core/signal-bus.js";
+import * as Layout from "./layout/layout.js";
+import * as Scaler from "./scaler.js";
 
 const centerAnchor = object => {
     if (object.anchor) {
@@ -42,21 +43,22 @@ export function create(game) {
     const foreground = game.add.group(undefined, "foreground");
     const debug = game.add.group(undefined, "debug", true);
 
-    const resize = () => {
-        root.position.set(game.world.centerX, game.world.centerY);
-    };
-    resize();
-
-    //TODO stageHeight should come from config
-    const scaler = Scaler.create(600, game);
-
     root.addChild(background);
     root.addChild(foreground);
     if (game.debug.sprite) {
         root.addChild(game.debug.sprite);
     }
 
-    scaler.onScaleChange.add(resize);
+    signal.bus.subscribe({
+        channel: "scaler",
+        name: "onScaleChange",
+        callback: () => {
+            root.position.set(game.world.centerX, game.world.centerY);
+        },
+    });
+
+    //TODO stageHeight should come from config
+    const scaler = Scaler.create(600, game);
 
     /**
      * Create a new GEL layout for a given set of Gel Buttons

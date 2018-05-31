@@ -8,6 +8,7 @@ export const GEL_MIN_RATIO_HEIGHT = 3;
 export const GEL_SAFE_FRAME_RATIO = GEL_MIN_RATIO_WIDTH / GEL_MIN_RATIO_HEIGHT;
 
 import fp from "../../lib/lodash/fp/fp.js";
+import * as signal from "../core/signal-bus.js";
 
 const getScale = fp.curry((scaleMethods, stageHeightPx, { width, height }) => {
     const scale = scaleMethods[width / height >= GEL_SAFE_FRAME_RATIO ? "wide" : "narrow"](width, height);
@@ -30,14 +31,17 @@ export function create(stageHeightPx, game) {
     const getSize = fp.flow(getBounds(game), fp.pick(["width", "height"]), getScale(scaleMethods, stageHeightPx));
 
     const setSize = ({ width, height, scale, stageHeightPx: stageHeight }) => {
-        const size = getSize();
-        const aspectRatio = fp.clamp(4 / 3, 7 / 3, size.width / size.height);
+        const aspectRatio = fp.clamp(4 / 3, 7 / 3, width / height);
         game.scale.setGameSize(aspectRatio * stageHeightPx, stageHeightPx);
-        onScaleChange.dispatch(width, height, scale, stageHeight);
+        signal.bus.publish({
+            channel: "scaler",
+            name: "onScaleChange",
+            data: { width, height, scale, stageHeight },
+        });
     };
 
     const onSizeChange = fp.flow(getSize, setSize);
-    window.onresize = fp.debounce(200, onSizeChange);
+    window.onresize = fp.debounce(200, onSizeChange); //TODO: can't do this
     onSizeChange();
 
     return {
