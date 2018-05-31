@@ -40,6 +40,7 @@ export function create(game) {
     const unscaled = game.add.group(undefined, "unscaled", true);
     const background = game.add.group(undefined, "background");
     const foreground = game.add.group(undefined, "foreground");
+    const debug = game.add.group(undefined, "debug", true);
 
     const resize = (width, height, scale) => {
         //root.scale.set(scale, scale);

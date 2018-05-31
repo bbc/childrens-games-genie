@@ -13,7 +13,6 @@ export class Home extends Screen {
     }
 
     create() {
-        //this.game.scale.onSizeChange.add(this.resize, this);
         window.onresize = this.resize.bind(this);
         this.background = this.game.add.image(this.game.world.centerX, this.game.world.centerY, "home.background");
         this.background.anchor.setTo(0.5, 0.5);
@@ -33,27 +32,17 @@ export class Home extends Screen {
     }
 
     resize() {
-        const parentAspectRatio = window.innerWidth / window.innerHeight;
-        if (parentAspectRatio > (7/3)) {
-            console.log("ONE");
+        const aspectRatio = window.innerWidth / window.innerHeight;
+        if (aspectRatio > (7/3)) {
             this.game.scale.setGameSize(1400, 600);
-        } else if (parentAspectRatio < 4/3) {
-            console.log("TWO");
+        } else if (aspectRatio < 4/3) {
             this.game.scale.setGameSize(800, 600);
         } else { // between 7/3 and 4/3
-            console.log("THREE");
-            this.game.scale.setGameSize(parentAspectRatio * 600, 600);
+            this.game.scale.setGameSize(aspectRatio * 600, 600);
         }
-        console.log(parentAspectRatio);
         this.background.x = this.game.world.centerX;
         this.background.y = this.game.world.centerY;
         this.title.x = this.game.world.centerX;
         this.title.y = this.game.world.centerY - 150;
     }
 }
-
-// SEAN - TODO -
-// investigate dynamic scaling techniques with this:
-// game.scale.setGameSize(700, 450);
-// 7/3 = 2.33333333
-// 4/3 = 1.33333333
