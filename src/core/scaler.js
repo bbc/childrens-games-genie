@@ -30,12 +30,15 @@ export function create(stageHeightPx, game) {
     const getSize = fp.flow(getBounds(game), fp.pick(["width", "height"]), getScale(scaleMethods, stageHeightPx));
 
     const setSize = ({ width, height, scale, stageHeightPx: stageHeight }) => {
+        const size = getSize();
+        const aspectRatio = fp.clamp(4 / 3, 7 / 3, size.width / size.height);
+        game.scale.setGameSize(aspectRatio * stageHeightPx, stageHeightPx);
         onScaleChange.dispatch(width, height, scale, stageHeight);
     };
 
     const onSizeChange = fp.flow(getSize, setSize);
-
-    game.scale.onSizeChange.add(onSizeChange);
+    window.onresize = fp.debounce(200, onSizeChange);
+    onSizeChange();
 
     return {
         onScaleChange,
