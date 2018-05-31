@@ -15,7 +15,6 @@ export class GelButton extends Phaser.Button {
             0,
         );
         this._id = config.key;
-        this.animations.sprite.anchor.setTo(0.5, 0.5);
         this.setHitArea(metrics);
     }
 
