@@ -24,7 +24,7 @@ export function create(game, scaler, buttonIds) {
     const root = new Phaser.Group(game, game.world, undefined);
 
     const size = scaler.getSize();
-    let metrics = calculateMetrics(game.width, game.height, size.scale, size.stageHeightPx);
+    let metrics = calculateMetrics(size.width, size.height, size.scale, size.stageHeightPx);
 
     const groups = fp.zipObject(
         groupLayouts.map(layout => fp.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
@@ -51,7 +51,7 @@ export function create(game, scaler, buttonIds) {
     };
 
     const resize = ({ width, height, scale, stageHeight }) => {
-        metrics = calculateMetrics(game.width, game.height, scale, stageHeight);
+        metrics = calculateMetrics(width, height, scale, stageHeight);
 
         if (groups) {
             fp.forOwn(group => group.reset(metrics), groups);
