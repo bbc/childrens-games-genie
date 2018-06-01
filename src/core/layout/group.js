@@ -51,12 +51,12 @@ export class Group extends Phaser.Group {
             this.getLocalBounds().halfWidth,
             this.getLocalBounds().halfHeight,
         );
+        newButton.anchor.setTo(0.5, 0.5);
 
         this.addAt(newButton, position);
         this._buttons.push(newButton);
 
         this.alignChildren();
-        // this._setGroupPosition(this._metrics);
 
         return newButton;
     }
@@ -65,11 +65,9 @@ export class Group extends Phaser.Group {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
         this.alignChildren();
-        // this._setGroupPosition(this._metrics);
     }
 
     reset(metrics) {
-        console.log("reset");
         if (this._metrics.isMobile !== metrics.isMobile) {
             this.resetButtons(metrics);
         }
