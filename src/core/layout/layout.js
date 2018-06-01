@@ -4,6 +4,7 @@
  * @module layout/layout
  */
 import fp from "../../../lib/lodash/fp/fp.js";
+import * as signal from "../../core/signal-bus.js";
 import { calculateMetrics } from "./calculate-metrics.js";
 import * as gel from "./gel-defaults.js";
 import { groupLayouts } from "./group-layouts.js";
@@ -23,7 +24,7 @@ export function create(game, scaler, buttonIds) {
     const root = new Phaser.Group(game, game.world, undefined);
 
     const size = scaler.getSize();
-    let metrics = calculateMetrics(size.width, size.height, size.scale, size.stageHeightPx);
+    let metrics = calculateMetrics(game.width, game.height, size.scale, size.stageHeightPx);
 
     const groups = fp.zipObject(
         groupLayouts.map(layout => fp.camelCase([layout.vPos, layout.hPos, layout.arrangeV ? "v" : ""].join(" "))),
@@ -49,8 +50,8 @@ export function create(game, scaler, buttonIds) {
         groups[groupName].addToGroup(item, position);
     };
 
-    const resize = (width, height, scale, stageHeight) => {
-        metrics = calculateMetrics(width, height, scale, stageHeight);
+    const resize = ({ width, height, scale, stageHeight }) => {
+        metrics = calculateMetrics(game.width, game.height, scale, stageHeight);
 
         if (groups) {
             fp.forOwn(group => group.reset(metrics), groups);
@@ -58,11 +59,15 @@ export function create(game, scaler, buttonIds) {
     };
 
     const removeSignals = () => {
-        scaler.onScaleChange.remove(resize);
+        // scaler.onScaleChange.remove(resize);
     };
 
-    scaler.onScaleChange.add(resize);
-    resize(size.width, size.height, size.scale, size.stageHeightPx);
+    signal.bus.subscribe({
+        channel: "scaler",
+        name: "onScaleChange",
+        callback: resize,
+    });
+    resize({ width: size.width, height: size.height, scale: size.scale, stageHeight: size.stageHeightPx });
 
     const destroy = () => {
         removeSignals();
