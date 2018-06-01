@@ -16,9 +16,9 @@ export const calculateMetrics = (width, height, scale, stageHeight) => {
         buttonMin: isMobile ? 42 : 64,
         hitMin: isMobile ? 64 : 70,
         horizontals: {
-            left: width / scale * -0.5,
+            left: width * -0.5,
             center: 0,
-            right: width / scale * 0.5,
+            right: width * 0.5,
         },
         safeHorizontals: {
             left: safeWidth * -0.5,
