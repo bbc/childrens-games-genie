@@ -3,38 +3,27 @@ import fp from "../../../lib/lodash/fp/fp.js";
 import * as ButtonFactory from "./button-factory.js";
 
 const horizontal = {
-    left: (width, pad, pos) => pos + pad,
-    right: (width, pad, pos) => pos - width - pad,
-    center: (width, pad, pos) => pos - width / 2,
+    left: (group, metrics) => {
+        group.left = metrics.horizontals.left + metrics.borderPad;
+    },
+    right: (group, metrics) => {
+        group.right = metrics.horizontals.right - metrics.borderPad;
+    },
+    center: (group, metrics) => {
+        group.centerX = metrics.horizontals.center;
+    },
 };
-
 const vertical = {
-    top: (height, pad, pos) => pos + pad,
-    middle: (height, pad, pos) => pos - height / 2,
-    bottom: (height, pad, pos) => pos - (height + pad),
+    top: (group, metrics) => {
+        group.top = metrics.verticals.top + metrics.borderPad;
+    },
+    middle: (group, metrics) => {
+        group.centerY = metrics.verticals.middle;
+    },
+    bottom: (group, metrics) => {
+        group.bottom = metrics.verticals.bottom - metrics.borderPad;
+    },
 };
-
-const getGroupPosition = sizes => ({
-    x: getGroupX(sizes),
-    y: getGroupY(sizes),
-});
-
-const getGroupPositionCenter = sizes => ({
-    x: getGroupX(sizes),
-    y: getGroupYCenter(sizes),
-});
-
-const getGroupX = sizes => {
-    const horizontals = sizes.metrics["horizontals"];
-
-    return horizontal[sizes.pos.h](sizes.width, sizes.metrics.borderPad * sizes.scale, horizontals[sizes.pos.h]);
-};
-
-const getGroupY = sizes =>
-    vertical[sizes.pos.v](sizes.height, sizes.metrics.borderPad * sizes.scale, sizes.metrics.verticals[sizes.pos.v]);
-
-const getGroupYCenter = sizes =>
-    vertical[sizes.pos.v](0, sizes.metrics.borderPad * sizes.scale, sizes.metrics.verticals[sizes.pos.v]);
 
 export class Group extends Phaser.Group {
     constructor(game, parent, vPos, hPos, metrics, isVertical) {
@@ -46,12 +35,10 @@ export class Group extends Phaser.Group {
         this._isVertical = isVertical;
         this._buttons = [];
         this._buttonFactory = ButtonFactory.create(game);
-        if (this._hPos == "center" && this._vPos == "middle") {
-            this._setGroupPosition = fp.flow(this.getSizes, getGroupPositionCenter, this.setPos);
-        } else {
-            this._setGroupPosition = fp.flow(this.getSizes, getGroupPosition, this.setPos);
-        }
-        this._setGroupPosition();
+        this._setGroupPosition = metrics => {
+            horizontal[hPos](this, metrics);
+            vertical[vPos](this, metrics);
+        };
     }
 
     /**
@@ -69,7 +56,7 @@ export class Group extends Phaser.Group {
         this._buttons.push(newButton);
 
         this.alignChildren();
-        this._setGroupPosition();
+        // this._setGroupPosition(this._metrics);
 
         return newButton;
     }
@@ -78,10 +65,11 @@ export class Group extends Phaser.Group {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
         this.alignChildren();
-        this._setGroupPosition();
+        // this._setGroupPosition(this._metrics);
     }
 
     reset(metrics) {
+        console.log("reset");
         if (this._metrics.isMobile !== metrics.isMobile) {
             this.resetButtons(metrics);
         }
@@ -90,7 +78,7 @@ export class Group extends Phaser.Group {
         this._metrics = metrics;
         const invScale = 1 / metrics.scale;
         this.scale.setTo(invScale, invScale);
-        this._setGroupPosition();
+        this._setGroupPosition(metrics);
     }
 
     alignChildren() {
@@ -118,20 +106,5 @@ export class Group extends Phaser.Group {
     //TODO this is currently observer pattern but will eventually use pub/sub Phaser.Signals
     resetButtons(metrics) {
         this._buttons.forEach(button => button.resize(metrics));
-    }
-
-    getSizes() {
-        return {
-            metrics: this._metrics,
-            pos: { h: this._hPos, v: this._vPos },
-            width: this.width,
-            height: this.height,
-            scale: this.scale.x,
-        };
-    }
-
-    setPos({ x, y }) {
-        this.x = x;
-        this.y = y;
     }
 }
