@@ -20,6 +20,8 @@ const getBounds = game => () => game.scale.getParentBounds();
 export function create(stageHeightPx, game) {
     // Will be immediately resized:
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
 
     const scaleMethods = {
         wide: (width, height) => height / stageHeightPx,
