@@ -73,7 +73,7 @@ export function create(game) {
      */
     const addLayout = buttons => {
         const layout = Layout.create(game, scaler, buttons);
-        //addToGroup(background, layout.root);
+        addToGroup(background, layout.root);
         _layouts.push(layout);
         return layout;
     };
