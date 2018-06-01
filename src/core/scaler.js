@@ -21,8 +21,6 @@ export function create(stageHeightPx, game) {
     // Will be immediately resized:
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-    const onScaleChange = new Phaser.Signal();
-
     const scaleMethods = {
         wide: (width, height) => height / stageHeightPx,
         narrow: width => width / stageHeightPx / GEL_SAFE_FRAME_RATIO,
@@ -45,7 +43,6 @@ export function create(stageHeightPx, game) {
     onSizeChange();
 
     return {
-        onScaleChange,
         getSize,
     };
 }
