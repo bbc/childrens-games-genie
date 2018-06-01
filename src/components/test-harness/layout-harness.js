@@ -50,7 +50,7 @@ export function createTestHarnessDisplay(game, context, scene) {
         const size = scene.getSize();
         const graphics = game.add.graphics();
         const width = clampedWidth(size);
-        const paddingWidth = getPaddingWidth() / size.scale;
+        const paddingWidth = 0.02 * fp.max([width, size.stageHeightPx]);
         const gameLeftEdge = -0.5 * width;
         const gameTopEdge = -0.5 * size.height / size.scale;
         const gameRightEdge = 0.5 * width;
@@ -82,12 +82,5 @@ export function createTestHarnessDisplay(game, context, scene) {
         const areaHeight = size.stageHeightPx;
 
         return [areaWidth, areaHeight];
-    }
-
-    function getPaddingWidth() {
-        const size = scene.getSize();
-        const gelPaddingWidthPercentage = 0.02;
-
-        return Math.max(size.width, size.height) * gelPaddingWidthPercentage;
     }
 }
