@@ -1,4 +1,6 @@
 import { GEL_MIN_RATIO_HEIGHT, GEL_MIN_RATIO_WIDTH } from "../../core/scaler.js";
+import { calculateMetrics } from "../../core/layout/calculate-metrics.js";
+import fp from "../../../lib/lodash/fp/fp.js";
 
 export function createTestHarnessDisplay(game, context, scene) {
     let graphicsBackgroundGroup;
@@ -38,25 +40,32 @@ export function createTestHarnessDisplay(game, context, scene) {
         graphicsBackgroundGroup.add(graphics);
     }
 
+    function clampedWidth(size) {
+        const minWidth = size.stageHeightPx / GEL_MIN_RATIO_HEIGHT * GEL_MIN_RATIO_WIDTH;
+        const maxWidth = size.stageHeightPx / GEL_MIN_RATIO_HEIGHT * 7;
+        return fp.clamp(minWidth, maxWidth, size.width / size.scale);
+    }
+
     function drawOuterPadding() {
         const size = scene.getSize();
         const graphics = game.add.graphics();
-        const paddingWidth = getPaddingWidth();
-        const gameLeftEdge = 0 + paddingWidth * 0.5;
-        const gameTopEdge = 0 + paddingWidth * 0.5;
-        const gameRightEdge = size.width - paddingWidth * 0.5;
-        const gameBottomEdge = size.height - paddingWidth * 0.5;
+        const width = clampedWidth(size);
+        const paddingWidth = getPaddingWidth() / size.scale;
+        const gameLeftEdge = -0.5 * width;
+        const gameTopEdge = -0.5 * size.height / size.scale;
+        const gameRightEdge = 0.5 * width;
+        const gameBottomEdge = 0.5 * size.height / size.scale;
 
         console.log("paddingWidth: ", paddingWidth); // eslint-disable-line no-console
         console.log("screenWidth: ", window.innerWidth); // eslint-disable-line no-console
         console.log("screenHeight: ", window.innerHeight); // eslint-disable-line no-console
 
         graphics.lineStyle(paddingWidth, 0xffff00, 0.5);
-        graphics.moveTo(gameLeftEdge, gameTopEdge);
-        graphics.lineTo(gameRightEdge, gameTopEdge);
-        graphics.lineTo(gameRightEdge, gameBottomEdge);
-        graphics.lineTo(gameLeftEdge, gameBottomEdge);
-        graphics.lineTo(gameLeftEdge, gameTopEdge);
+        graphics.moveTo(gameLeftEdge + paddingWidth / 2, gameTopEdge + paddingWidth / 2);
+        graphics.lineTo(gameRightEdge - paddingWidth / 2, gameTopEdge + paddingWidth / 2);
+        graphics.lineTo(gameRightEdge - paddingWidth / 2, gameBottomEdge - paddingWidth / 2);
+        graphics.lineTo(gameLeftEdge + paddingWidth / 2, gameBottomEdge - paddingWidth / 2);
+        graphics.lineTo(gameLeftEdge + paddingWidth / 2, gameTopEdge + paddingWidth / 2);
 
         graphicsForegroundGroup.add(graphics);
     }
