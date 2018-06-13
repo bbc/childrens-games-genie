@@ -1,5 +1,3 @@
-import fp from "../../../lib/lodash/fp/fp.js";
-import { onScaleChange } from "../scaler.js";
 import { accessibleDomElement } from "./accessible-dom-element.js";
 
 export function accessibilify(button, config, gameButton = true) {
@@ -11,7 +9,6 @@ export function accessibilify(button, config, gameButton = true) {
         config,
     );
 
-    let signal;
     const game = button.game;
     const accessibleElement = newAccessibleElement();
 
@@ -69,7 +66,6 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     function teardown() {
-        signal.unsubscribe();
         accessibleElement.remove();
     }
 
