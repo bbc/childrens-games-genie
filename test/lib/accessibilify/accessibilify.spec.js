@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
-import * as Scaler from "../../../src/core/scaler.js";
 import { accessibilify } from "../../../src/core/accessibilify/accessibilify";
 import * as helperModule from "../../../src/core/accessibilify/accessible-dom-element";
 
@@ -8,8 +7,6 @@ describe("#accessibilify", () => {
     const gameWidth = 800;
     const gameHeight = 600;
 
-    let onScaleChangeAdd;
-    let onScaleChangeUnsubscribe;
     let mockButtonBounds;
     let mockButton;
     let parentElement;
@@ -32,8 +29,6 @@ describe("#accessibilify", () => {
     });
 
     beforeEach(() => {
-        onScaleChangeUnsubscribe = sandbox.spy();
-        onScaleChangeAdd = sandbox.stub(Scaler.onScaleChange, "add").returns({ unsubscribe: onScaleChangeUnsubscribe });
         parentElement = document.createElement("div");
         buttonBoundsWidth = 200;
         buttonBoundsHeight = 100;
@@ -71,6 +66,8 @@ describe("#accessibilify", () => {
                 },
                 update: {},
             },
+            worldPosition: { equals: () => true },
+            previousPosition: {},
             toGlobal: p => p,
             destroy: buttonDestroy,
             getBounds: sandbox.stub().returns(mockButtonBounds),
@@ -175,16 +172,10 @@ describe("#accessibilify", () => {
             });
         });
 
-        it("assigns an onSizeChange event", () => {
-            accessibilify(mockButton);
-            sinon.assert.called(onScaleChangeAdd);
-        });
-
         it("hooks into the button's destroy event", () => {
             accessibilify(mockButton);
             mockButton.destroy();
             sinon.assert.called(accessibleDomElementRemove);
-            sinon.assert.called(onScaleChangeUnsubscribe);
             // Assert original functionality is not completely overridden.
             sinon.assert.called(buttonDestroy);
         });
