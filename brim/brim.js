@@ -1,12 +1,6 @@
 export const create = gameContainerId => {
-    var spec = getSpec();
-
-    if (!spec) {
-        return;
-    }
-
     var brimHolder = document.getElementById(gameContainerId);
-    var height = spec[0];
+    var landscapeHeight = window.screen.width;
 
     window.addEventListener("resize", onResize);
 
@@ -29,26 +23,6 @@ export const create = gameContainerId => {
 
     onResize();
 
-    function getSpec() {
-        var devices = [
-            [320, 480, 2, "iPhone 4"],
-            [320, 568, 2, "iPhone 5 or 5s"],
-            [375, 667, 2, "iPhone 6"],
-            [414, 736, 3, "iPhone 6 plus"],
-        ];
-
-        for (var t = 0; t < devices.length; t++) {
-            var device = devices[t];
-            var isDevice =
-                (window.screen.height == device[0] && window.screen.width == device[1]) ||
-                (window.screen.width == device[0] && window.screen.height == device[1]);
-            if (isDevice) {
-                return device;
-            }
-        }
-        return null;
-    }
-
     function showBrim() {
         brimHolder.className = brimHolder.className.replace("brim-disabled", "brim-enabled");
         brimElement.style.visibility = "visible";
@@ -59,12 +33,12 @@ export const create = gameContainerId => {
     function showGame() {
         brimHolder.className = brimHolder.className.replace("brim-enabled", "brim-disabled");
         brimElement.style.visibility = "hidden";
-        brimElement.style.height = height + 1 + "px";
+        brimElement.style.height = landscapeHeight + 1 + "px";
         brimElement.style.pointerEvents = "none";
     }
 
     function onResize() {
-        if (window.innerHeight > window.innerWidth || window.innerHeight === height) {
+        if (window.innerHeight > window.innerWidth || window.innerHeight === landscapeHeight) {
             showGame();
             window.scrollTo(0, 0);
         } else {
