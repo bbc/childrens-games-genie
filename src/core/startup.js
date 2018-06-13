@@ -9,12 +9,16 @@ import * as signal from "../core/signal-bus.js";
 import { parseUrlParams } from "./parseUrlParams.js";
 import * as Navigation from "./navigation.js";
 import * as Scene from "./scene.js";
+import * as Brim from "../../brim/brim.js";
 
 /**
  * @param {Object=} settingsConfig - Additional state that is added to the inState context.
  * @param {Object=} navigationConfig -
  */
 export function startup(settingsConfig = {}, navigationConfig) {
+    const isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/) && /Apple/.test(navigator.vendor);
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isSafari && iOS) Brim.create("local-game-holder");
     const gmi = window.getGMI({ settingsConfig });
     const urlParams = parseUrlParams(window.location.search);
     const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
