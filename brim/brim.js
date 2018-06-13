@@ -6,7 +6,6 @@ export const create = gameContainerId => {
     }
 
     var brimHolder = document.getElementById(gameContainerId);
-    //var brimEnabled = false;
     var height = spec[0];
 
     window.addEventListener("resize", onResize);
@@ -51,7 +50,6 @@ export const create = gameContainerId => {
     }
 
     function showBrim() {
-        //brimEnabled = true;
         brimHolder.className = brimHolder.className.replace("brim-disabled", "brim-enabled");
         brimElement.style.visibility = "visible";
         brimElement.style.height = "9999999px";
@@ -59,7 +57,6 @@ export const create = gameContainerId => {
     }
 
     function showGame() {
-        //brimEnabled = false;
         brimHolder.className = brimHolder.className.replace("brim-enabled", "brim-disabled");
         brimElement.style.visibility = "hidden";
         brimElement.style.height = height + 1 + "px";
@@ -77,4 +74,4 @@ export const create = gameContainerId => {
     }
 
     return brimElement;
-}
+};

@@ -16,7 +16,9 @@ import * as Brim from "../../brim/brim.js";
  * @param {Object=} navigationConfig -
  */
 export function startup(settingsConfig = {}, navigationConfig) {
-    Brim.create("local-game-holder");
+    const isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    if (isSafari && iOS) Brim.create("local-game-holder");
     const gmi = window.getGMI({ settingsConfig });
     const urlParams = parseUrlParams(window.location.search);
     const qaMode = { active: urlParams.qaMode ? urlParams.qaMode : false, testHarnessLayoutDisplayed: false };
