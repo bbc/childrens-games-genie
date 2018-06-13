@@ -14,16 +14,14 @@ export function accessibilify(button, config, gameButton = true) {
     let signal;
     const game = button.game;
     const accessibleElement = newAccessibleElement();
-    const resizeAndRepositionElement = fp.debounce(200, setElementSizeAndPosition);
 
     if (gameButton) {
         game.accessibleButtons.push(button);
     }
 
     assignEvents();
-    resizeAndRepositionElement();
+    setElementSizeAndPosition();
 
-    button.update = update;
     button.accessibleElement = accessibleElement.el;
 
     return button;
@@ -67,7 +65,7 @@ export function accessibilify(button, config, gameButton = true) {
             teardown();
             return _destroy.apply(button, arguments);
         };
-        signal = onScaleChange.add(resizeAndRepositionElement);
+        button.update = update;
     }
 
     function teardown() {
@@ -76,6 +74,10 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     function update() {
+        if (!button.worldPosition.equals(button.previousPosition)) {
+            setElementSizeAndPosition();
+        }
+
         if (!button.input.enabled) {
             if (accessibleElement.visible()) {
                 accessibleElement.hide();
