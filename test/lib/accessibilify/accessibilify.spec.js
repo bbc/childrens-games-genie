@@ -214,15 +214,18 @@ describe("#accessibilify", () => {
         });
 
         it("does NOT reposition accessibleElement if button does not exist", () => {
-            let deadMockButton = mockButton;
-            deadMockButton.alive = false;
-            const clock = sandbox.useFakeTimers();
             let bounds;
-            accessibleDomElement.returns({ bounds });
+            accessibleDomElement.returns({
+                visible: () => true,
+                set bounds(b) {
+                    bounds = b;
+                },
+            });
 
-            accessibilify(deadMockButton);
-            clock.tick(200);
-            assert.notEqual(bounds, mockButtonBounds);
+            mockButton.alive = false;
+            accessibilify(mockButton);
+            mockButton.update();
+            assert.notEqual(bounds, mockButton.hitArea.clone());
         });
     });
 
