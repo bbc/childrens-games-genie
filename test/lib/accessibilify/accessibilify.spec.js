@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { assert, expect } from "chai";
 import * as sinon from "sinon";
 import { accessibilify } from "../../../src/core/accessibilify/accessibilify";
 import * as helperModule from "../../../src/core/accessibilify/accessible-dom-element";
@@ -17,7 +17,6 @@ describe("#accessibilify", () => {
     let accessibleDomElementVisible;
     let accessibleDomElementHide;
     let accessibleDomElementShow;
-    let accessibleDomElementPosition;
     let accessibleDomElementRemove;
     let onInputOver;
     let onInputOut;
@@ -103,10 +102,8 @@ describe("#accessibilify", () => {
             worldScale: { x: 1, y: 1 },
         };
         accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement");
-        accessibleDomElementPosition = sandbox.spy();
         accessibleDomElementRemove = sandbox.spy();
         accessibleDomElement.returns({
-            position: accessibleDomElementPosition,
             remove: accessibleDomElementRemove,
         });
     });
@@ -187,41 +184,45 @@ describe("#accessibilify", () => {
         });
 
         it("repositions accessibleElement if button exists", () => {
-            sandbox.restore();
-            const clock = sandbox.useFakeTimers();
-            const position = sandbox.spy();
-            accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
+            let bounds;
+            accessibleDomElement.returns({
+                visible: () => true,
+                set bounds(b) {
+                    bounds = b;
+                },
+            });
 
             accessibilify(mockButton);
-            clock.tick(200);
-            sinon.assert.called(position.withArgs(mockButton.hitArea.clone()));
+            mockButton.update();
+            assert.equal(bounds, mockButton.hitArea.clone());
         });
 
         it("repositions accessibleElement if button exists but does not have a hit area", () => {
-            sandbox.restore();
-            const clock = sandbox.useFakeTimers();
-            const position = sandbox.spy();
-            accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
+            let bounds;
+            accessibleDomElement.returns({
+                visible: () => true,
+                set bounds(b) {
+                    bounds = b;
+                },
+            });
 
             mockButton.hitArea = null;
 
             accessibilify(mockButton);
-            clock.tick(200);
-            sinon.assert.called(mockButton.getBounds);
-            sinon.assert.calledWith(position, mockButtonBounds);
+            mockButton.update();
+            assert.equal(bounds, mockButtonBounds);
         });
 
         it("does NOT reposition accessibleElement if button does not exist", () => {
-            sandbox.restore();
             let deadMockButton = mockButton;
             deadMockButton.alive = false;
             const clock = sandbox.useFakeTimers();
-            const position = sandbox.spy();
-            accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
+            let bounds;
+            accessibleDomElement.returns({ bounds });
 
             accessibilify(deadMockButton);
             clock.tick(200);
-            sinon.assert.notCalled(position);
+            assert.notEqual(bounds, mockButtonBounds);
         });
     });
 
@@ -231,7 +232,6 @@ describe("#accessibilify", () => {
                 accessibleDomElement.returns({
                     visible: () => accessibleDomElementVisible,
                     hide: accessibleDomElementHide,
-                    position: () => {},
                 });
                 mockButton.input.enabled = false;
                 accessibilify(mockButton);
@@ -242,7 +242,6 @@ describe("#accessibilify", () => {
                 accessibleDomElement.returns({
                     visible: () => accessibleDomElementVisible,
                     show: accessibleDomElementShow,
-                    position: () => {},
                 });
                 accessibleDomElementVisible = false;
                 accessibilify(mockButton);

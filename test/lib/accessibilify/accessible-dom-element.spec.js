@@ -163,7 +163,7 @@ describe("#accessibleDomElement", () => {
                 width: 200,
                 height: 100,
             };
-            newAccessibleElement.position(positionOptions);
+            newAccessibleElement.bounds = positionOptions;
             expect(element.style.left).to.equal("50px");
             expect(element.style.top).to.equal("50px");
             expect(element.style.width).to.equal("200px");
