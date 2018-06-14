@@ -27,7 +27,7 @@ export class Screen extends Phaser.State {
             this.game.input.onTap.add(() => {
                 this.game.scale.startFullScreen();
                 this.game.scale.refresh();
-            }, this);
+            });
         }
     }
 }
