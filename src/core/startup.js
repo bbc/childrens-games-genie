@@ -54,6 +54,10 @@ export function startup(settingsConfig = {}, navigationConfig) {
             qaMode,
         };
         game.stage.backgroundColor = "#333";
+        if (game.scale.compatibility.supportsFullScreen) {
+            game.scale.fullScreenTarget = game.canvas;
+            game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+        }
         Navigation.create(game.state, context, scene, navigationConfig);
     }
 }

@@ -22,5 +22,12 @@ export class Screen extends Phaser.State {
         this._context = context;
         this.navigation = navigation[this.game.state.current].routes;
         this.transientData = transientData;
+
+        if (this.game.scale.compatibility.supportsFullScreen) {
+            this.game.input.onTap.add(() => {
+                this.game.scale.startFullScreen();
+                this.game.scale.refresh();
+            }, this);
+        }
     }
 }
