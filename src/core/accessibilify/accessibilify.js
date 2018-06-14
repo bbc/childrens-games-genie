@@ -17,7 +17,6 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     assignEvents();
-    setElementSizeAndPosition();
 
     button.accessibleElement = accessibleElement.el;
 
@@ -50,9 +49,7 @@ export function accessibilify(button, config, gameButton = true) {
 
     function setElementSizeAndPosition() {
         if (button.alive) {
-            const bounds = getHitAreaBounds();
-
-            accessibleElement.position(bounds);
+            accessibleElement.bounds = getHitAreaBounds();
         }
     }
 
@@ -70,9 +67,7 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     function update() {
-        if (!button.worldPosition.equals(button.previousPosition)) {
-            setElementSizeAndPosition();
-        }
+        setElementSizeAndPosition();
 
         if (!button.input.enabled) {
             if (accessibleElement.visible()) {

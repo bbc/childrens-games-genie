@@ -1,5 +1,6 @@
 export function accessibleDomElement(options) {
     const el = document.createElement("div");
+    let _bounds;
 
     init();
 
@@ -8,7 +9,14 @@ export function accessibleDomElement(options) {
         hide,
         show,
         visible,
-        position,
+        get bounds() {
+            return _bounds;
+        },
+        set bounds(bounds) {
+            if (!_bounds || !bounds.equals(_bounds)) {
+                position(bounds);
+            }
+        },
         remove,
     };
 
@@ -47,11 +55,12 @@ export function accessibleDomElement(options) {
         return el.style.visibility === "visible";
     }
 
-    function position(positionOptions) {
-        el.style.left = positionOptions.x.toString() + "px";
-        el.style.top = positionOptions.y.toString() + "px";
-        el.style.width = positionOptions.width.toString() + "px";
-        el.style.height = positionOptions.height.toString() + "px";
+    function position(bounds) {
+        el.style.left = bounds.x.toString() + "px";
+        el.style.top = bounds.y.toString() + "px";
+        el.style.width = bounds.width.toString() + "px";
+        el.style.height = bounds.height.toString() + "px";
+        _bounds = bounds;
     }
 
     function keyUp(event) {
