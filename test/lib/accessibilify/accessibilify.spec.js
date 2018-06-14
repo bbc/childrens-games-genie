@@ -39,6 +39,7 @@ describe("#accessibilify", () => {
         onInputOut = sandbox.spy();
         activePointer = sandbox.spy();
         mockButtonBounds = {
+            clone: () => mockButtonBounds,
             topLeft: { x: "x", y: "y", multiply: () => mockButtonBounds.topLeft, add: () => mockButtonBounds.topLeft },
             scale: () => mockButtonBounds,
         };
