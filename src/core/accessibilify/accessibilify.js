@@ -1,6 +1,5 @@
 import { accessibleDomElement } from "./accessible-dom-element.js";
 import { onScaleChangeDone } from "../scene.js";
-import { getMetrics } from "../scaler.js";
 
 export function accessibilify(button, config, gameButton = true) {
     config = Object.assign(

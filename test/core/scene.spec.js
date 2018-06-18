@@ -25,6 +25,7 @@ describe("Scene", () => {
             removeAll: sandbox.spy(),
             scale: { set: sandbox.spy() },
             position: { set: sandbox.spy() },
+            updateTransform: () => {},
         };
         mockGame = {
             start: sandbox.spy(),
@@ -37,6 +38,7 @@ describe("Scene", () => {
                 scaleMode: sandbox.spy(),
                 setResizeCallback: sandbox.spy(),
                 getParentBounds: sandbox.spy(),
+                preUpdate: () => {},
             },
             debug: {
                 sprite: {
