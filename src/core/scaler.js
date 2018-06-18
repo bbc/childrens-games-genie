@@ -5,20 +5,12 @@
 import { calculateMetrics } from "./layout/calculate-metrics.js";
 
 import fp from "../../lib/lodash/fp/fp.js";
-import * as signal from "./signal-bus.js";
 
 const getBounds = game => () => game.scale.getParentBounds();
 
-const _onSizeChangeSignalCreate = (channel, name) => ({
-    dispatch: data => signal.bus.publish({ channel, name, data }),
-    add: callback => signal.bus.subscribe({ channel, name, callback }),
-});
-const _onSizeChange = _onSizeChangeSignalCreate("scaler", "sizeChange");
-export const onScaleChange = { add: _onSizeChange.add };
-
 export let getMetrics;
 
-export function init(stageHeight, game) {
+export function init(stageHeight, game, scaleChangeCallback) {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
@@ -27,7 +19,7 @@ export function init(stageHeight, game) {
 
     const setSize = metrics => {
         game.scale.setGameSize(metrics.stageWidth, metrics.stageHeight);
-        _onSizeChange.dispatch(metrics);
+        scaleChangeCallback(metrics);
     };
 
     const resize = fp.flow(getMetrics, setSize);
