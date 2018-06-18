@@ -19,6 +19,7 @@ export function init(stageHeight, game, scaleChangeCallback) {
 
     const setSize = metrics => {
         game.scale.setGameSize(metrics.stageWidth, metrics.stageHeight);
+        game.scale.preUpdate(); // Force the scalemanager to adjust the canvas
         scaleChangeCallback(metrics);
     };
 
