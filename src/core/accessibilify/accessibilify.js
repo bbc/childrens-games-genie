@@ -72,8 +72,6 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     function update() {
-        setElementSizeAndPosition();
-
         if (!button.input.enabled) {
             if (accessibleElement.visible()) {
                 accessibleElement.hide();
