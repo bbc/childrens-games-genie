@@ -3,7 +3,6 @@
  *
  * @module layout/layout
  */
-import { onScaleChange } from "../scaler.js";
 import fp from "../../../lib/lodash/fp/fp.js";
 import * as gel from "./gel-defaults.js";
 import { groupLayouts } from "./group-layouts.js";
@@ -56,13 +55,7 @@ export function create(game, metrics, buttonIds) {
     };
     resize(metrics);
 
-    const signal = onScaleChange.add(resize);
-    const removeSignals = () => {
-        signal.unsubscribe();
-    };
-
     const destroy = () => {
-        removeSignals();
         root.destroy();
     };
 
@@ -72,7 +65,6 @@ export function create(game, metrics, buttonIds) {
         destroy,
         resize,
         root,
-        removeSignals,
         setAction,
     };
 }

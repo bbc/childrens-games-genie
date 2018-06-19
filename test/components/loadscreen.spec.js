@@ -38,7 +38,7 @@ describe("Load Screen", () => {
                 current: "currentState",
             },
             sound: { mute: false },
-            scale: { getParentBounds: sinon.stub(), setGameSize: sinon.stub() },
+            scale: { getParentBounds: sinon.stub(), setGameSize: sinon.stub(), preUpdate: () => {} },
         };
 
         loadScreen = new Loadscreen();
@@ -48,7 +48,7 @@ describe("Load Screen", () => {
         };
         loadScreen.game = mockGame;
 
-        Scaler.init(600, mockGame);
+        Scaler.init(600, mockGame, () => {});
     });
 
     afterEach(() => {

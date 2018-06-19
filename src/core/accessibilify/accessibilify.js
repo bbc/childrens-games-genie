@@ -1,4 +1,5 @@
 import { accessibleDomElement } from "./accessible-dom-element.js";
+import { onScaleChangeDone } from "../scene.js";
 
 export function accessibilify(button, config, gameButton = true) {
     config = Object.assign(
@@ -11,6 +12,8 @@ export function accessibilify(button, config, gameButton = true) {
 
     const game = button.game;
     const accessibleElement = newAccessibleElement();
+
+    let signal;
 
     if (gameButton) {
         game.accessibleButtons.push(button);
@@ -60,9 +63,11 @@ export function accessibilify(button, config, gameButton = true) {
             return _destroy.apply(button, arguments);
         };
         button.update = update;
+        signal = onScaleChangeDone.add(setElementSizeAndPosition);
     }
 
     function teardown() {
+        signal.unsubscribe();
         accessibleElement.remove();
     }
 

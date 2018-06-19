@@ -2,7 +2,6 @@ import { assert } from "chai";
 import * as sinon from "sinon";
 
 import * as Layout from "../../../src/core/layout/layout";
-import * as Scaler from "../../../src/core/scaler.js";
 import { Group } from "../../../src/core/layout/group";
 import { GameAssets } from "../../../src/core/game-assets";
 
@@ -10,8 +9,6 @@ describe("Layout", () => {
     const sandbox = sinon.sandbox.create();
     const randomKey = "1d67c228681df6ad7f0b05f069cd087c442934ab5e4e86337d70c832e110c61b";
     let mockGame;
-    let mockSubscribe;
-    let mockUnsubscribe;
     const mockMetrics = {
         horizontals: {},
         safeHorizontals: {},
@@ -37,9 +34,6 @@ describe("Layout", () => {
                 reset: () => {},
                 destroy: () => {},
             };
-
-            mockUnsubscribe = sandbox.spy();
-            mockSubscribe = sandbox.stub(Scaler.onScaleChange, "add").returns({ unsubscribe: mockUnsubscribe });
 
             GameAssets.sounds = {
                 buttonClick: {
@@ -154,17 +148,6 @@ describe("Layout", () => {
         const groupResetStub = sandbox.stub(Group.prototype, "reset");
         Layout.create(mockGame, mockMetrics, []);
         sinon.assert.callCount(groupResetStub, 11);
-    });
-
-    it("subscribes to the scaler sizeChange signal", () => {
-        Layout.create(mockGame, mockMetrics, ["play"]);
-        sinon.assert.calledOnce(mockSubscribe);
-    });
-
-    it("removeSignals method removes all signals on this Layout instance", () => {
-        const layout = Layout.create(mockGame, mockMetrics, ["play"]);
-        layout.removeSignals();
-        sinon.assert.calledOnce(mockUnsubscribe);
     });
 });
 

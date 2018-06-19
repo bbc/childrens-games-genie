@@ -18,6 +18,7 @@
 import * as Scaler from "./scaler.js";
 import * as Layout from "./layout/layout.js";
 import fp from "../../lib/lodash/fp/fp.js";
+import * as signal from "./signal-bus.js";
 
 const centerAnchor = object => {
     if (object.anchor) {
@@ -27,6 +28,13 @@ const centerAnchor = object => {
 };
 
 const addToGroup = fp.curry((group, object) => group.addChild(object));
+
+const signalCreate = (channel, name) => ({
+    dispatch: data => signal.bus.publish({ channel, name, data }),
+    add: callback => signal.bus.subscribe({ channel, name, callback }),
+});
+const _onScaleChangeDone = signalCreate("scaler", "sizeChange");
+export const onScaleChangeDone = { add: _onScaleChangeDone.add };
 
 /**
  * Create a new Scene
@@ -48,12 +56,14 @@ export function create(game) {
 
     const debug = game.add.group(undefined, "debug", true);
 
-    const resize = ({ stageWidth, stageHeight }) => {
-        root.position.set(stageWidth * 0.5, stageHeight * 0.5);
+    const resize = metrics => {
+        root.position.set(metrics.stageWidth * 0.5, metrics.stageHeight * 0.5);
+        fp.forEach(layout => layout.resize(metrics), _layouts);
+        root.updateTransform();
+        _onScaleChangeDone.dispatch(metrics);
     };
 
-    Scaler.onScaleChange.add(resize);
-    Scaler.init(600, game);
+    Scaler.init(600, game, resize);
 
     root.addChild(background);
     root.addChild(foreground);
