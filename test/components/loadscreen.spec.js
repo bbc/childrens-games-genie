@@ -38,7 +38,7 @@ describe("Load Screen", () => {
                 current: "currentState",
             },
             sound: { mute: false },
-            scale: { getParentBounds: sinon.stub(), setGameSize: sinon.stub(), preUpdate: () => {} },
+            scale: { getParentBounds: sinon.stub(), setGameSize: sinon.stub(), updateLayout: () => {} },
         };
 
         loadScreen = new Loadscreen();

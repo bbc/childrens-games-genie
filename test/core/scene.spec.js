@@ -38,7 +38,7 @@ describe("Scene", () => {
                 scaleMode: sandbox.spy(),
                 setResizeCallback: sandbox.spy(),
                 getParentBounds: sandbox.spy(),
-                preUpdate: () => {},
+                updateLayout: () => {},
             },
             debug: {
                 sprite: {
