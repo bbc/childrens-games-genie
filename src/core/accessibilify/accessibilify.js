@@ -20,6 +20,7 @@ export function accessibilify(button, config, gameButton = true) {
     }
 
     assignEvents();
+    setElementSizeAndPosition();
 
     button.accessibleElement = accessibleElement.el;
 
