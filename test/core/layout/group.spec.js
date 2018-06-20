@@ -44,6 +44,7 @@ describe("Group", () => {
         };
         vPos = "middle";
         hPos = "center";
+        sandbox.stub(Phaser.Group.prototype, "updateTransform");
         sandbox.stub(ButtonFactory, "create").returns(buttonFactory);
         group = new Group(game, parentGroup, vPos, hPos, metrics, false);
         sandbox.stub(group, "width").returns(1000);
@@ -85,7 +86,6 @@ describe("Group", () => {
         it("aligns center buttons accordingly", () => {
             group.addButton(config);
             group.addButton(config);
-            group.reset(metrics);
 
             assert.strictEqual(group.children[0].y, 0);
             assert.strictEqual(group.children[1].y, 0);
@@ -94,7 +94,6 @@ describe("Group", () => {
         describe("when vPos is middle and hPos is center", () => {
             it("sets group position correctly", () => {
                 group.addButton(config);
-                group.reset(metrics);
                 assert.strictEqual(group.x, 0);
                 assert.strictEqual(group.y, 0);
             });
@@ -107,7 +106,6 @@ describe("Group", () => {
                 group = new Group(game, parentGroup, vPos, hPos, metrics, false);
 
                 group.addButton(config);
-                group.reset(metrics);
                 assert.strictEqual(group.x, 900);
                 assert.strictEqual(group.y, -1400);
             });
@@ -120,7 +118,6 @@ describe("Group", () => {
                 group = new Group(game, parentGroup, vPos, hPos, metrics, false);
 
                 group.addButton(config);
-                group.reset(metrics);
                 assert.strictEqual(group.x, -900);
                 assert.strictEqual(group.y, 1400);
             });
@@ -133,7 +130,6 @@ describe("Group", () => {
                 group = new Group(game, parentGroup, vPos, hPos, metrics, true);
 
                 group.addButton(config);
-                group.reset(metrics);
                 assert.strictEqual(group.x, -200);
                 assert.strictEqual(group.y, 1400);
             });
