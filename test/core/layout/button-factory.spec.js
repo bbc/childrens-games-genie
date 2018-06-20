@@ -5,18 +5,19 @@ import * as ButtonFactory from "../../../src/core/layout/button-factory";
 import * as GelButton from "../../../src/core/layout/gel-button";
 import * as signal from "../../../src/core/signal-bus.js";
 import { buttonsChannel } from "../../../src/core/layout/gel-defaults.js";
+import * as Accessibilify from "../../../src/core/accessibilify/accessibilify.js";
 
 describe("Layout - Button Factory", () => {
     let buttonFactory;
     let gelButtonStub;
+    let accessibilifySpy;
     let mockGame;
 
     const sandbox = sinon.sandbox.create();
 
     beforeEach(() => {
         gelButtonStub = sandbox.stub(GelButton, "GelButton");
-
-        mockGame = { canvas: () => {}, mockGame: "game" };
+        accessibilifySpy = sandbox.stub(Accessibilify, "accessibilify");
         buttonFactory = ButtonFactory.create(mockGame);
     });
 
@@ -51,6 +52,10 @@ describe("Layout - Button Factory", () => {
             expect(actualParams[2]).to.equal(0);
             expect(actualParams[3]).to.equal(expectedIsMobile);
             expect(actualParams[4]).to.equal(config);
+        });
+
+        it("accessibilifies the GEL button", () => {
+            sinon.assert.calledOnce(accessibilifySpy);
         });
 
         it("adds defaults actions to the signal bus", () => {
