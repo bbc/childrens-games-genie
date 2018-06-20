@@ -5,10 +5,11 @@ import * as Layout from "../../../src/core/layout/layout";
 import { Group } from "../../../src/core/layout/group";
 import { GameAssets } from "../../../src/core/game-assets";
 
-describe("Layout", () => {
+describe.only("Layout", () => {
     const sandbox = sinon.sandbox.create();
     const randomKey = "1d67c228681df6ad7f0b05f069cd087c442934ab5e4e86337d70c832e110c61b";
     let mockGame;
+    let mockRoot;
     const mockMetrics = {
         horizontals: {},
         safeHorizontals: {},
@@ -19,27 +20,7 @@ describe("Layout", () => {
         sandbox.stub(Group.prototype, "addButton").returns({ onInputUp: { add: sandbox.spy() } });
         return initialiseGame().then(game => {
             mockGame = game;
-            mockGame.world = {
-                addChild: sandbox.spy(),
-                children: [],
-                shutdown: () => {},
-            };
-            mockGame.add = {
-                sprite: sandbox.spy(() => new Phaser.Sprite(mockGame, 0, 0)),
-                group: sandbox.spy(),
-            };
-            mockGame.renderer = { resolution: 1, destroy: () => {} };
-            mockGame.input = {
-                interactiveItems: { add: sandbox.spy() },
-                reset: () => {},
-                destroy: () => {},
-            };
-
-            GameAssets.sounds = {
-                buttonClick: {
-                    play: () => {},
-                },
-            };
+            mockRoot = { addChild: sandbox.spy(), children: [], updateTransform: sandbox.spy() };
         });
     });
 
@@ -50,13 +31,13 @@ describe("Layout", () => {
     });
 
     it("should add the correct number of GEL buttons for a given config", () => {
-        const layout1 = Layout.create(mockGame, mockMetrics, ["achievements"]);
+        const layout1 = Layout.create(mockGame, mockRoot, mockMetrics, ["achievements"]);
         assert(Object.keys(layout1.buttons).length === 1);
 
-        const layout2 = Layout.create(mockGame, mockMetrics, ["play", "audioOff", "settings"]);
+        const layout2 = Layout.create(mockGame, mockRoot, mockMetrics, ["play", "audioOff", "settings"]);
         assert(Object.keys(layout2.buttons).length === 3);
 
-        const layout3 = Layout.create(mockGame, mockMetrics, [
+        const layout3 = Layout.create(mockGame, mockRoot, mockMetrics, [
             "achievements",
             "exit",
             "howToPlay",
@@ -68,12 +49,12 @@ describe("Layout", () => {
     });
 
     it("Should create 11 Gel Groups", () => {
-        const layout = Layout.create(mockGame, mockMetrics, []);
+        const layout = Layout.create(mockGame, mockRoot, mockMetrics, []);
         assert(layout.root.children.length === 11);
     });
 
     it("Should add items to the correct group", () => {
-        const layout = Layout.create(mockGame, mockMetrics, []);
+        const layout = Layout.create(mockGame, mockRoot, mockMetrics, []);
         const testElement = new Phaser.Sprite(mockGame, 0, 0);
 
         layout.addToGroup("middleRight", testElement);
@@ -85,7 +66,7 @@ describe("Layout", () => {
     });
 
     it("Should correctly insert an item using the index position property", () => {
-        const layout = Layout.create(mockGame, mockMetrics, []);
+        const layout = Layout.create(mockGame, mockRoot, mockMetrics, []);
         const testElement = new Phaser.Sprite(mockGame, 0, 0);
         testElement.randomKey = randomKey;
 
@@ -100,7 +81,7 @@ describe("Layout", () => {
     });
 
     it("Should set button callbacks using the 'setAction' method", () => {
-        const layout = Layout.create(mockGame, mockMetrics, ["achievements", "exit", "settings"]);
+        const layout = Layout.create(mockGame, mockRoot, mockMetrics, ["achievements", "exit", "settings"]);
 
         layout.setAction("exit", "testAction");
         assert(layout.buttons.exit.onInputUp.add.calledWith("testAction"));
@@ -140,14 +121,8 @@ describe("Layout", () => {
             "howToPlay",
         ];
 
-        const layout = Layout.create(mockGame, mockMetrics, rndOrder);
+        const layout = Layout.create(mockGame, mockRoot, mockMetrics, rndOrder);
         assert.deepEqual(Object.keys(layout.buttons), tabOrder);
-    });
-
-    it("Should reset the groups after they have been added to the layout", () => {
-        const groupResetStub = sandbox.stub(Group.prototype, "reset");
-        Layout.create(mockGame, mockMetrics, []);
-        sinon.assert.callCount(groupResetStub, 11);
     });
 });
 
