@@ -7,6 +7,7 @@ import fp from "../../../lib/lodash/fp/fp.js";
 import * as signal from "../../core/signal-bus.js";
 import { GelButton } from "./gel-button.js";
 import { buttonsChannel } from "./gel-defaults.js";
+import { accessibilify } from "../accessibilify/accessibilify.js";
 
 /**
  * Checks for a default action and if present adds its callback to the signal bus
@@ -33,10 +34,11 @@ const defaultAction = config => {
  * @param {Object} config - Gel configuration for this button
  */
 const createButton = fp.curry((game, metrics, config, x = 0, y = 0) => {
-    const btn = new GelButton(game, x, y, metrics, config); //Instantiate then return or TSC loses non-curried args
+    const button = new GelButton(game, x, y, metrics, config); //Instantiate then return or TSC loses non-curried args
 
     defaultAction(config);
-    return btn;
+    const accessibleButton = accessibilify(button, config, false);
+    return accessibleButton;
 });
 
 export const create = game => ({ createButton: createButton(game) });
