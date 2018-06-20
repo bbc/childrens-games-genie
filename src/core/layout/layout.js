@@ -18,8 +18,9 @@ const tabSort = fp.sortBy(getOrder(gel.config));
  * @param {Object} metrics - viewport metrics
  * @param {Array.<string>} buttonIds
  */
-export function create(game, metrics, buttonIds) {
-    const root = new Phaser.Group(game, game.world, undefined);
+export function create(game, parent, metrics, buttonIds) {
+    const root = new Phaser.Group(game, parent);
+    parent.updateTransform();
     const groups = fp.zipObject(
         groupLayouts.map(layout =>
             fp.camelCase([layout.vPos, layout.hPos, layout.safe ? "safe" : "", layout.arrangeV ? "v" : ""].join(" ")),
@@ -53,7 +54,6 @@ export function create(game, metrics, buttonIds) {
             fp.forOwn(group => group.reset(metrics), groups);
         }
     };
-    resize(metrics);
 
     const destroy = () => {
         root.destroy();

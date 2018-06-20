@@ -83,8 +83,7 @@ export function create(game) {
      * @returns {Object}
      */
     const addLayout = buttons => {
-        const layout = Layout.create(game, Scaler.getMetrics(), buttons);
-        addToGroup(background, layout.root);
+        const layout = Layout.create(game, root, Scaler.getMetrics(), buttons);
         _layouts.push(layout);
         return layout;
     };
