@@ -53,6 +53,12 @@ export class Group extends Phaser.Group {
         this._buttons.push(newButton);
 
         this.alignChildren();
+        this.reset(this._metrics);
+        this.updateTransform();
+        fp.forEach(
+            accessibleButton => accessibleButton.setElementSizeAndPosition(),
+            fp.filter(child => child.accessibleElement, this.children),
+        );
 
         return newButton;
     }
@@ -60,7 +66,14 @@ export class Group extends Phaser.Group {
     addToGroup(item, position = 0) {
         item.anchor.setTo(0.5, 0.5);
         this.addAt(item, position);
+
         this.alignChildren();
+        this.reset(this._metrics);
+        this.updateTransform();
+        fp.forEach(
+            accessibleButton => accessibleButton.setElementSizeAndPosition(),
+            fp.filter(child => child.accessibleElement, this.children),
+        );
     }
 
     reset(metrics) {
