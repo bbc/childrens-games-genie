@@ -99,14 +99,9 @@ describe("Scene", () => {
 
         it("creates a new layout with correct params", () => {
             scene.addLayout(mockButtons);
-            expect(layoutStub.getCall(0).args.length).to.equal(3);
+            expect(layoutStub.getCall(0).args.length).to.equal(4);
             expect(layoutStub.getCall(0).args[0]).to.eql(mockGame);
-            expect(layoutStub.getCall(0).args[2]).to.eql(mockButtons);
-        });
-
-        it("adds the layout root to the background", () => {
-            scene.addLayout(mockButtons);
-            expect(groupMethods.addChild.calledWith(mockRoot.root)).to.equal(true);
+            expect(layoutStub.getCall(0).args[3]).to.eql(mockButtons);
         });
 
         it("returns the layout", () => {
