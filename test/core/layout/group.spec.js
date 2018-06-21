@@ -154,17 +154,19 @@ describe("Group", () => {
 
     describe("#reset", () => {
         it("sets group position when resizing from desktop to desktop", () => {
-            const expectedGroupXPosition = 0;
-            const expectedGroupYPosition = -333;
             const desktopMetrics = { horizontals: {}, verticals: {} };
             const moreDesktopMetrics = { borderPad: 0, horizontals: { center: 0 }, verticals: { top: -333 } };
 
+            const centerXSpy = sandbox.spy(Group.prototype, "centerX", ["set"]);
+            const topSpy = sandbox.spy(Group.prototype, "top", ["set"]);
             group = new Group(game, parentGroup, "top", "center", desktopMetrics, false);
             group.addButton(config);
             group.reset(moreDesktopMetrics);
 
-            assert.strictEqual(group.x, expectedGroupXPosition);
-            assert.strictEqual(group.y, expectedGroupYPosition);
+            sinon.assert.calledTwice(centerXSpy.set);
+            sinon.assert.calledTwice(topSpy.set);
+            sinon.assert.calledWithExactly(centerXSpy.set, moreDesktopMetrics.horizontals.center);
+            sinon.assert.calledWithExactly(topSpy.set, moreDesktopMetrics.verticals.top + moreDesktopMetrics.borderPad);
         });
 
         it("resizes buttons after resizing the group and the width drops below the mobile breakpoint", () => {
