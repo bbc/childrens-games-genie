@@ -29,10 +29,19 @@ export const create = () => {
 
     const setGmi = newGmi => (gmi = newGmi);
 
-    const getAllSettings = fp.flow(checkGmi, () => gmi.getAllSettings());
+    const getAllSettings = fp.flow(
+        checkGmi,
+        () => gmi.getAllSettings(),
+    );
 
-    const show = fp.flow(checkGmi, () => gmi.showSettings(onSettingChanged, onSettingsClosed));
-    const exit = fp.flow(checkGmi, () => gmi.exit());
+    const show = fp.flow(
+        checkGmi,
+        () => gmi.showSettings(onSettingChanged, onSettingsClosed),
+    );
+    const exit = fp.flow(
+        checkGmi,
+        () => gmi.exit(),
+    );
 
     return {
         exit,
