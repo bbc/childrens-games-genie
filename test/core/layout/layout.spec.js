@@ -56,7 +56,7 @@ describe("Layout", () => {
     afterEach(() => {
         sandbox.restore();
         mockGame.destroy();
-        GameSound.Assets.backgroundMusic = undefined;
+        GameSound.Assets.newMusic = undefined;
         GameSound.Assets.buttonClick = undefined;
     });
 

@@ -28,8 +28,8 @@ export const create = fp.curry((hideReplayButton, { game }) => {
 
     function pauseGame() {
         game.paused = true;
-        if (GameSound.Assets.backgroundMusic) {
-            GameSound.Assets.backgroundMusic.pause();
+        if (GameSound.Assets.newMusic) {
+            GameSound.Assets.newMusic.pause();
         }
         screen.context.popupScreens.push("pause");
     }
@@ -60,8 +60,8 @@ export const create = fp.curry((hideReplayButton, { game }) => {
         overlayLayout.restoreDisabledButtons();
         background.destroy();
         game.canvas.focus();
-        if (GameSound.Assets.backgroundMusic) {
-            GameSound.Assets.backgroundMusic.resume();
+        if (GameSound.Assets.newMusic) {
+            GameSound.Assets.newMusic.resume();
         }
         screen.context.popupScreens = fp.pull("pause", screen.context.popupScreens);
     }

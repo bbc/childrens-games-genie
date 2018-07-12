@@ -52,7 +52,7 @@ describe("Pause Overlay", () => {
         };
         mockGame.add.image.onCall(0).returns("backgroundImage");
 
-        GameSound.Assets.backgroundMusic = {
+        GameSound.Assets.newMusic = {
             pause: sandbox.spy(),
             resume: sandbox.spy(),
         };
@@ -76,7 +76,7 @@ describe("Pause Overlay", () => {
         });
 
         it("pauses background music", () => {
-            sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.pause);
+            sinon.assert.calledOnce(GameSound.Assets.newMusic.pause);
         });
     });
 
@@ -150,7 +150,7 @@ describe("Pause Overlay", () => {
             assert.isTrue(mockGelButtons.destroy.calledOnce);
             assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
-            sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
+            sinon.assert.calledOnce(GameSound.Assets.newMusic.resume);
             assert.deepEqual(mockScreen.context.popupScreens, []);
         });
 
@@ -177,7 +177,7 @@ describe("Pause Overlay", () => {
             assert.isTrue(mockGelButtons.destroy.calledOnce);
             assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
-            sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
+            sinon.assert.calledOnce(GameSound.Assets.newMusic.resume);
             assert.deepEqual(mockScreen.context.popupScreens, []);
         });
 
@@ -201,7 +201,7 @@ describe("Pause Overlay", () => {
             assert.isTrue(mockGelButtons.destroy.calledOnce);
             assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
-            sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
+            sinon.assert.calledOnce(GameSound.Assets.newMusic.resume);
             assert.deepEqual(mockScreen.context.popupScreens, []);
         });
 
