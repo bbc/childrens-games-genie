@@ -1,6 +1,6 @@
 const Assets = {
-    backgroundMusic: undefined,
-    previousMusic: undefined,
+    newMusic: undefined,
+    currentMusic: undefined,
     buttonClick: undefined,
 };
 
@@ -13,43 +13,43 @@ const setButtonClickSound = (game, audioKey) => {
 const setupScreenMusic = (game, themeScreenConfig) => {
     stopCurrentMusic(game);
 
+    Assets.currentMusic = Assets.newMusic;
+
     if (!themeScreenConfig || !themeScreenConfig.hasOwnProperty("music")) {
-        Assets.backgroundMusic = undefined;
+        stopCurrentMusic(game);
+        Assets.newMusic = undefined;
         return;
     }
 
     const audioKey = themeScreenConfig.music;
-    setBackgroundMusic(game, audioKey);
+    setNewMusic(game, audioKey);
 
-    if (Assets.backgroundMusic.usingAudioTag) {
-        Assets.backgroundMusic.mute = game.sound.mute;
+    if (Assets.newMusic.usingAudioTag) {
+        Assets.newMusic.mute = game.sound.mute;
     }
 };
 
-const setBackgroundMusic = (game, audioKey) => {
-    if (Assets.backgroundMusic) {
-        Assets.backgroundMusic = game.add.audio(audioKey);
-        Assets.backgroundMusic.fadeIn(SOUND_FADE_PERIOD, true);
+const setNewMusic = (game, audioKey) => {
+    if (Assets.newMusic) {
+        if (Assets.newMusic.name !== audioKey) {
+            Assets.newMusic = game.add.audio(audioKey);
+            Assets.newMusic.fadeIn(SOUND_FADE_PERIOD, true);
+        }
     } else {
-        Assets.backgroundMusic = game.add.audio(audioKey);
-        Assets.backgroundMusic.loopFull();
+        // This apparently duplicate line is to fix a problem with Phaser not
+        // starting music when the first Genie screen loads.
+        Assets.newMusic = game.add.audio(audioKey);
+        Assets.newMusic.loopFull();
     }
 };
 
 const stopCurrentMusic = game => {
-    if (!Assets.backgroundMusic) {
-        return;
+    if (Assets.currentMusic) {
+        Assets.currentMusic.onFadeComplete.addOnce(() => {
+            game.sound.remove(Assets.currentMusic);
+        });
+        Assets.currentMusic.fadeOut(SOUND_FADE_PERIOD / 2);
     }
-
-    if (Assets.previousMusic) {
-        Assets.previousMusic.stop();
-        game.sound.remove(Assets.previousMusic);
-    }
-    Assets.previousMusic = Assets.backgroundMusic;
-    Assets.previousMusic.onFadeComplete.addOnce(() => {
-        game.sound.remove(Assets.previousMusic);
-    });
-    Assets.previousMusic.fadeOut(SOUND_FADE_PERIOD / 2);
 };
 
 export { Assets, setButtonClickSound, setupScreenMusic, SOUND_FADE_PERIOD };
