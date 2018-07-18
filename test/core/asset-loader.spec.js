@@ -40,17 +40,19 @@ describe("Asset Loader", () => {
         };
         fakeCallback = sandbox.stub();
 
-        const gelImage = { type: "spritesheet", key: "achievements", url: "achievements.png" };
-        const backgroundImage = { type: "image", key: "background", url: "background.png", overwrite: false };
-        const titleImage = { type: "image", key: "title", url: "title.png", overwrite: false };
-
+        fakeGame.cache.getJSON.withArgs("MasterAssetPack").returns({
+            howToPlay: [{ type: "image", key: "background", url: "background.png", overwrite: false }],
+            pause: [{ type: "image", key: "title", url: "title.png", overwrite: false }],
+        });
         fakeGame.cache.getJSON
-            .withArgs("MasterAssetPack")
-            .returns({ howToPlay: [backgroundImage], pause: [titleImage] });
-        fakeGame.cache.getJSON.withArgs("GelAssetPack").returns({ gelDesktop: [gelImage] });
-        fakeGame.cache.getJSON
-            .withArgs("character-select")
-            .returns({ "character-select": [titleImage, backgroundImage] });
+            .withArgs("GelAssetPack")
+            .returns({ gelDesktop: [{ type: "spritesheet", key: "achievements", url: "achievements.png" }] });
+        fakeGame.cache.getJSON.withArgs("character-select").returns({
+            "character-select": [
+                { type: "image", key: "title", url: "title.png", overwrite: false },
+                { type: "image", key: "background", url: "background.png", overwrite: false },
+            ],
+        });
 
         assetsLoaded = AssetLoader.loadAssets(fakeGame, fakeGamePacksToLoad, fakeLoadscreenPack, fakeCallback);
 
@@ -122,8 +124,8 @@ describe("Asset Loader", () => {
                 achievements: "gelDesktop.achievements",
             },
             "character-select": {
-                "pause.title": "character-select.pause.title",
-                "howToPlay.background": "character-select.howToPlay.background",
+                title: "character-select.title",
+                background: "character-select.background",
             },
         };
         nextLoadInQueue();
