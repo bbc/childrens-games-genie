@@ -3,7 +3,7 @@ import * as sinon from "sinon";
 
 import * as AssetLoader from "../../src/core/asset-loader.js";
 
-describe.only("Asset Loader", () => {
+describe("Asset Loader", () => {
     const sandbox = sinon.sandbox.create();
 
     let assetsLoaded;
@@ -40,6 +40,18 @@ describe.only("Asset Loader", () => {
         };
         fakeCallback = sandbox.stub();
 
+        const gelImage = { type: "spritesheet", key: "achievements", url: "achievements.png" };
+        const backgroundImage = { type: "image", key: "background", url: "background.png", overwrite: false };
+        const titleImage = { type: "image", key: "title", url: "title.png", overwrite: false };
+
+        fakeGame.cache.getJSON
+            .withArgs("MasterAssetPack")
+            .returns({ howToPlay: [backgroundImage], pause: [titleImage] });
+        fakeGame.cache.getJSON.withArgs("GelAssetPack").returns({ gelDesktop: [gelImage] });
+        fakeGame.cache.getJSON
+            .withArgs("character-select")
+            .returns({ "character-select": [titleImage, backgroundImage] });
+
         assetsLoaded = AssetLoader.loadAssets(fakeGame, fakeGamePacksToLoad, fakeLoadscreenPack, fakeCallback);
 
         nextLoadInQueue = fakeGame.load.onLoadComplete.add.getCall(0).args[0];
@@ -59,13 +71,6 @@ describe.only("Asset Loader", () => {
         });
     });
 
-    it("saves the json files to the game cache", () => {
-        return assetsLoaded.then(() => {
-            sandbox.assert.calledOnce(fakeGame.cache.getJSON.withArgs("MasterAssetPack"));
-            sandbox.assert.calledOnce(fakeGame.cache.getJSON.withArgs("GelAssetPack"));
-        });
-    });
-
     it("loads json files for missing screens", () => {
         return assetsLoaded.then(() => {
             sandbox.assert.calledOnce(fakeGame.load.json.withArgs("character-select", "character-select.json"));
@@ -76,6 +81,14 @@ describe.only("Asset Loader", () => {
         return assetsLoaded.then(() => {
             assert.isTrue(fakeGame.load.json.neverCalledWith("__proto"));
             assert.isTrue(fakeGame.load.json.neverCalledWith("default"));
+        });
+    });
+
+    it("saves the json files to the game cache", () => {
+        return assetsLoaded.then(() => {
+            sandbox.assert.calledOnce(fakeGame.cache.getJSON.withArgs("MasterAssetPack"));
+            sandbox.assert.calledOnce(fakeGame.cache.getJSON.withArgs("GelAssetPack"));
+            sandbox.assert.calledOnce(fakeGame.cache.getJSON.withArgs("character-select"));
         });
     });
 
@@ -97,10 +110,25 @@ describe.only("Asset Loader", () => {
         });
     });
 
-    it("returns the keyLookUps when loading is complete", () => {
+    it("returns the keyLookUps with correct screen prefixes when loading is complete", () => {
+        const expectedLookUps = {
+            howToPlay: {
+                background: "howToPlay.background",
+            },
+            pause: {
+                title: "pause.title",
+            },
+            gelDesktop: {
+                achievements: "gelDesktop.achievements",
+            },
+            "character-select": {
+                "pause.title": "character-select.pause.title",
+                "howToPlay.background": "character-select.howToPlay.background",
+            },
+        };
         nextLoadInQueue();
         return assetsLoaded.then(keyLookUps => {
-            assert.deepEqual(keyLookUps, {});
+            assert.deepEqual(keyLookUps, expectedLookUps);
         });
     });
 
