@@ -1,8 +1,5 @@
-export const create = goToScreen => {
-    const qaMode = {
-        testHarnessLayoutDisplayed: false,
-        goToScreen,
-    };
-
-    return qaMode;
-};
+export const create = (game, goToScreen) => ({
+    testHarnessLayoutDisplayed: false,
+    goToScreen,
+    game,
+});

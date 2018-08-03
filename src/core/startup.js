@@ -58,7 +58,7 @@ export function startup(settingsConfig = {}, navigationConfig) {
             const goToScreen = Navigation.create(game.state, context, scene, navigationConfig);
 
             if (urlParams.qaMode) {
-                window.__qaMode = qaMode.create(goToScreen);
+                window.__qaMode = qaMode.create(game, goToScreen);
             }
         };
         loadFonts(game, onFontsLoaded);
