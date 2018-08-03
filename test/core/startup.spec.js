@@ -112,7 +112,6 @@ describe("Startup", () => {
             const expectedContext = {
                 popupScreens: [],
                 gameMuted: true,
-                qaMode: { active: false, testHarnessLayoutDisplayed: false },
             };
             const statsParams = gmiModule.startStatsTracking.getCall(0).args;
             assert.deepEqual(statsParams[0], Game.Stub);
