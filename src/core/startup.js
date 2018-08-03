@@ -60,7 +60,7 @@ export function startup(settingsConfig = {}, navigationConfig) {
             if (urlParams.qaMode) {
                 window.__qaMode = qaMode.create(goToScreen);
             }
-        }
+        };
         loadFonts(game, onFontsLoaded);
         a11y.setup(game.canvas.parentElement);
     }
