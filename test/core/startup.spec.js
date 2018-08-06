@@ -6,11 +6,12 @@ import * as Game from "../fake/game.js";
 import * as Scene from "../../src/core/scene.js";
 import * as LoadFonts from "../../src/core/font-loader.js";
 import * as Navigation from "../../src/core/navigation.js";
+import * as qaMode from "../../src/core/qa/qa-mode.js";
+import * as parseUrlParams from "../../src/core/parseUrlParams.js";
 
-describe("Startup", () => {
+describe.only("Startup", () => {
     let mockGmi;
     const sandbox = sinon.createSandbox();
-
     let PhaserGame, containerDiv;
 
     beforeEach(() => {
@@ -26,6 +27,7 @@ describe("Startup", () => {
 
         sandbox.stub(gmiModule, "setGmi");
         sandbox.stub(gmiModule, "startStatsTracking");
+
         sandbox.replace(gmiModule, "gmi", mockGmi);
         PhaserGame = sandbox.stub(Phaser, "Game").returns(Game.Stub);
         window.getGMI = sandbox.stub().returns(mockGmi);
@@ -81,9 +83,12 @@ describe("Startup", () => {
         let navigationCreate;
 
         beforeEach(() => {
+            sandbox.stub(parseUrlParams, "parseUrlParams").returns({ qaMode: true });
+
             sceneCreate = sandbox.stub(Scene, "create").returns("Scene");
             loadFonts = sandbox.stub(LoadFonts, "loadFonts");
             navigationCreate = sandbox.stub(Navigation, "create");
+            sandbox.stub(qaMode, "create");
 
             startup({}, "NavConfig");
             const game = PhaserGame.getCall(0).args[0];
@@ -92,6 +97,7 @@ describe("Startup", () => {
 
         afterEach(() => {
             sandbox.restore();
+            delete window.__qaMode;
         });
 
         it("creates the scene", () => {
@@ -106,6 +112,13 @@ describe("Startup", () => {
             const onComplete = loadFonts.getCall(0).args[1];
             onComplete();
             sandbox.assert.calledWith(navigationCreate, Game.Stub.state, sandbox.match.object, "Scene", "NavConfig");
+        });
+
+        it("creates qaMode if the qaMode url parameter is set to true", () => {
+            const onComplete = loadFonts.getCall(0).args[1];
+            onComplete();
+
+            sandbox.assert.calledOnce(qaMode.create);
         });
 
         it("starts the stats tracking through the GMI", () => {
