@@ -9,7 +9,7 @@ import * as Navigation from "../../src/core/navigation.js";
 import * as qaMode from "../../src/core/qa/qa-mode.js";
 import * as parseUrlParams from "../../src/core/parseUrlParams.js";
 
-describe.only("Startup", () => {
+describe("Startup", () => {
     let mockGmi;
     const sandbox = sinon.createSandbox();
     let PhaserGame, containerDiv;

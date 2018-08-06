@@ -13,7 +13,7 @@ import { loadFonts } from "./font-loader.js";
 import { gmi, setGmi, startStatsTracking } from "./gmi/gmi.js";
 import * as a11y from "./accessibility/accessibility-layer.js";
 import fp from "../../lib/lodash/fp/fp.js";
-import * as qaMode from "./qa/qaMode.js";
+import * as qaMode from "./qa/qa-mode.js";
 
 /**
  * @param {Object=} settingsConfig - Additional state that is added to the inState context.
