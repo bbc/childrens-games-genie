@@ -20,11 +20,11 @@ const parseBooleans = val => {
     } else {
         return decodedComponent;
     }
-}
+};
 
 const valid = paramsString => {
     const hasQuestionMark = paramsString.indexOf("?") >= 0;
     const hasEqualsSymbol = paramsString.indexOf("=") >= 0;
 
     return hasQuestionMark && hasEqualsSymbol;
-}
+};
