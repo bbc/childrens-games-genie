@@ -32,7 +32,7 @@ describe("#accessibleDomElement", () => {
         options = {
             id: "play-button",
             parent: parentElement,
-            onClick: () => {},
+            onClick: sandbox.stub(),
             onMouseOver: () => {},
             onMouseOut: () => {},
         };
@@ -52,6 +52,17 @@ describe("#accessibleDomElement", () => {
         it("sets the id to 'play-button", () => {
             accessibleDomElement(options);
             expect(element.getAttribute("id")).to.equal("play-button");
+        });
+
+        it("sets the html class if provided", () => {
+            options.htmlClass = "gel-button";
+            accessibleDomElement(options);
+            expect(element.getAttribute("class")).to.equal("gel-button");
+        });
+
+        it("does not set a html class if none is given", () => {
+            accessibleDomElement(options);
+            expect(element.getAttribute("class")).to.be.null;
         });
 
         it("sets tabindex to 0", () => {
@@ -146,6 +157,12 @@ describe("#accessibleDomElement", () => {
             const eventListener = sandbox.stub(element, "addEventListener");
             accessibleDomElement(options);
             sinon.assert.calledOnce(eventListener.withArgs("blur", sinon.match.func));
+        });
+
+        it("returns an object of element events for this element", () => {
+            const element = accessibleDomElement(options);
+            expect(element.events.click).to.be.a("function");
+            expect(element.events.keyup).to.be.a("function");
         });
     });
 

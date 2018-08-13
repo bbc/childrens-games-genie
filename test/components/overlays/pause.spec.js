@@ -23,7 +23,6 @@ describe("Pause Overlay", () => {
         mockOverlayLayout = {
             addBackground: sandbox.stub().returns(mockBackground),
             disableExistingButtons: sandbox.spy(),
-            restoreDisabledButtons: sandbox.spy(),
             moveGelButtonsToTop: sandbox.spy(),
         };
         sandbox.stub(OverlayLayout, "create").returns(mockOverlayLayout);
@@ -41,9 +40,6 @@ describe("Pause Overlay", () => {
             navigation: {
                 restart: sandbox.stub(),
                 home: sandbox.stub(),
-            },
-            overlayOpen: {
-                dispatch: sandbox.stub(),
             },
             overlayClosed: {
                 dispatch: sandbox.stub(),
@@ -84,10 +80,6 @@ describe("Pause Overlay", () => {
 
         it("pauses background music", () => {
             sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.pause);
-        });
-
-        it("dispatches overlayOpen signal on screen", () => {
-            sandbox.assert.calledOnce(mockScreen.overlayOpen.dispatch);
         });
     });
 
@@ -152,7 +144,6 @@ describe("Pause Overlay", () => {
 
             assert.isFalse(mockGame.paused);
             assert.isTrue(mockGelButtons.destroy.calledOnce);
-            assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
             sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
         });
@@ -165,20 +156,12 @@ describe("Pause Overlay", () => {
             sinon.assert.calledOnce(signalBusRemoveChannel.withArgs("pause-gel-buttons"));
         });
 
-        it("resets the tab position on destroy", () => {
-            pauseCreate({ game: mockGame });
-            const destroy = signalSpy.getCall(0).args[0].callback;
-            destroy();
-            sinon.assert.calledOnce(mockGame.canvas.focus);
-        });
-
         it("destroys the pause screen when the replay button is clicked", () => {
             pauseCreate({ game: mockGame });
             const cickReplayButton = signalSpy.getCall(2).args[0].callback;
             cickReplayButton();
             assert.isFalse(mockGame.paused);
             assert.isTrue(mockGelButtons.destroy.calledOnce);
-            assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
             sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
         });
@@ -201,12 +184,11 @@ describe("Pause Overlay", () => {
             clickHomeButton();
             assert.isFalse(mockGame.paused);
             assert.isTrue(mockGelButtons.destroy.calledOnce);
-            assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
             assert.isTrue(mockBackground.destroy.calledOnce);
             sinon.assert.calledOnce(GameSound.Assets.backgroundMusic.resume);
         });
 
-        it("naviagtes home when the home button is clicked", () => {
+        it("navigates home when the home button is clicked", () => {
             pauseCreate({ game: mockGame });
             const clickHomeButton = signalSpy.getCall(1).args[0].callback;
             clickHomeButton();

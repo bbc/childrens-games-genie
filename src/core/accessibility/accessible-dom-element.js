@@ -1,5 +1,6 @@
 export function accessibleDomElement(options) {
     const el = document.createElement("div");
+    let events;
 
     init();
 
@@ -9,6 +10,7 @@ export function accessibleDomElement(options) {
         show,
         visible,
         position,
+        events,
     };
 
     function init() {
@@ -22,8 +24,11 @@ export function accessibleDomElement(options) {
         if (options.ariaLabel) {
             el.setAttribute("aria-label", options.ariaLabel);
         }
+        if (options.htmlClass) {
+            el.setAttribute("class", options.htmlClass);
+        }
 
-        assignEvents();
+        events = assignEvents();
     }
 
     function assignEvents() {
@@ -33,6 +38,8 @@ export function accessibleDomElement(options) {
         el.addEventListener("mouseleave", options.onMouseOut);
         el.addEventListener("focus", options.onMouseOver);
         el.addEventListener("blur", options.onMouseOut);
+
+        return { keyup: keyUp, click: options.onClick };
     }
 
     function hide() {

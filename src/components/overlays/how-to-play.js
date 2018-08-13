@@ -28,8 +28,6 @@ export function create({ game }) {
     let pips = addPips(book);
     addSignals();
 
-    screen.overlayOpen.dispatch();
-
     function previousButtonClick() {
         book = Book.PreviousPage(book);
         updatePips(book);
@@ -89,7 +87,6 @@ export function create({ game }) {
 
     function destroy() {
         signal.bus.removeChannel(channel);
-        overlayLayout.restoreDisabledButtons();
         book.destroy();
         destroyPips();
         title.destroy();

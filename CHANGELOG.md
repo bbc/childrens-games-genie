@@ -2,11 +2,22 @@
 
 | Version | Description |
 |---------|-------------|
+| Unreleased | |
+| | Prevents long press on gel buttons for iOS.  |
+| | Add local eslint rule loader and Genie specific rules file with lockdown for Phaser Timer requirements  |
+| | Fixed IE11 and Edge bug where tabbing out of game then back again pauses game and does not unpause
+| | Centralised the resetting of accessible elements in the DOM so it no longer has to be called on each screen. |
+| | Fixes numerous issues around tabbing order when changing screens. Mainly for iOS voiceover. |
+| | Adds ability to skip screens for automation. |
+| | Moved qa mode tools to separate module. |
+| | Disable audio / home buttons based on GMI flags. |
+| | Fixes an issue with NVDA and Firefox where accessible buttons would not properly gain focus when tabbing. |
+| | Fixes 404s for globals and favicon. |
 | 0.6.0 | |
-| | Fixes an issue on iPhone X where voice-over tabbing would begin at the end of the how-to-play and select screens |
+| | Fixes an issue on iPhone X where voice-over tabbing would begin at the end of the how-to-play and select screens. |
 | | Adds mandatory stats using the GMI. |
-| | Enable audio toggle button |
-| | Adds an `accessibility-layer` that manages accessible DOM elements from screen-to-screen |
+| | Enable audio toggle button. |
+| | Adds an `accessibility-layer` that manages accessible DOM elements from screen-to-screen. |
 | | Fix default actions not applying to overlay buttons. |
 | | Fixes regression bug where the settings icons were not updating correctly. |
 | | Fix prev/next buttons appearing under character sprite on select screen. |
@@ -18,28 +29,28 @@
 | | Fixes unannounced selections in carousel on IOS and IE11/Firefox with NVDA. |
 | | Removes GMI from `context`, moves default settings into GMI module. |
 | | Update to Phaser 2.11.0 and fix spritesheet spacing to match new Phaser requirements. |
-| | Added theme configuration to allow the use of different background tracks on different game screens |
+| | Added theme configuration to allow the use of different background tracks on different game screens. |
 | | Adds basic stats using the GMI. |
-| | Adds console.log message to show when game data is saved |
+| | Adds console.log message to show when game data is saved. |
 | 0.4.1 | |
-| | Fix for loading the webfontloader module in the starter pack |
+| | Fix for loading the webfontloader module in the starter pack. |
 | 0.4.0 | |
 | | Fix for Chrome 66 resuming of webAudioContext. |
 | | Changed DOM elements to follow "bem" like naming system. |
-| | Added Reith font loading |
+| | Added Reith font loading. |
 | | Edge blank screen when screen reader enabled fixed. |
-| | Samsung S8 - pause flicker and visible background buttons fixed .|
+| | Samsung S8 - pause flicker and visible background buttons fixed. |
 | | Fix for kindle voice over reading elements which were supposed to be hidden. |
 | | Fix for audio still playing on loss of focus. |
 | | Makes carousels screenreader accessible. |
-| | Added Motion Fx and Audio Icon support |
+| | Added Motion Fx and Audio Icon support. |
 | 0.3.0 | |
-| | Layout aspect ratio capped to 7:3 |
+| | Layout aspect ratio capped to 7:3. |
 | | Carousel next/previous buttons are now locked to the 4:3 game area. |
 | | Mobile performance optimisation. |
 | | Removed unnecessary GEL buttons from gameplay component example. |
 | | Refactor of scaler code. |
-| | Fix various Gel focus and tabbing issues.|
+| | Fix various Gel focus and tabbing issues. |
 | | Removed replay button from character select screen. |
 | | Fixed bugs relating to carousel next/previous button z-index. |
 | | Focus on canvas when changing screen to fix keyboard navigation issues. |

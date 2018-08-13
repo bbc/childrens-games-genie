@@ -28,22 +28,16 @@ export class Screen extends Phaser.State {
         GameSound.setupScreenMusic(this.game, themeScreenConfig);
         this.transientData = transientData;
         a11y.clearAccessibleButtons();
+        a11y.clearElementsFromDom();
         this.overlaySetup();
     }
 
     overlaySetup() {
-        this.overlayOpen = new Phaser.Signal();
-        this.overlayOpen.add(this.onOverlayOpen, this);
         this.overlayClosed = new Phaser.Signal();
         this.overlayClosed.add(this.onOverlayClosed, this);
     }
 
-    onOverlayOpen() {
-        a11y.resetElementsInDom(this);
-    }
-
     onOverlayClosed() {
-        this.game.canvas.focus();
         a11y.clearElementsFromDom();
         a11y.clearAccessibleButtons(this);
         this.context.popupScreens.pop();

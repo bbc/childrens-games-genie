@@ -1,8 +1,9 @@
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as Scaler from "../../../src/core/scaler.js";
-import { accessibilify } from "../../../src/core/accessibility/accessibilify";
-import * as helperModule from "../../../src/core/accessibility/accessible-dom-element";
+import { accessibilify } from "../../../src/core/accessibility/accessibilify.js";
+import * as helperModule from "../../../src/core/accessibility/accessible-dom-element.js";
+import * as a11y from "../../../src/core/accessibility/accessibility-layer.js";
 
 describe("#accessibilify", () => {
     const gameWidth = 800;
@@ -34,6 +35,7 @@ describe("#accessibilify", () => {
     });
 
     beforeEach(() => {
+        sandbox.stub(a11y, "resetElementsInDom");
         onScaleChangeUnsubscribe = sandbox.spy();
         onScaleChangeAdd = sandbox.stub(Scaler.onScaleChange, "add").returns({ unsubscribe: onScaleChangeUnsubscribe });
         parentElement = document.createElement("div");
@@ -126,6 +128,7 @@ describe("#accessibilify", () => {
         accessibleDomElementPosition = sandbox.spy();
         accessibleDomElement.returns({
             position: accessibleDomElementPosition,
+            events: { click: "someClickEvent", keyup: "someKeyupEvent" },
         });
     });
 
@@ -140,6 +143,7 @@ describe("#accessibilify", () => {
             sinon.assert.calledOnce(
                 accessibleDomElement.withArgs({
                     id: "home__play",
+                    htmlClass: "gel-button",
                     ariaLabel: mockButton.name,
                     parent: mockButton.game.canvas.parentElement,
                     onClick: sinon.match.func,
@@ -147,6 +151,11 @@ describe("#accessibilify", () => {
                     onMouseOut: sinon.match.func,
                 }),
             );
+        });
+
+        it("resets the accessible elements in the DOM", () => {
+            accessibilify(mockButton);
+            sinon.assert.calledOnce(a11y.resetElementsInDom);
         });
 
         describe("with ariaLabel argument", () => {
@@ -160,6 +169,7 @@ describe("#accessibilify", () => {
                 sinon.assert.calledOnce(
                     accessibleDomElement.withArgs({
                         id: "home__play",
+                        htmlClass: "gel-button",
                         ariaLabel: "Play Button",
                         parent: mockButton.game.canvas.parentElement,
                         onClick: sinon.match.func,
@@ -210,9 +220,9 @@ describe("#accessibilify", () => {
         });
 
         it("repositions accessibleElement if button exists", () => {
-            sandbox.restore();
             const clock = sandbox.useFakeTimers();
             const position = sandbox.spy();
+            accessibleDomElement.restore();
             accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
 
             accessibilify(mockButton);
@@ -221,9 +231,9 @@ describe("#accessibilify", () => {
         });
 
         it("repositions accessibleElement if button exists but does not have a hit area", () => {
-            sandbox.restore();
             const clock = sandbox.useFakeTimers();
             const position = sandbox.spy();
+            accessibleDomElement.restore();
             accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
 
             mockButton.hitArea = null;
@@ -235,16 +245,29 @@ describe("#accessibilify", () => {
         });
 
         it("does NOT reposition accessibleElement if button does not exist", () => {
-            sandbox.restore();
             let deadMockButton = mockButton;
             deadMockButton.alive = false;
             const clock = sandbox.useFakeTimers();
             const position = sandbox.spy();
+            accessibleDomElement.restore();
             accessibleDomElement = sandbox.stub(helperModule, "accessibleDomElement").returns({ position });
 
             accessibilify(deadMockButton);
             clock.tick(200);
             sinon.assert.notCalled(position);
+        });
+
+        it("assigns DOM element ID to the Phaser button object", () => {
+            accessibilify(mockButton);
+
+            expect(mockButton.elementId).to.eq("home__play");
+        });
+
+        it("assigns element events to the Phaser button object", () => {
+            accessibilify(mockButton);
+
+            expect(mockButton.elementEvents.click).to.eq("someClickEvent");
+            expect(mockButton.elementEvents.keyup).to.eq("someKeyupEvent");
         });
     });
 

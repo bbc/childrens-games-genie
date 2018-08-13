@@ -38,7 +38,6 @@ describe("How To Play Overlay", () => {
         mockOverlayLayout = {
             addBackground: sandbox.stub().returns(mockBackground),
             disableExistingButtons: sandbox.spy(),
-            restoreDisabledButtons: sandbox.spy(),
             moveGelButtonsToTop: sandbox.spy(),
             moveToTop: sandbox.spy(),
         };
@@ -66,9 +65,6 @@ describe("How To Play Overlay", () => {
                         },
                     },
                 },
-            },
-            overlayOpen: {
-                dispatch: sandbox.stub(),
             },
             overlayClosed: {
                 dispatch: sandbox.stub(),
@@ -129,10 +125,6 @@ describe("How To Play Overlay", () => {
             const actualAddLayoutCall = mockScreen.scene.addLayout.getCall(0);
             const expectedAddLayoutCall = ["howToPlayBack", "audio", "settings", "howToPlayPrevious", "howToPlayNext"];
             assert.deepEqual(actualAddLayoutCall.args[0], expectedAddLayoutCall);
-        });
-
-        it("dispatches overlayOpen signal on screen", () => {
-            sandbox.assert.calledOnce(mockScreen.overlayOpen.dispatch);
         });
     });
 
@@ -214,7 +206,6 @@ describe("How To Play Overlay", () => {
                 clickBackButton();
 
                 assert.isTrue(mockGelButtons.destroy.calledOnce);
-                assert.isTrue(mockOverlayLayout.restoreDisabledButtons.calledOnce);
                 assert.isTrue(mockBackground.destroy.calledOnce);
                 assert.isTrue(mockTitle.destroy.calledOnce);
             });

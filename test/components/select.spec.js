@@ -5,7 +5,6 @@ import * as layoutHarness from "../../src/components/test-harness/layout-harness
 import * as signal from "../../src/core/signal-bus.js";
 import { buttonsChannel } from "../../src/core/layout/gel-defaults.js";
 import * as accessibleCarouselElements from "../../src/core/accessibility/accessible-carousel-elements.js";
-import * as a11y from "../../src/core/accessibility/accessibility-layer.js";
 
 describe("Select Screen", () => {
     let selectScreen;
@@ -29,7 +28,6 @@ describe("Select Screen", () => {
         sandbox
             .stub(accessibleCarouselElements, "create")
             .returns([document.createElement("div"), document.createElement("div"), document.createElement("div")]);
-        sandbox.stub(a11y, "resetElementsInDom");
         layoutHarnessSpy = sandbox.spy(layoutHarness, "createTestHarnessDisplay");
         addToBackgroundSpy = sandbox.spy();
         gameImageStub = sandbox.stub().returns("sprite");
@@ -136,10 +134,6 @@ describe("Select Screen", () => {
                 mockContext.config.theme.characterSelect.choices,
             ]);
         });
-
-        it("resets accessibility elements in DOM", () => {
-            sandbox.assert.calledOnce(a11y.resetElementsInDom.withArgs(selectScreen));
-        });
     });
 
     describe("signals", () => {
@@ -151,12 +145,7 @@ describe("Select Screen", () => {
         });
 
         it("adds signal subscriptions to all the buttons", () => {
-            assert(signalSubscribeSpy.callCount === 6, "signals should be subscribed 4 times");
-            sinon.assert.calledWith(signalSubscribeSpy, {
-                channel: buttonsChannel,
-                name: "exit",
-                callback: sinon.match.func,
-            });
+            assert(signalSubscribeSpy.callCount === 5, "signals should be subscribed 5 times");
             sinon.assert.calledWith(signalSubscribeSpy, {
                 channel: buttonsChannel,
                 name: "previous",
@@ -184,20 +173,15 @@ describe("Select Screen", () => {
             });
         });
 
-        it("exits the game when the exit button is pressed", () => {
-            signalSubscribeSpy.getCall(0).args[0].callback();
-            sinon.assert.calledOnce(selectScreen.navigation.home);
-        });
-
         it("moves to the next game screen when the continue button is pressed", () => {
             selectScreen.currentIndex = 1;
-            signalSubscribeSpy.getCall(3).args[0].callback();
+            signalSubscribeSpy.getCall(2).args[0].callback();
             sinon.assert.calledOnce(selectScreen.navigation.next.withArgs({ characterSelected: 1 }));
         });
 
         it("hides all the accessible elements when the pause button is pressed", () => {
             selectScreen.currentIndex = 1;
-            signalSubscribeSpy.getCall(4).args[0].callback();
+            signalSubscribeSpy.getCall(3).args[0].callback();
 
             assert.equal(selectScreen.accessibleElements.length, 3);
             assert.equal(selectScreen.accessibleElements[0].getAttribute("aria-hidden"), "true");
@@ -207,8 +191,8 @@ describe("Select Screen", () => {
 
         it("shows the current accessible element when the game is unpaused (by pressing play)", () => {
             selectScreen.currentIndex = 3;
-            signalSubscribeSpy.getCall(4).args[0].callback(); //pauses
-            signalSubscribeSpy.getCall(5).args[0].callback(); //unpauses
+            signalSubscribeSpy.getCall(3).args[0].callback(); //pauses
+            signalSubscribeSpy.getCall(4).args[0].callback(); //unpauses
 
             assert.equal(selectScreen.accessibleElements[0].getAttribute("aria-hidden"), "true");
             assert.equal(selectScreen.accessibleElements[1].getAttribute("aria-hidden"), "true");
@@ -218,19 +202,19 @@ describe("Select Screen", () => {
         describe("previous button", () => {
             it("switches to the last item when the first item is showing", () => {
                 selectScreen.currentIndex = 1;
-                signalSubscribeSpy.getCall(1).args[0].callback();
+                signalSubscribeSpy.getCall(0).args[0].callback();
                 assert(selectScreen.currentIndex === 3, "previous button should move to the last item");
             });
 
             it("switches to the previous item when any other choice is showing", () => {
                 selectScreen.currentIndex = 2;
-                signalSubscribeSpy.getCall(1).args[0].callback();
+                signalSubscribeSpy.getCall(0).args[0].callback();
                 assert(selectScreen.currentIndex === 1, "previous button should move to the previous item");
             });
 
             it("hides all the choices except the current one", () => {
                 selectScreen.currentIndex = 3;
-                signalSubscribeSpy.getCall(1).args[0].callback();
+                signalSubscribeSpy.getCall(0).args[0].callback();
 
                 assert(selectScreen.choiceSprites[0].visible === false, "choice should be hidden");
                 assert(selectScreen.choiceSprites[1].visible === true, "choice should be showing");
@@ -239,7 +223,7 @@ describe("Select Screen", () => {
 
             it("set 'aria-hidden' = true on all the choices except the current one", () => {
                 selectScreen.currentIndex = 3;
-                signalSubscribeSpy.getCall(1).args[0].callback();
+                signalSubscribeSpy.getCall(0).args[0].callback();
 
                 assert.equal(selectScreen.accessibleElements[0].getAttribute("aria-hidden"), "true");
                 assert.equal(selectScreen.accessibleElements[1].getAttribute("aria-hidden"), "false");
@@ -248,7 +232,7 @@ describe("Select Screen", () => {
 
             it("set display: none on all the choices except the current one", () => {
                 selectScreen.currentIndex = 3;
-                signalSubscribeSpy.getCall(1).args[0].callback();
+                signalSubscribeSpy.getCall(0).args[0].callback();
 
                 assert.equal(selectScreen.accessibleElements[0].style.display, "none");
                 assert.equal(selectScreen.accessibleElements[1].style.display, "block");
@@ -259,19 +243,19 @@ describe("Select Screen", () => {
         describe("next button", () => {
             it("switches to the first item when the last item is showing", () => {
                 selectScreen.currentIndex = 3;
-                signalSubscribeSpy.getCall(2).args[0].callback();
+                signalSubscribeSpy.getCall(1).args[0].callback();
                 assert(selectScreen.currentIndex === 1, "next button should move to the first item");
             });
 
             it("switches to the next item when any other choice is showing", () => {
                 selectScreen.currentIndex = 2;
-                signalSubscribeSpy.getCall(2).args[0].callback();
+                signalSubscribeSpy.getCall(1).args[0].callback();
                 assert(selectScreen.currentIndex === 3, "next button should move to the next item");
             });
 
             it("hides all the choices except the current one", () => {
                 selectScreen.currentIndex = 1;
-                signalSubscribeSpy.getCall(2).args[0].callback();
+                signalSubscribeSpy.getCall(1).args[0].callback();
                 assert(selectScreen.choiceSprites[0].visible === false, "choice should be hidden");
                 assert(selectScreen.choiceSprites[1].visible === true, "choice should be showing");
                 assert(selectScreen.choiceSprites[2].visible === false, "choice should be hidden");
@@ -279,7 +263,7 @@ describe("Select Screen", () => {
 
             it("set 'aria-hidden' = true on all the choices except the current one", () => {
                 selectScreen.currentIndex = 1;
-                signalSubscribeSpy.getCall(2).args[0].callback();
+                signalSubscribeSpy.getCall(1).args[0].callback();
 
                 assert.equal(selectScreen.accessibleElements[0].getAttribute("aria-hidden"), "true");
                 assert.equal(selectScreen.accessibleElements[1].getAttribute("aria-hidden"), "false");
@@ -288,7 +272,7 @@ describe("Select Screen", () => {
 
             it("set display: none on all the choices except the current one", () => {
                 selectScreen.currentIndex = 1;
-                signalSubscribeSpy.getCall(2).args[0].callback();
+                signalSubscribeSpy.getCall(1).args[0].callback();
 
                 assert.equal(selectScreen.accessibleElements[0].style.display, "none");
                 assert.equal(selectScreen.accessibleElements[1].style.display, "block");

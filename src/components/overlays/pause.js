@@ -25,7 +25,6 @@ export const create = fp.curry((hideReplayButton, { game }) => {
     const gelButtons = addGelButtons();
 
     addSignals();
-    screen.overlayOpen.dispatch();
 
     function pauseGame() {
         game.paused = true;
@@ -58,9 +57,7 @@ export const create = fp.curry((hideReplayButton, { game }) => {
         game.paused = false;
         signal.bus.removeChannel(channel);
         gelButtons.destroy();
-        overlayLayout.restoreDisabledButtons();
         background.destroy();
-        game.canvas.focus();
         if (GameSound.Assets.backgroundMusic) {
             GameSound.Assets.backgroundMusic.resume();
         }

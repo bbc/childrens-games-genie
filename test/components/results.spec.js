@@ -4,7 +4,6 @@ import { Results } from "../../src/components/results";
 import * as layoutHarness from "../../src/components/test-harness/layout-harness.js";
 import * as signal from "../../src/core/signal-bus.js";
 import * as gmiModule from "../../src/core/gmi/gmi.js";
-import * as a11y from "../../src/core/accessibility/accessibility-layer.js";
 
 describe("Results Screen", () => {
     let resultsScreen;
@@ -22,7 +21,6 @@ describe("Results Screen", () => {
 
     beforeEach(() => {
         sandbox.stub(gmiModule, "sendStats");
-        sandbox.stub(a11y, "resetElementsInDom");
         sandbox.spy(layoutHarness, "createTestHarnessDisplay");
         addToBackgroundSpy = sandbox.spy();
         addLayoutSpy = sandbox.spy();
@@ -55,7 +53,6 @@ describe("Results Screen", () => {
                     },
                 },
             },
-            qaMode: { active: false },
         };
 
         resultsScreen = new Results();
@@ -137,10 +134,6 @@ describe("Results Screen", () => {
         it("fires a game complete stat to the GMI without a score if not provided", () => {
             resultsScreen.transientData.results = null;
             sandbox.assert.calledOnce(gmiModule.sendStats.withArgs("game_complete"));
-        });
-
-        it("resets accessibility elements in DOM", () => {
-            sandbox.assert.calledOnce(a11y.resetElementsInDom.withArgs(resultsScreen));
         });
     });
 
