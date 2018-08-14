@@ -25,7 +25,7 @@ export class Screen extends Phaser.State {
         this._context = context;
         this.navigation = navigation[this.game.state.current].routes;
         const themeScreenConfig = this.context.config.theme[this.game.state.current];
-        GameSound.setupScreenMusic(this.game, themeScreenConfig);
+        //GameSound.setupScreenMusic(this.game, themeScreenConfig);
         this.transientData = transientData;
         a11y.clearAccessibleButtons();
         a11y.clearElementsFromDom();
