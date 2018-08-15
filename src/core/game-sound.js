@@ -38,10 +38,11 @@ const setupScreenMusic = (game, themeScreenConfig) => {
 const startMusic = (game, audioKey) => {
     const music = game.add.audio(audioKey);
 
+    //NOTE CGPROD 877. IOS9 (ipad 2 and ipad mini) currently fails on music.fadeIn or music.loopFull below
     if (fadingMusic) {
         music.fadeIn(SOUND_FADE_PERIOD, true);
     } else {
-        music.loopFull();
+        !music.isPlaying && music.loopFull();
     }
     return music;
 };
