@@ -9,7 +9,7 @@ var p2 = path.join(phaserModule, "build/custom/p2.js");
 
 module.exports = env => {
     var webPackConfig = {
-        mode: "development",
+        mode: "production",
         performance: { hints: false },
         entry: ["babel-polyfill", pixi, p2, phaser, "webfontloader"],
         output: {
