@@ -14,6 +14,7 @@
  * this.scene.addLayout(["exit", "howToPlay", "play", "audio", "settings"]);
  *
  * @module core/scene
+ * @license Apache-2.0
  */
 import * as Scaler from "./scaler.js";
 import * as Layout from "./layout/layout.js";

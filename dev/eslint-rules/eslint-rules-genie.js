@@ -27,4 +27,49 @@ module.exports = {
             },
         }),
     },
+    "require-license": {
+        meta: {
+            docs: {
+                description: "Require a license tag for each file",
+                category: "Genie Restrictions",
+                recommended: true,
+            },
+            schema: [
+                {
+                    type: "object",
+                    properties: {
+                        terms: {
+                            type: "array",
+                            items: {
+                                type: "string",
+                            },
+                        },
+                        location: {
+                            enum: ["start", "anywhere"],
+                        },
+                    },
+                    additionalProperties: false,
+                },
+            ],
+        },
+        create: context => {
+            return {
+                Program() {
+                    const sourceCode = context.getSourceCode();
+                    const comments = sourceCode.getAllComments();
+                    const blockComments = comments.filter(comment => comment.type === "Block");
+                    const licensePresent = blockComments.some(comment => comment.value.includes("@licence Apache-2.0"));
+
+                    if (licensePresent) {
+                        return;
+                    }
+
+                    context.report({
+                        message: "@licence Apache-2.0 required in block comment at top of file",
+                        loc: { line: 1, column: 0 },
+                    });
+                },
+            };
+        },
+    },
 };

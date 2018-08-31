@@ -1,3 +1,7 @@
+/**
+ * @license Apache-2.0
+ */
+
 export const get = (gameInstance, gameContext) => {
     const popupScreens = gameContext.popupScreens;
 

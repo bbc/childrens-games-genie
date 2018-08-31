@@ -11,6 +11,7 @@
  * bus.publish({channel: "channelName", name: "signalName", data: [1,2,3] });
  *
  * @module core/signal-bus
+ * @license Apache-2.0
  */
 import fp from "../../lib/lodash/fp/fp.js";
 

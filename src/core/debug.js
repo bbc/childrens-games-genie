@@ -19,6 +19,7 @@
  *
  * @author Nick Tipping <nick.tipping@bbc.co.uk>
  * @module core/debug
+ * @license Apache-2.0
  */
 let enabled = false;
 let bodies = [];

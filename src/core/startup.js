@@ -3,6 +3,7 @@
  * It also instantiates the `Context` object.
  *
  * @module core/startup
+ * @licence Apache-2.0
  */
 import { settings, settingsChannel } from "../core/settings.js";
 import * as signal from "../core/signal-bus.js";

@@ -3,6 +3,7 @@
  * as well as the assets for the rest of the game.
  *
  * @module core/asset-loader
+ * @license Apache-2.0
  */
 import _ from "../../lib/lodash/lodash.js";
 
