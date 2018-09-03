@@ -2,6 +2,7 @@
  * Select gives a choice of different items, which can be configured in main.js.
  *
  * @module components/select
+ * @license Apache-2.0
  */
 
 import { buttonsChannel } from "../core/layout/gel-defaults.js";

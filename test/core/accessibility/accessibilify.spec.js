@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { expect } from "chai";
 import * as sinon from "sinon";
 import * as Scaler from "../../../src/core/scaler.js";

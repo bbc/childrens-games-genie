@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 export const createLoadBar = (game, barBgKey, barFillKey) => {
     const loadBar = new Phaser.Group(game);
 

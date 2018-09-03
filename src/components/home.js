@@ -2,6 +2,7 @@
  * Home is the main title screen for the game.
  *
  * @module components/home
+ * @license Apache-2.0
  */
 
 import { buttonsChannel } from "../core/layout/gel-defaults.js";

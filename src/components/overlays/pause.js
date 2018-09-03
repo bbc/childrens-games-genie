@@ -3,6 +3,7 @@
  * It tears itself down again on close.
  *
  * @module components/overlays/pause
+ * @license Apache-2.0
  */
 import fp from "../../../lib/lodash/fp/fp.js";
 

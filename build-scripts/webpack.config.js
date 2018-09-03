@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 var path = require("path");
 var dynamicallyExposeGlobals = require("../dev/scripts/dynamicExpose.js");
 

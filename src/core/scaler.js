@@ -1,6 +1,7 @@
 /**
  *
  *  @module core/scaler
+ *  @license Apache-2.0
  */
 import { calculateMetrics } from "./layout/calculate-metrics.js";
 

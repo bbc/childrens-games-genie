@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 const Assets = {
     backgroundMusic: undefined,
     buttonClick: undefined,

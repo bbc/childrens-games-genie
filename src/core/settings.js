@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import * as signal from "../core/signal-bus.js";
 import { gmi } from "./gmi/gmi.js";
 

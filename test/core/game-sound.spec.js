@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import * as sinon from "sinon";
 import { assert, expect } from "chai";
 import * as Game from "../fake/game.js";

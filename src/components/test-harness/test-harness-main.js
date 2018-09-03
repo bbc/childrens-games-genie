@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { Loadscreen } from "../loadscreen.js";
 import { Home } from "../home.js";
 import { RotationTest } from "./test-screens/rotation.js";

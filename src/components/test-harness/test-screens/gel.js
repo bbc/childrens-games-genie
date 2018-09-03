@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { Screen } from "../../../core/screen.js";
 
 export class Home extends Screen {

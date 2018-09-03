@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 module.exports = {
     compress: true,
     staticIndex: "dev/index.dev.html",

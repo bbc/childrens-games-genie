@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 const REITH_FONT_CSS = "https://gel.files.bbci.co.uk/r2.302/bbc-reith.css";
 
 export const loadFonts = (game, done) => {

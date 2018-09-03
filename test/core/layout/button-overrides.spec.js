@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { assert } from "chai";
 import { applyButtonOverrides } from "../../../src/core/layout/button-overrides.js";
 

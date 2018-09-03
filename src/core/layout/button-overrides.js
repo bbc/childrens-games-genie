@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 const assignCustomValues = (scale, button) => {
     const config = button.game.cache.getJSON("config");
     const overrides = config.theme["button-overrides"][button.key];

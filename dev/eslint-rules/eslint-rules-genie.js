@@ -3,6 +3,7 @@
  *
  * @example To override the disallow timers rule:
  *      // eslint-disable-next-line local-rules/disallow-timers
+ * @license Apache-2.0
  */
 module.exports = {
     "disallow-timers": {
@@ -34,23 +35,7 @@ module.exports = {
                 category: "Genie Restrictions",
                 recommended: true,
             },
-            schema: [
-                {
-                    type: "object",
-                    properties: {
-                        terms: {
-                            type: "array",
-                            items: {
-                                type: "string",
-                            },
-                        },
-                        location: {
-                            enum: ["start", "anywhere"],
-                        },
-                    },
-                    additionalProperties: false,
-                },
-            ],
+            schema: [],
         },
         create: context => {
             return {
@@ -58,14 +43,14 @@ module.exports = {
                     const sourceCode = context.getSourceCode();
                     const comments = sourceCode.getAllComments();
                     const blockComments = comments.filter(comment => comment.type === "Block");
-                    const licensePresent = blockComments.some(comment => comment.value.includes("@licence Apache-2.0"));
+                    const licensePresent = blockComments.some(comment => comment.value.includes("@license Apache-2.0"));
 
                     if (licensePresent) {
                         return;
                     }
 
                     context.report({
-                        message: "@licence Apache-2.0 required in block comment at top of file",
+                        message: "@licence Apache-2.0 required in block comment (/**   */) at top of file",
                         loc: { line: 1, column: 0 },
                     });
                 },

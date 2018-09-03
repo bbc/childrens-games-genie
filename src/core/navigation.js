@@ -1,6 +1,7 @@
 /**
  *
  * @module core/navigation
+ * @license Apache-2.0
  */
 import { buttonsChannel } from "./layout/gel-defaults.js";
 import * as signal from "./signal-bus.js";

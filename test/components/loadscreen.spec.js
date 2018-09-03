@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { expect, assert } from "chai";
 import * as sinon from "sinon";
 

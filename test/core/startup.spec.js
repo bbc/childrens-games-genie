@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { assert } from "chai";
 import * as sinon from "sinon";
 import { startup } from "../../src/core/startup.js";

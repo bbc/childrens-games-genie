@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 const gelStyle = {
     font: "ReithSans",
     fontSize: 20, //40,
@@ -16,7 +19,7 @@ const makeRect = (game, color1, width, height) =>
  * @class DebugButton
  *
  * Phaser button with built in gel defaults, configurable size, text overlay and automatic imagery generation
- * Compatible with {@link module:accessibilify}
+ * Compatible with {@link module:accessibility/accessibilify}
  *
  * @example
  * game.add.existing(new DebugButton( ...parameters))

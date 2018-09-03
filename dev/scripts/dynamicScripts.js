@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 function dynamicallyLoadScript(url) {
     var script = document.createElement("script");
     script.src = url;

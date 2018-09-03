@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { accessibleDomElement } from "./accessible-dom-element.js";
 
 //Should be in a stylesheet however we have no support for this (v0.4)

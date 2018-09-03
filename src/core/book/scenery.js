@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 const Create = (x, y, asset) => {
     return Object.freeze({ x, y, asset });
 };

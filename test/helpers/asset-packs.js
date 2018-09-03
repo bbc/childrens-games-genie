@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { assets, objectToJsonDataUrl } from "./assets";
 
 const emptyAssetPack = objectToJsonDataUrl({ empty: {} });

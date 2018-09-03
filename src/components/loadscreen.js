@@ -2,6 +2,7 @@
  * Loadscreen loads in the game's assets.
  *
  * @module components/loadscreen
+ * @license Apache-2.0
  */
 
 import _ from "../../lib/lodash/lodash.js";

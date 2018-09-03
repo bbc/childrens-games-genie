@@ -1,3 +1,7 @@
+/**
+ * @module accessibility/accessibilify
+ * @license Apache-2.0
+ */
 import fp from "../../../lib/lodash/fp/fp.js";
 import { onScaleChange } from "../scaler.js";
 import { accessibleDomElement } from "./accessible-dom-element.js";

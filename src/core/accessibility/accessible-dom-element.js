@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 export function accessibleDomElement(options) {
     const el = document.createElement("div");
     let events;

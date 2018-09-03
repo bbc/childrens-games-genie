@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { findButtonByElementId } from "./accessible-buttons.js";
 
 export const hideAndDisableElement = el => {

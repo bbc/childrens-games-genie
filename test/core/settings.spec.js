@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import * as sinon from "sinon";
 import { create as createSettings } from "../../src/core/settings.js";
 import * as signal from "../../src/core/signal-bus.js";

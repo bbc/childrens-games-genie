@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { assert } from "chai";
 
 import * as visibleLayer from "../../src/core/visible-layer.js";

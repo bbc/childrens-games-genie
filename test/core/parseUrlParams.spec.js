@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { expect } from "chai";
 
 import { parseUrlParams } from "../../src/core/parseUrlParams";

@@ -2,6 +2,7 @@
  * A container for gel buttons with built in resizing and button break points
  *
  * @module layout/layout
+ * @license Apache-2.0
  */
 import { onScaleChange } from "../scaler.js";
 import fp from "../../../lib/lodash/fp/fp.js";

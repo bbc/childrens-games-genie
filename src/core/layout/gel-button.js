@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import fp from "../../../lib/lodash/fp/fp.js";
 import * as signal from "../signal-bus.js";
 import * as GameSound from "../game-sound.js";

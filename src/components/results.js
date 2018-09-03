@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { buttonsChannel } from "../core/layout/gel-defaults.js";
 import { Screen } from "../core/screen.js";
 import * as signal from "../core/signal-bus.js";

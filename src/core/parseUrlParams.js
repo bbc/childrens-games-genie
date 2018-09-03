@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 export function parseUrlParams(paramsString) {
     if (!valid(paramsString)) {
         return {};

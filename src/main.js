@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import { Home } from "./components/home.js";
 import { Loadscreen } from "./components/loadscreen.js";
 import { Results } from "./components/results.js";
