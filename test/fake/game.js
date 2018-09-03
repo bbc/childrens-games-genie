@@ -26,8 +26,16 @@ const Stub = {
     canvas: {
         parentElement: {
             appendChild: () => {},
+            addEventListener: () => {},
         },
         setAttribute: () => {},
+    },
+    time: {
+        events: {
+            add: (ms, callback) => {
+                callback();
+            },
+        },
     },
 };
 
