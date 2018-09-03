@@ -1,3 +1,6 @@
+/**
+ * @license Apache-2.0
+ */
 import * as sinon from "sinon";
 
 import * as fullscreen from "../../src/core/fullscreen.js";
