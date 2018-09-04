@@ -20,7 +20,7 @@
         "mocha/no-skipped-tests": ["error"],
         "mocha/no-exclusive-tests": "error",
         "local-rules/disallow-timers": 2,
-        "local-rules/require-license": 2
+        "local-rules/require-bbc-header": 2
     },
     "settings": {
        "mocha/additionalTestFunctions": [

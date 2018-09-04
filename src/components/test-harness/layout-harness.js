@@ -1,4 +1,6 @@
 /**
+ * @copyright BBC 2018
+ * @author BBC Children's D+E
  * @license Apache-2.0
  */
 import { GEL_MIN_ASPECT_RATIO } from "../../core/layout/calculate-metrics.js";
