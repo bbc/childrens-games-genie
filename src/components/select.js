@@ -28,7 +28,11 @@ export class Select extends Screen {
         this.currentIndex = 1;
         this.choiceSprites = this.createChoiceSprites(theme.choices);
 
-        this.scene.addLayout(["home", "audio", "pauseNoReplay", "previous", "next", "continue"]);
+        const showAchievements = !!this.context.config.theme.game.achievements;
+        const defaultButtons = ["home", "audio", "pauseNoReplay", "previous", "next", "continue"];
+        const buttons = showAchievements ? defaultButtons.concat("achievements") : defaultButtons;
+
+        this.scene.addLayout(buttons);
         this.accessibleElements = accessibleCarouselElements.create(
             this.visibleLayer,
             this.choiceSprites,
