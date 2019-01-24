@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| Adds theme configurability for achievement button | |
 | 1.0.4 | |
 | | Load global scripts synchronously in dev build |
 | 1.0.3 | |
