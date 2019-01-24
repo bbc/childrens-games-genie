@@ -47,10 +47,10 @@ const navigationConfig = goToScreen => {
     const characterSelect = data => goToScreen("character-select", data);
     const game = data => goToScreen("game", data);
     const results = data => goToScreen("results", data);
-    const achievements = data => {
-        //TODO Enable once achievements screen is available
+    const achievements = data => { //eslint-disable-line
+        //TODO re-enable line below / remove eslint disable on line above once achievements screen is available
         //goToScreen("achievements", data);
-    }
+    };
 
     return {
         loadscreen: {

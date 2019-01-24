@@ -63,6 +63,7 @@ describe("Select Screen", () => {
                     characterSelect: {
                         choices: [{ asset: "character1" }, { asset: "character2" }, { asset: "character3" }],
                     },
+                    game: {},
                 },
             },
             qaMode: { active: false },
@@ -138,6 +139,17 @@ describe("Select Screen", () => {
                 mockGame.canvas.parentElement,
                 mockContext.config.theme.characterSelect.choices,
             ]);
+        });
+    });
+
+    describe("achievements button", () => {
+        it("adds the achievement button when theme flag is set", () => {
+            selectScreen.context.config.theme.game.achievements = true;
+            selectScreen.create();
+
+            const actualButtons = addLayoutSpy.getCall(0).args[0];
+            const expectedButtons = ["home", "audio", "pauseNoReplay", "previous", "next", "continue", "achievements"];
+            assert.deepEqual(actualButtons, expectedButtons);
         });
     });
 
