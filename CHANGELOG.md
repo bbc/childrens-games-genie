@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Set hitArea to null for fx and audio icons |
 | 1.0.4 | |
 | | Load global scripts synchronously in dev build |
 | 1.0.3 | |
