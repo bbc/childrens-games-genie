@@ -3,8 +3,9 @@
 | Version | Description |
 |---------|-------------|
 | | Set hitArea to null for fx and audio icons |
+| | Workaround for audio issue when tabbing away and pausing after music has finished. |
 | 1.0.4 | |
-| | Load global scripts synchronously in dev build |
+| | Load global scripts synchronously in dev build. |
 | 1.0.3 | |
 | | Lock to canvas only pending assessment of best practice for webgl performance. |
 | | Fix ios voiceover reading out zombie element . |
