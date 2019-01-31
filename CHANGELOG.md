@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Remove const and let from lodash wrapper for IOS 9 support. |
 | | Workaround for audio issue when tabbing away and pausing after music has finished. |
 | 1.0.4 | |
 | | Load global scripts synchronously in dev build. |
