@@ -32,7 +32,8 @@ export class Results extends Screen {
         const resultsText = this.game.add.text(0, 50, this.transientData.results, theme.resultText.style);
         this.scene.addToBackground(resultsText);
 
-        const showAchievements = !!this.context.config.theme.game.achievements;
+        // TODO the following line should be added back once the overlap issue is resolved NT:04:02:19
+        const showAchievements = false; //!!this.context.config.theme.game.achievements;
         const defaultButtons = ["pause", "restart", "continueGame"];
         const buttons = showAchievements ? defaultButtons.concat("achievements") : defaultButtons;
 
