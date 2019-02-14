@@ -65,11 +65,11 @@ describe("Startup", () => {
         const expectedConfig = {
             width: 1400,
             height: 600,
-            renderer: 1,
+            renderer: 0,
             antialias: true,
             multiTexture: false,
             parent: containerDiv,
-            transparent: true,
+            transparent: false,
         };
 
         const actualConfig = PhaserGame.getCall(0).args[0];
