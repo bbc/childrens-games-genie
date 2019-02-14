@@ -3,6 +3,7 @@
 | Version | Description |
 |---------|-------------|
 | Set transparent canvas (Kindle flicker fix) only if Amazon Silk browser | |
+| | QAMode now occurs when on a test URL. |
 | 1.0.6 | |
 | | Add removeFromAccessibleButtons and getAccessibleButtons to accessible layer. |
 | 1.0.5 | |

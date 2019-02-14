@@ -9,7 +9,6 @@
  */
 import { settings, settingsChannel } from "../core/settings.js";
 import * as signal from "../core/signal-bus.js";
-import { parseUrlParams } from "./parseUrlParams.js";
 import * as Navigation from "./navigation.js";
 import * as Scene from "./scene.js";
 import { loadFonts } from "./font-loader.js";
@@ -31,7 +30,6 @@ const browser = getBrowser();
  */
 export function startup(settingsConfig = {}, navigationConfig) {
     setGmi(settingsConfig, window);
-    const urlParams = parseUrlParams(window.location.search);
     hookErrors(gmi.gameContainerId);
 
     const phaserConfig = {
@@ -68,10 +66,7 @@ export function startup(settingsConfig = {}, navigationConfig) {
 
         const onFontsLoaded = () => {
             const goToScreen = Navigation.create(game.state, context, scene, navigationConfig);
-
-            if (urlParams.qaMode) {
-                window.__qaMode = qaMode.create(game, goToScreen);
-            }
+            qaMode.create(window, game, goToScreen);
         };
         loadFonts(game, onFontsLoaded);
         a11y.setup(game.canvas.parentElement);
