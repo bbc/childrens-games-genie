@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Set clearBeforeRender to false since all games fill the canvas |
 | | Set transparent canvas (Kindle flicker fix) only if Amazon Silk browser |
 | | QAMode now occurs when on a test URL. |
 | 1.0.6 | |

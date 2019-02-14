@@ -69,6 +69,7 @@ describe("Startup", () => {
             multiTexture: false,
             parent: containerDiv,
             transparent: false,
+            clearBeforeRender: false,
         };
 
         const actualConfig = PhaserGame.getCall(0).args[0];
@@ -80,6 +81,7 @@ describe("Startup", () => {
         assert.equal(actualConfig.multiTexture, expectedConfig.multiTexture);
         assert.equal(actualConfig.parent, expectedConfig.parent);
         assert.equal(actualConfig.transparent, expectedConfig.transparent);
+        assert.equal(actualConfig.clearBeforeRender, expectedConfig.clearBeforeRender);
     });
 
     it("throws an error if the game container element cannot be found", () => {
