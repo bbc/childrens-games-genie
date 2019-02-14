@@ -22,8 +22,6 @@ import { getBrowser } from "./browser.js";
 
 const browser = getBrowser();
 
-//alert(`browser name: "${browser.name} E"`);
-
 /**
  * @param {Object=} settingsConfig - Additional state that is added to the inState context.
  * @param {Object=} navigationConfig -
@@ -41,6 +39,7 @@ export function startup(settingsConfig = {}, navigationConfig) {
         parent: getContainerDiv(),
         state: new Startup(onStarted),
         transparent: browser.isSilk, // Fixes silk browser flickering
+        clearBeforeRender: false,
     };
     // Keep the console tidy:
     window.PhaserGlobal = window.PhaserGlobal || {};
