@@ -20,8 +20,6 @@ import * as qaMode from "./qa/qa-mode.js";
 import * as fullscreen from "./fullscreen.js";
 import { getBrowser } from "./browser.js";
 
-const browser = getBrowser();
-
 /**
  * @param {Object=} settingsConfig - Additional state that is added to the inState context.
  * @param {Object=} navigationConfig -
@@ -29,6 +27,8 @@ const browser = getBrowser();
 export function startup(settingsConfig = {}, navigationConfig) {
     setGmi(settingsConfig, window);
     hookErrors(gmi.gameContainerId);
+
+    const browser = getBrowser();
 
     const phaserConfig = {
         width: 1400,
