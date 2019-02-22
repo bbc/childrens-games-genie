@@ -68,7 +68,7 @@ describe("Startup", () => {
             height: 600,
             renderer: 0,
             antialias: true,
-            multiTexture: false,
+            multiTexture: true,
             parent: containerDiv,
             transparent: false,
             clearBeforeRender: false,
