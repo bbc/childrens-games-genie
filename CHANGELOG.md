@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Add lib folder to babel load in webpck config. |
 | | Lock Prettier to version in package.json. |
 | | Npm Audit fixes. |
 | | Add checks to force canvas rendering on ipad 2. |
