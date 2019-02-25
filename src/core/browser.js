@@ -18,8 +18,8 @@ export const getBrowser = () => {
     const version = browserInfo.getBrowserVersion();
     const isSilk = name === "Amazon Silk";
 
-    //Ipad 2 faster in Canvas. !! as Bowser returns undefined if browser doesn't match
-    const forceCanvas = !!browserInfo.satisfies({ safari: "<10" });
+    //Ipad 2 faster in Canvas. Force bool as Bowser returns undefined if browser doesn't match
+    const forceCanvas = Boolean(browserInfo.satisfies({ safari: "<10" }));
 
     return {
         name,

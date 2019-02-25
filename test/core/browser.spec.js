@@ -45,11 +45,22 @@ describe("browser", () => {
         assert.equal(browser.isSilk, true);
     });
 
-    it("sets forceCanvas when browser is Safari < 9", () => {
-        const satisfiesStub = sandbox.stub();
-        const mockSilkBowser = { getParser: () => Object.assign(mockParser, { satisfies: satisfiesStub }) };
+    it("sets forceCanvas to false when not Safari < 10 ", () => {
+        const mockSafari9 = {
+            getParser: () =>
+                Object.assign(mockParser, { satisfies: search => !(search.safari && search.safari === "<10") }),
+        };
 
-        rewire(mockSilkBowser);
+        rewire(mockSafari9);
+        const browser = getBrowser();
+        assert.equal(browser.forceCanvas, false);
+    });
+
+    it("sets forceCanvas when browser is Safari < 10", () => {
+        const satisfiesStub = sandbox.stub();
+        const mockSilkBrowser = { getParser: () => Object.assign(mockParser, { satisfies: satisfiesStub }) };
+
+        rewire(mockSilkBrowser);
         getBrowser();
 
         sandbox.assert.calledWith(satisfiesStub, { safari: "<10" });

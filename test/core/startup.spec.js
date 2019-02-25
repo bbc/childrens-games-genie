@@ -98,6 +98,18 @@ describe("Startup", () => {
         restore();
     });
 
+    it("sets renderer to canvas when browser returns forceCanvas", () => {
+        const mockSafari9 = { name: "Safari", forceCanvas: true };
+
+        rewire$getBrowser(() => mockSafari9);
+
+        startup();
+        const actualConfig = PhaserGame.getCall(0).args[0];
+        assert.equal(actualConfig.renderer, 1);
+
+        restore();
+    });
+
     it("throws an error if the game container element cannot be found", () => {
         mockGmi.gameContainerId = "not-existing";
         assert.throws(startup, 'Container element "#not-existing" not found'); // eslint-disable-line quotes
