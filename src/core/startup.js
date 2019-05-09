@@ -68,9 +68,9 @@ export function startup(settingsConfig = {}, navigationConfig) {
             qaMode.create(window, game, goToScreen);
         };
         loadFonts(game, onFontsLoaded);
-        a11y.setup(game.canvas.parentElement);
+        a11y.setup(gmi.gameContainerId);
 
-        fullscreen.listenForTap(game.canvas.parentElement, game);
+        fullscreen.listenForTap(gmi.gameContainerId, game);
     }
 }
 

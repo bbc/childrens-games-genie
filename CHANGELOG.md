@@ -2,6 +2,8 @@
 
 | Version | Description |
 |---------|-------------|
+| | Fullscreen using gmi.gameContainerId rather than canvas parent. |
+| 1.0.7 | |
 | | Add lib folder to babel load in webpack config. |
 | | Lock Prettier to version in package.json. |
 | | Npm Audit fixes. |
