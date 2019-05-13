@@ -2,7 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
-| | Fullscreen using gmi.gameContainerId rather than canvas parent. |
+| | Changes fullscreen target for Phaser to ensure the settings screen and Brim appear in the fullscreen API, adds mock GMI for local testing. |
 | 1.0.7 | |
 | | Add lib folder to babel load in webpack config. |
 | | Lock Prettier to version in package.json. |
