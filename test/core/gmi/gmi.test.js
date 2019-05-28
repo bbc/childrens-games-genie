@@ -181,27 +181,4 @@ describe("GMI", () => {
             });
         });
     });
-
-    describe("startStatsTracking method", () => {
-        beforeEach(() => {
-            gmiModule.setGmi(defaultSettings, fakeWindow);
-            StatsValues.getValues.mockImplementation(() => ({ action_name: "timer", action_type: "heartbeat" }));
-            gmiModule.startStatsTracking();
-        });
-
-        test("fires the stats heartbeat every 15 seconds", () => {
-            jest.advanceTimersByTime(15 * 1000);
-            expect(fakeGmiObject.sendStatsEvent).toHaveBeenCalledTimes(1);
-            jest.advanceTimersByTime(15 * 1000);
-            expect(fakeGmiObject.sendStatsEvent).toHaveBeenCalledTimes(2);
-            jest.advanceTimersByTime(15 * 1000);
-            expect(fakeGmiObject.sendStatsEvent).toHaveBeenCalledTimes(3);
-        });
-
-        test("passes the correct params to the stats heartbeat", () => {
-            const expectedAdditonalParams = { action_name: "timer", action_type: "heartbeat", heartbeat_period: 15 };
-            jest.advanceTimersByTime(15 * 1000);
-            expect(fakeGmiObject.sendStatsEvent).toHaveBeenCalledWith("timer", "heartbeat", expectedAdditonalParams);
-        });
-    });
 });
