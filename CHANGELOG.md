@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Updates stats calls for ATI. |
 | | Migrates unit tests from Mocha/Chai/Sinon/Rewire to Jest. |
 | 1.0.7 | |
 | | Configure webpack-dev-server to store server output on disk. |
