@@ -43,7 +43,7 @@ export class Loadscreen extends Screen {
             }
             GameSound.setButtonClickSound(this.game, "loadscreen.buttonClick");
             gmi.gameLoaded();
-            sendStats("game_loaded");
+            sendStats("gameloaded");
             this.navigation.next();
         });
     }
