@@ -124,7 +124,7 @@ describe("Startup", () => {
             expect(global.document.getElementById).toHaveBeenCalledWith("some-id");
         });
 
-        describe.only("Throwing an error", () => {
+        describe("Throwing an error", () => {
             let mockContainer;
             let mockPreTag;
 
@@ -206,16 +206,6 @@ describe("Startup", () => {
             const onComplete = LoadFonts.loadFonts.mock.calls[0][1];
             onComplete();
             expect(qaMode.create).toHaveBeenCalled();
-        });
-
-        test("starts the stats tracking through the GMI", () => {
-            const expectedContext = {
-                popupScreens: [],
-                gameMuted: true,
-            };
-            const statsParams = gmiModule.startStatsTracking.mock.calls[0];
-            expect(statsParams[0]).toEqual(mockGame);
-            expect(JSON.stringify(statsParams[1])).toEqual(JSON.stringify(expectedContext));
         });
 
         test("sets up the accessibility manager", () => {
