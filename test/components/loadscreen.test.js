@@ -78,7 +78,7 @@ describe("Load Screen", () => {
         test("fires the game loaded stat through the GMI", () => {
             loadScreen.preload();
             assetLoaderCallbackSpy.mock.calls[0][0]();
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("gameloaded", true);
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("gameloaded", "true");
         });
 
         test("tells the GMI the game has loaded", () => {
