@@ -17,6 +17,7 @@ export class Results extends Screen {
     fireGameCompleteStat(result) {
         const score = parseInt(result);
         const scoreMetaData = score ? `SCO=[${score}]` : undefined;
+        console.log(scoreMetaData);
         gmi.sendStatsEvent("score", "display", scoreMetaData);
     }
 
