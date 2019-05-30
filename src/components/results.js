@@ -15,7 +15,8 @@ export class Results extends Screen {
     }
 
     fireGameCompleteStat(result) {
-        const score = parseInt(result);
+        var digitsRegex = /\d+/;
+        const score = toString(result).match(digitsRegex);
         const scoreMetaData = score ? `SCO=[${score}]` : undefined;
         console.log(scoreMetaData);
         gmi.sendStatsEvent("score", "display", scoreMetaData);
@@ -40,6 +41,8 @@ export class Results extends Screen {
 
         this.scene.addLayout(buttons);
         createTestHarnessDisplay(this.game, this.context, this.scene);
+
+        console.log(this.transientData);
 
         this.fireGameCompleteStat(this.transientData.results);
 
