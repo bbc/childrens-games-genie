@@ -32,6 +32,7 @@ export class Screen extends Phaser.State {
         this._context = context;
         this.navigation = navigation[this.game.state.current].routes;
         const themeScreenConfig = this.context.config.theme[this.game.state.current];
+        console.log(this.game.state.current);
         if (this.game.state.current !== "loadscreen") {
             gmi.setStatsScreen(this.game.state.current);
         }
