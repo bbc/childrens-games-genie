@@ -24,7 +24,7 @@ describe("Load Screen", () => {
         jest.spyOn(AssetLoader, "loadAssets").mockImplementation(() => ({ then: assetLoaderCallbackSpy }));
         jest.spyOn(GameSound, "setButtonClickSound");
 
-        mockGmi = { gameLoaded: jest.fn(), sendStatsEvent: jest.fn() };
+        mockGmi = { gameLoaded: jest.fn() };
         createMockGmi(mockGmi);
 
         mockGame = {
