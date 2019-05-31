@@ -24,7 +24,7 @@ describe("Load Screen", () => {
         jest.spyOn(AssetLoader, "loadAssets").mockImplementation(() => ({ then: assetLoaderCallbackSpy }));
         jest.spyOn(GameSound, "setButtonClickSound");
 
-        mockGmi = { gameLoaded: jest.fn() };
+        mockGmi = { gameLoaded: jest.fn(), sendStatsEvent: jest.fn() };
         createMockGmi(mockGmi);
 
         mockGame = {
@@ -73,6 +73,12 @@ describe("Load Screen", () => {
             loadScreen.preload();
             assetLoaderCallbackSpy.mock.calls[0][0]();
             expect(GameSound.setButtonClickSound).toHaveBeenCalledWith(mockGame, "loadscreen.buttonClick");
+        });
+
+        test("fires the game loaded stat through the GMI", () => {
+            loadScreen.preload();
+            assetLoaderCallbackSpy.mock.calls[0][0]();
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("gameloaded", "true");
         });
 
         test("tells the GMI the game has loaded", () => {
