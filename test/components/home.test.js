@@ -48,6 +48,12 @@ describe("Home Screen", () => {
     describe("create method", () => {
         beforeEach(() => homeScreen.create());
 
+        test("fires the game loaded stat through the GMI", () => {
+            loadScreen.preload();
+            assetLoaderCallbackSpy.mock.calls[0][0]();
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("gameloaded", "true");
+        });
+
         test("adds a background image", () => {
             expect(homeScreen.game.add.image).toHaveBeenCalledWith(0, 0, "home.background");
             expect(homeScreen.scene.addToBackground).toHaveBeenCalledWith("home.background");

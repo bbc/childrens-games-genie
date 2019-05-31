@@ -17,6 +17,8 @@ export class Home extends Screen {
     }
 
     create() {
+        gmi.sendStatsEvent("gameloaded", "true");
+
         this.scene.addToBackground(this.game.add.image(0, 0, "home.background"));
         this.scene.addToBackground(this.game.add.image(0, -150, "home.title"));
 
