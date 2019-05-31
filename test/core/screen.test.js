@@ -38,7 +38,7 @@ describe("Screen", () => {
     const createAndInitScreen = () => {
         createScreen();
         initScreen();
-    }
+    };
 
     afterEach(() => jest.clearAllMocks());
 
