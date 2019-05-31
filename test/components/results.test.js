@@ -102,13 +102,13 @@ describe("Results Screen", () => {
             test("fires a score stat with results if given as a number", () => {
                 resultsScreen.transientData.results = 45;
                 resultsScreen.create();
-                expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", "SCO=[45]");
+                expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", { metadata: "SCO=[45]" });
             });
 
             test("fires a score stat with results if given as a string with numbers in", () => {
                 resultsScreen.transientData.results = "Your score is 593";
                 resultsScreen.create();
-                expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", "SCO=[593]");
+                expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", { metadata: "SCO=[593]" });
             });
 
             test("fires a score stat without results if a string with no numbers is given", () => {

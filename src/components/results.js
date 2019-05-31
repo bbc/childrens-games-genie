@@ -16,12 +16,12 @@ export class Results extends Screen {
 
     getScoreMetaData(result) {
         if (typeof result === "number") {
-            return `SCO=[${result}]`;
+            return { metadata: `SCO=[${result}]` };
         }
         if (typeof result === "string") {
             const digitsRegex = /\d+/;
             const score = result.match(digitsRegex);
-            return score ? `SCO=[${score}]` : undefined;
+            return score ? { metadata: `SCO=[${score}]` } : undefined;
         }
     }
 
