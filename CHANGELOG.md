@@ -5,6 +5,7 @@
 | UNRELEASED | |
 | | Improves stats logging for results/score screen. |
 | 1.0.8 | |
+| 1.0.10 | |
 | | Upgrade to Babel 7. |
 | | Updates stats calls for ATI. |
 | | Move babel dev dependencies back to dependencies so they are installed when Genie is pulled into games. |
