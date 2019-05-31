@@ -98,16 +98,21 @@ describe("Results Screen", () => {
             );
         });
 
-        test("fires a score stat to the GMI with score if given", () => {
-            resultsScreen.create();
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", "SCO=[22]");
-        });
-
-        test("fires a score stat to the GMI without a score if not provided", () => {
-            resultsScreen.transientData.results = undefined;
-            resultsScreen.create();
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", undefined);
-        });
+        // test("fires a score stat to the GMI with score if given", () => {
+        //     resultsScreen.create();
+        //     expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", "SCO=[22]");
+        // });
+        //
+        // test("fires a score stat to the GMI with score if given as a string with numbers in", () => {
+        //     resultsScreen.create();
+        //     expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", "SCO=[22]");
+        // });
+        //
+        // test("fires a score stat to the GMI without a score if not provided", () => {
+        //     resultsScreen.transientData.results = undefined;
+        //     resultsScreen.create();
+        //     expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("score", "display", undefined);
+        // });
     });
 
     describe("signals", () => {
