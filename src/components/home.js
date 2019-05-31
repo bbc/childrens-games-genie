@@ -10,6 +10,7 @@ import { buttonsChannel } from "../core/layout/gel-defaults.js";
 import { Screen } from "../core/screen.js";
 import * as signal from "../core/signal-bus.js";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness.js";
+import { gmi } from "../core/gmi/gmi.js";
 
 export class Home extends Screen {
     constructor() {

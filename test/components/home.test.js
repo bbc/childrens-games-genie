@@ -3,6 +3,7 @@
  * @author BBC Children's D+E
  * @license Apache-2.0
  */
+import { createMockGmi } from "../mock/gmi";
 
 import { Home } from "../../src/components/home";
 import * as layoutHarness from "../../src/components/test-harness/layout-harness.js";
@@ -13,6 +14,7 @@ describe("Home Screen", () => {
     let homeScreen;
     let mockGame;
     let mockContext;
+    let mockGmi;
 
     beforeEach(() => {
         jest.spyOn(layoutHarness, "createTestHarnessDisplay");
@@ -29,6 +31,9 @@ describe("Home Screen", () => {
         mockContext = {
             config: { theme: { home: {}, game: {} } },
         };
+
+        mockGmi = { sendStatsEvent: jest.fn() };
+        createMockGmi(mockGmi);
 
         homeScreen = new Home();
         homeScreen.scene = {
@@ -49,8 +54,6 @@ describe("Home Screen", () => {
         beforeEach(() => homeScreen.create());
 
         test("fires the game loaded stat through the GMI", () => {
-            loadScreen.preload();
-            assetLoaderCallbackSpy.mock.calls[0][0]();
             expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("gameloaded", "true");
         });
 
