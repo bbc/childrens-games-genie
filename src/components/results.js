@@ -14,12 +14,19 @@ export class Results extends Screen {
         super();
     }
 
+    getScoreMetaData(result) {
+        if (typeof result === "number") {
+            return `SCO=[${result}]`;
+        }
+        if (typeof result === "string") {
+            const digitsRegex = /\d+/;
+            const score = result.match(digitsRegex);
+            return score ? `SCO=[${score}]` : undefined;
+        }
+    }
+
     fireGameCompleteStat(result) {
-        var digitsRegex = /\d+/;
-        const score = toString(result).match(digitsRegex);
-        const scoreMetaData = score ? `SCO=[${score}]` : undefined;
-        console.log(scoreMetaData);
-        gmi.sendStatsEvent("score", "display", scoreMetaData);
+        gmi.sendStatsEvent("score", "display", this.getScoreMetaData(result));
     }
 
     create() {
@@ -41,8 +48,6 @@ export class Results extends Screen {
 
         this.scene.addLayout(buttons);
         createTestHarnessDisplay(this.game, this.context, this.scene);
-
-        console.log(this.transientData);
 
         this.fireGameCompleteStat(this.transientData.results);
 
