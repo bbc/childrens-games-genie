@@ -20,7 +20,7 @@ describe("Settings", () => {
         mockGmi = {
             showSettings: jest.fn(() => "show settings"),
             getAllSettings: jest.fn(),
-            sendStatsEvent: jest.fn(),
+            setStatsScreen: jest.fn(),
         };
         createMockGmi(mockGmi);
     };
