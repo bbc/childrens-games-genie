@@ -17,7 +17,11 @@ describe("Settings", () => {
     let settings;
 
     const createGmi = () => {
-        mockGmi = { showSettings: jest.fn(() => "show settings"), getAllSettings: jest.fn() };
+        mockGmi = {
+            showSettings: jest.fn(() => "show settings"),
+            getAllSettings: jest.fn(),
+            sendStatsEvent: jest.fn(),
+        };
         createMockGmi(mockGmi);
     };
 
