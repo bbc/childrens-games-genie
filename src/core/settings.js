@@ -15,7 +15,7 @@ export const create = () => {
         name: "settings-closed",
         callback: () => {
             setAccessibleLayer(true);
-            gmi.sendStatsEvent("settings", "close", {});
+            gmi.setStatsScreen("settings");
         },
     });
 
