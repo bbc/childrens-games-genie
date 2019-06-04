@@ -105,6 +105,16 @@ describe("Settings", () => {
             expect(publishConfig.channel).toBe(expectedSignal.channel);
             expect(publishConfig.name).toBe(expectedSignal.name);
         });
+
+        test("sets the stats screen when settings is closed", () => {
+            settings.show(mockGame);
+            const onSettingsClosedCallback = mockGmi.showSettings.mock.calls[0][1];
+            onSettingsClosedCallback();
+            const subscribeCallback = signal.bus.subscribe.mock.calls[0][0].callback;
+            subscribeCallback();
+
+            expect(mockGmi.setStatsScreen).toHaveBeenCalledTimes(1);
+        });
     });
 
     describe("getAllSettings method", () => {
