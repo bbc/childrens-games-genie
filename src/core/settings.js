@@ -10,12 +10,14 @@ import { gmi } from "./gmi/gmi.js";
 export const settingsChannel = "genie-settings";
 
 export const create = () => {
+    let screenToReturnTo;
+
     signal.bus.subscribe({
         channel: settingsChannel,
         name: "settings-closed",
         callback: () => {
             setAccessibleLayer(true);
-            gmi.setStatsScreen("settings");
+            gmi.setStatsScreen(screenToReturnTo);
         },
     });
 
@@ -35,10 +37,12 @@ export const create = () => {
     };
 
     return {
-        show: () => {
+        show: game => {
             // get current buttons
+            screenToReturnTo = game.state.current;
             setAccessibleLayer(false);
 
+            gmi.setStatsScreen("settings");
             return gmi.showSettings(onSettingChanged, onSettingsClosed);
         },
         getAllSettings: () => gmi.getAllSettings(),
