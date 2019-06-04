@@ -3,6 +3,7 @@
 | Version | Description |
 |---------|-------------|
 | UNRELEASED | |
+| | Adds pause click stat. |
 | | Improves stats logging for results/score screen. |
 | 1.0.10 | |
 | | Upgrade to Babel 7. |
