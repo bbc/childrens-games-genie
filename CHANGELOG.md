@@ -3,6 +3,8 @@
 | Version | Description |
 |---------|-------------|
 | | Set statsScreen to settings when closed, to report correct previous page. |
+| UNRELEASED | |
+| | Improves stats logging for results/score screen. |
 | 1.0.10 | |
 | | Upgrade to Babel 7. |
 | | Updates stats calls for ATI. |
