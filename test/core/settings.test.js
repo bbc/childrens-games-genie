@@ -106,11 +106,6 @@ describe("Settings", () => {
             expect(publishConfig.name).toBe(expectedSignal.name);
         });
 
-        test("sets the stats screen to settings when settings is opened", () => {
-            settings.show(mockGame);
-            expect(mockGmi.setStatsScreen).toHaveBeenCalledWith("settings");
-        });
-
         test("sets the stats screen back when settings is closed", () => {
             settings.show(mockGame);
             const onSettingsClosedCallback = mockGmi.showSettings.mock.calls[0][1];

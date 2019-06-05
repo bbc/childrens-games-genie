@@ -41,8 +41,6 @@ export const create = () => {
             // get current buttons
             screenToReturnTo = game.state.current;
             setAccessibleLayer(false);
-
-            gmi.setStatsScreen("settings");
             return gmi.showSettings(onSettingChanged, onSettingsClosed);
         },
         getAllSettings: () => gmi.getAllSettings(),
