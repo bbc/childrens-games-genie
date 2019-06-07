@@ -4,6 +4,8 @@
 |---------|-------------|
 | UNRELEASED | |
 | | Fixes some stats bugs. |
+| | Adds select screen stat. |
+| | Removes settings open stat. |
 | | Adds pause click stat. |
 | | Ensures click and page stats are firing in the correct order. |
 | | Improves stats logging for results/score screen. |
