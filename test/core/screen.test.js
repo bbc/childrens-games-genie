@@ -41,6 +41,7 @@ describe("Screen", () => {
 
     beforeEach(() => {
         jest.spyOn(signal.bus, "subscribe");
+        jest.spyOn(signal.bus, "removeChannel");
         jest.spyOn(GameSound, "setupScreenMusic").mockImplementation(() => {});
         jest.spyOn(VisibleLayer, "get").mockImplementation(() => "current-layer");
         jest.spyOn(a11y, "clearElementsFromDom").mockImplementation(() => {});
@@ -194,6 +195,11 @@ describe("Screen", () => {
         test("does not fire a page stat when firePageStat is false", () => {
             signal.bus.publish({ channel: "overlays", name: "overlay-closed", data: { firePageStat: false } });
             expect(mockGmi.setStatsScreen).not.toHaveBeenCalled();
+        });
+
+        test("removes the overlays channel", () => {
+            signal.bus.publish({ channel: "overlays", name: "overlay-closed", data: { firePageStat: false } });
+            expect(signal.bus.removeChannel).toHaveBeenCalledTimes(1);
         });
     });
 });
