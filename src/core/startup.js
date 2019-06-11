@@ -93,6 +93,9 @@ class Startup extends Phaser.State {
         const theme = gmi.embedVars.configPath;
         this.game.load.path = theme.split(/([^/]+$)/, 2)[0]; //config dir
         this.game.load.json(CONFIG_KEY, "config.json");
+        this.game.load.json("achievements", "achievements/config.json");
+
+        console.log(this.game);
 
         signal.bus.subscribe({
             channel: settingsChannel,
