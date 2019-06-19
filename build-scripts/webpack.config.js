@@ -15,8 +15,8 @@ var p2 = path.join(phaserModule, "build/custom/p2.js");
 module.exports = env => {
     var development = env && env.development;
     var webPackConfig = {
-        mode: development? "development" : "production",
-        devtool: development? "cheap-module-eval-source-map" : false,
+        mode: development ? "development" : "production",
+        devtool: development ? "cheap-module-eval-source-map" : false,
         performance: { hints: false },
         entry: ["@babel/polyfill", pixi, p2, phaser, "webfontloader"],
         output: {
