@@ -2,6 +2,8 @@
 
 | Version | Description |
 |---------|-------------|
+| | Prune scripts list |
+| | Update webpack config so we can provide sourcemaps when needed |
 | 1.0.11 | |
 | | Fixes some stats bugs. |
 | | Adds select screen stat. |
