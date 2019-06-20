@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Embedvars configPath is now just the path, not path + filename |
 | 1.0.12 | |
 | | Prune scripts list |
 | | Update webpack config so we can provide sourcemaps when needed |
