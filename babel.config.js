@@ -1,5 +1,8 @@
-// babel.config.js is needed so that genie in node_modules is transpiled
-// .babelrc files ignore node_modules from Babel 7 onwards
+/**
+ * @copyright BBC 2018
+ * @author BBC Children's D+E
+ * @license Apache-2.0
+ */
 module.exports = function(api) {
     api.cache(true);
 

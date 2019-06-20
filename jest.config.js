@@ -3,7 +3,6 @@
  * @author BBC Children's D+E
  * @license Apache-2.0
  */
-
 module.exports = {
     collectCoverageFrom: ["src/**/*.js", "!src/components/test-harness/**/*.js", "!src/output/**/*.js"],
     coverageThreshold: {
