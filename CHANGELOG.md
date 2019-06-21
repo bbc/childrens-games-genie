@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Report back\~click rather than home\~click on back button press |
 | | Add Genie version to build output |
 | 1.0.12 | |
 | | Prune scripts list |
