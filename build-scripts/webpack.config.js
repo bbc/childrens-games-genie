@@ -15,6 +15,7 @@ const webpack = require("webpack");
 
 module.exports = env => {
     const development = env && env.development;
+    const genieCore = env && env.genieCore;
     let webPackConfig = {
         mode: development ? "development" : "production",
         devtool: development ? "cheap-module-eval-source-map" : false,
@@ -32,7 +33,12 @@ module.exports = env => {
             rules: [
                 {
                     test: /\.js$/,
-                    use: ["babel-loader"],
+                    use: {
+                        loader: "babel-loader",
+                        options: {
+                            configFile: path.resolve("node_modules/genie/babel.config.js")
+                        }
+                    },
                     include: [
                         path.resolve("src"),
                         path.resolve("lib"),
@@ -71,17 +77,17 @@ module.exports = env => {
     const genieVersion = require("../package.json").version;
     webPackConfig.plugins.push(new webpack.BannerPlugin(`\nBBC GAMES GENIE: ${genieVersion}\n`));
 
-    if (env && env.genieCore) {
+    if (genieCore) {
         const Visualizer = require("webpack-visualizer-plugin");
         webPackConfig.plugins.push(new Visualizer());
+
+        delete webPackConfig.module.rules[0].use.options
 
         webPackConfig.devServer.historyApiFallback.index = "dev/index.main.html";
         webPackConfig.devServer.historyApiFallback.rewrites = [
             {
                 from: /^\/node_modules\/genie/,
-                to: function(context) {
-                    return context.parsedUrl.pathname.replace(context.match[0], "");
-                },
+                to: context => context.parsedUrl.pathname.replace(context.match[0], ""),
             },
         ];
     }
