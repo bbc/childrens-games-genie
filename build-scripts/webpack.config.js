@@ -36,15 +36,15 @@ module.exports = env => {
                     use: {
                         loader: "babel-loader",
                         options: {
-                            configFile: path.resolve("node_modules/genie/babel.config.js")
-                        }
+                            configFile: path.resolve("node_modules/genie/babel.config.js"),
+                        },
                     },
                     include: [
                         path.resolve("src"),
                         path.resolve("lib"),
                         path.resolve("node_modules/genie/src"),
                         path.resolve("node_modules/genie/lib"),
-                    ]
+                    ],
                 },
                 { test: /pixi\.js/, use: ["expose-loader?PIXI"] },
                 { test: /phaser-split\.js$/, use: ["expose-loader?Phaser"] },
@@ -81,7 +81,7 @@ module.exports = env => {
         const Visualizer = require("webpack-visualizer-plugin");
         webPackConfig.plugins.push(new Visualizer());
 
-        delete webPackConfig.module.rules[0].use.options
+        delete webPackConfig.module.rules[0].use.options;
 
         webPackConfig.devServer.historyApiFallback.index = "dev/index.main.html";
         webPackConfig.devServer.historyApiFallback.rewrites = [
