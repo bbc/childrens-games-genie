@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Fix relative path to Bowser with babel module-resolver plugin |
 | 1.0.13 | |
 | | Update version of Phaser-CE to 2.13.2. |
 | | Add achievements show/get/set/init functionality to local GMI. |

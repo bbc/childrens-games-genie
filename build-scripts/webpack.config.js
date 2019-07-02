@@ -3,19 +3,19 @@
  * @author BBC Children's D+E
  * @license Apache-2.0
  */
-var path = require("path");
-var dynamicallyExposeGlobals = require("../dev/scripts/dynamicExpose.js");
+const path = require("path");
+const dynamicallyExposeGlobals = require("../dev/scripts/dynamicExpose.js");
 
 // Phaser webpack config
-var phaserModule = path.resolve("node_modules/phaser-ce/");
-var phaser = path.join(phaserModule, "build/custom/phaser-split.js");
-var pixi = path.join(phaserModule, "build/custom/pixi.js");
-var p2 = path.join(phaserModule, "build/custom/p2.js");
+const phaserModule = path.resolve("node_modules/phaser-ce/");
+const phaser = path.join(phaserModule, "build/custom/phaser-split.js");
+const pixi = path.join(phaserModule, "build/custom/pixi.js");
+const p2 = path.join(phaserModule, "build/custom/p2.js");
 const webpack = require("webpack");
 
 module.exports = env => {
-    var development = env && env.development;
-    var webPackConfig = {
+    const development = env && env.development;
+    let webPackConfig = {
         mode: development ? "development" : "production",
         devtool: development ? "cheap-module-eval-source-map" : false,
         performance: { hints: false },
@@ -30,11 +30,15 @@ module.exports = env => {
         },
         module: {
             rules: [
-                { test: /\.js$/, use: ["babel-loader"], include: [path.resolve("src"), path.resolve("lib")] },
                 {
                     test: /\.js$/,
                     use: ["babel-loader"],
-                    include: [path.resolve("node_modules/genie/src"), path.resolve("node_modules/genie/lib")],
+                    include: [
+                        path.resolve("src"),
+                        path.resolve("lib"),
+                        path.resolve("node_modules/genie/src"),
+                        path.resolve("node_modules/genie/lib"),
+                    ]
                 },
                 { test: /pixi\.js/, use: ["expose-loader?PIXI"] },
                 { test: /phaser-split\.js$/, use: ["expose-loader?Phaser"] },
@@ -55,7 +59,7 @@ module.exports = env => {
     };
 
     try {
-        var dynamicConfig = dynamicallyExposeGlobals(path.resolve("globals.json"));
+        const dynamicConfig = dynamicallyExposeGlobals(path.resolve("globals.json"));
         webPackConfig.entry = webPackConfig.entry.concat(dynamicConfig.entry);
         webPackConfig.module.rules = webPackConfig.module.rules.concat(dynamicConfig.rules);
     } catch (err) {
