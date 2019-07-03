@@ -139,7 +139,7 @@ var GMI = function(options, embedVars, gameDir) {
     GMI.prototype.showSettings = function(onSettingsChanged, onSettingsClosed) {
         var settingsDiv = document.getElementsByClassName("settings");
         if (!(settingsDiv && settingsDiv[0])) {
-            this.sendStatsEvent("settings", "open", {});
+            GMI.prototype.sendStatsEvent("settings", "open", {});
             var settings = document.createElement('div');
             settings.className = "settings"
             settings.innerHTML += "The settings screen will appear here when the game is hosted on the BBC servers <br />";
@@ -257,9 +257,14 @@ var GMI = function(options, embedVars, gameDir) {
         }
         return false;
     }
-    GMI.prototype.achievements.init = function(init) {
-        console.log("Init achievements: ", init);
+    GMI.prototype.achievements.init = function(init, callback) {
+        if(qaMode) {
+            console.log("Init achievements: ", init, " callback: ", callback);
+        }
         staticAchievementList = init;
+        if(callback !== undefined) {
+            callback();
+        }
     };
     GMI.prototype.achievements.get = function() {
         if(globalSettings.achievements === undefined) {
@@ -275,6 +280,11 @@ var GMI = function(options, embedVars, gameDir) {
         return output;
     };
     GMI.prototype.achievements.set = function(update) {
+        if(globalSettings.achievements === undefined) {
+            globalSettings.achievements = []
+
+            saveGlobalSettings();
+        }
         var config = staticAchievementList.find(function(achievement) { return update.key === achievement.key });
         var stored = globalSettings.achievements.find(function(unlocked) { return unlocked.key === update.key });
         var alreadyAchieved = isAchieved(config, stored);
