@@ -7,9 +7,11 @@
  * @license Apache-2.0
  */
 import { buttonsChannel } from "../core/layout/gel-defaults.js";
+import { setUpAchievementsButton } from "../core/layout/set-up-achievements-button.js"
 import { Screen } from "../core/screen.js";
 import * as signal from "../core/signal-bus.js";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness.js";
+
 
 export class Home extends Screen {
     constructor() {
@@ -29,7 +31,10 @@ export class Home extends Screen {
         const defaultButtons = ["exit", "howToPlay", "play", "audio", "settings"];
         const buttons = showAchievements ? defaultButtons.concat("achievements") : defaultButtons;
 
-        this.scene.addLayout(buttons);
+        const layout = this.scene.addLayout(buttons);
+        if(showAchievements) {
+            setUpAchievementsButton(this.game, layout, showAchievements);
+        }
 
         createTestHarnessDisplay(this.game, this.context, this.scene);
 

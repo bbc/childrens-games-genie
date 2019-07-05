@@ -7,6 +7,7 @@ import { Home } from "../../src/components/home";
 import * as layoutHarness from "../../src/components/test-harness/layout-harness.js";
 import * as signal from "../../src/core/signal-bus.js";
 import { buttonsChannel } from "../../src/core/layout/gel-defaults.js";
+import * as setUpAchievementsButton from "../../src/core/layout/set-up-achievements-button.js"
 
 describe("Home Screen", () => {
     let homeScreen;
@@ -15,6 +16,7 @@ describe("Home Screen", () => {
 
     beforeEach(() => {
         jest.spyOn(layoutHarness, "createTestHarnessDisplay");
+        jest.spyOn(setUpAchievementsButton, "setUpAchievementsButton").mockImplementation(jest.fn());
         mockGame = {
             add: {
                 image: jest.fn().mockImplementation((x, y, imageName) => imageName),
