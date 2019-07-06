@@ -6,6 +6,7 @@
 import fp from "../../../lib/lodash/fp/fp.js";
 import * as signal from "../signal-bus.js";
 import * as GameSound from "../game-sound.js";
+import { gmi } from "../gmi/gmi.js";
 
 export class GelButton extends Phaser.Button {
     constructor(game, x, y, metrics, config) {
@@ -24,6 +25,7 @@ export class GelButton extends Phaser.Button {
         this.positionOverride = config.positionOverride;
         this.animations.sprite.anchor.setTo(0.5, 0.5);
         this.setHitArea(metrics);
+        this.addIndicator();
     }
 
     setHitArea(metrics) {
@@ -43,6 +45,30 @@ export class GelButton extends Phaser.Button {
         this._isMobile = metrics.isMobile;
         this.animations.sprite.loadTexture(assetPath({ key: this._id, isMobile: metrics.isMobile }));
         this.setHitArea(metrics);
+
+        this.indicator && this.indicator.place();
+    }
+
+    addIndicator() {
+        if (this._id === "achievements" && gmi.achievements.unseen) {
+            this.indicator = this.game.add.sprite(0, 0, "home.achievement-anim");
+            this.addChild(this.indicator);
+            this.indicator.scale = { x: 0, y: 0 };
+            this.indicator.anchor.set(0.5, 0.5);
+            this.game.add.tween(this.indicator.scale).to({ x: 1, y: 1 }, 500, Phaser.Easing.Bounce.Out, true, 1000);
+
+            this.indicator.clear = function() {
+                this.indicator.destroy();
+                delete this.indicator;
+            }.bind(this)
+
+            this.indicator.place = function() {
+                this.indicator.position.x = this.width / 2;
+                this.indicator.position.y = this.height / -2;
+            }.bind(this)
+
+            this.indicator.place();
+        }
     }
 }
 
