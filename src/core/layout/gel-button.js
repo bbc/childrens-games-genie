@@ -10,7 +10,7 @@ import { gmi } from "../gmi/gmi.js";
 
 class Indicator extends Phaser.Sprite {
     constructor(parent) {
-        super(parent.game, 0, 0, "gelDesktop.achievement-notification");
+        super(parent.game, 0, 0, assetPath({ key: "notification", isMobile: parent._isMobile }));
         this.parent = parent;
         this.scale = { x: 0, y: 0 };
         this.anchor.set(0.5, 0.5);
@@ -22,9 +22,7 @@ class Indicator extends Phaser.Sprite {
     resize() {
         this.position.x = this.parent.width / 2;
         this.position.y = this.parent.height / -2;
-        this.animations.sprite.loadTexture(
-            assetPath({ key: "achievement-notification", isMobile: this.parent._isMobile }),
-        );
+        this.animations.sprite.loadTexture(assetPath({ key: "notification", isMobile: this.parent._isMobile }));
     }
 }
 
@@ -50,6 +48,7 @@ export class GelButton extends Phaser.Button {
         this.positionOverride = config.positionOverride;
         this.animations.sprite.anchor.setTo(0.5, 0.5);
         this.setHitArea(metrics);
+        this.indicator = noIndicator;
         this.setIndicator();
     }
 
@@ -76,12 +75,8 @@ export class GelButton extends Phaser.Button {
 
     setIndicator() {
         this.indicator.destroy();
-
-        if (this._id === "achievements" && gmi.achievements.unseen) {
-            this.indicator = new Indicator(this);
-        } else {
-            this.indicator = noIndicator;
-        }
+        const show = this._id === "achievements" && gmi.achievements.unseen;
+        this.indicator = show ? new Indicator(this) : noIndicator;
     }
 }
 

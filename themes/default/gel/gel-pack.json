@@ -12,8 +12,8 @@
         },
         {
             "type": "image",
-            "key": "achievement-notification",
-            "url": "gel/desktop/achievement-notification.png",
+            "key": "notification",
+            "url": "gel/desktop/notification.png",
             "overwrite": false
         },
         {
@@ -180,8 +180,8 @@
         },
         {
             "type": "image",
-            "key": "achievement-notification",
-            "url": "gel/mobile/achievement-notification.png",
+            "key": "notification",
+            "url": "gel/mobile/notification.png",
             "overwrite": false
         },
         {
