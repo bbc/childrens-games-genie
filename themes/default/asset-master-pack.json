@@ -33,14 +33,6 @@
             "overwrite": false
         }
     ],
-    "shared": [
-        {
-            "type": "image",
-            "key": "achievement-notification",
-            "url": "gel/desktop/achievement-notification.png",
-            "overwrite": false
-        }
-    ],
     "results": [
         {
             "type": "image",

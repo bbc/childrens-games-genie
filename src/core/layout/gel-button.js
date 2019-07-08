@@ -8,6 +8,31 @@ import * as signal from "../signal-bus.js";
 import * as GameSound from "../game-sound.js";
 import { gmi } from "../gmi/gmi.js";
 
+class Indicator extends Phaser.Sprite {
+    constructor(parent) {
+        super(parent.game, 0, 0, "gelDesktop.achievement-notification");
+        this.parent = parent;
+        this.scale = { x: 0, y: 0 };
+        this.anchor.set(0.5, 0.5);
+        parent.game.add.tween(this.scale).to({ x: 1, y: 1 }, 500, Phaser.Easing.Bounce.Out, true, 1000);
+        parent.addChild(this);
+        this.resize();
+    }
+
+    resize() {
+        this.position.x = this.parent.width / 2;
+        this.position.y = this.parent.height / -2;
+        this.animations.sprite.loadTexture(
+            assetPath({ key: "achievement-notification", isMobile: this.parent._isMobile }),
+        );
+    }
+}
+
+const noIndicator = {
+    resize: () => {},
+    destroy: () => {},
+};
+
 export class GelButton extends Phaser.Button {
     constructor(game, x, y, metrics, config) {
         super(
@@ -25,7 +50,7 @@ export class GelButton extends Phaser.Button {
         this.positionOverride = config.positionOverride;
         this.animations.sprite.anchor.setTo(0.5, 0.5);
         this.setHitArea(metrics);
-        this.addIndicator();
+        this.setIndicator();
     }
 
     setHitArea(metrics) {
@@ -46,32 +71,17 @@ export class GelButton extends Phaser.Button {
         this.animations.sprite.loadTexture(assetPath({ key: this._id, isMobile: metrics.isMobile }));
         this.setHitArea(metrics);
 
-        this.indicator && this.indicator.place();
+        this.indicator.resize();
     }
 
-    addIndicator() {
-        if (this._id === "achievements" && gmi.achievements.unseen) {
-            this.indicator = this.game.add.sprite(0, 0, "shared.achievement-notification");
-            this.addChild(this.indicator);
-            this.indicator.scale = { x: 0, y: 0 };
-            this.indicator.anchor.set(0.5, 0.5);
-            this.game.add.tween(this.indicator.scale).to({ x: 1, y: 1 }, 500, Phaser.Easing.Bounce.Out, true, 1000);
-
-            this.indicator.place = function() {
-                this.indicator.position.x = this.width / 2;
-                this.indicator.position.y = this.height / -2;
-            }.bind(this);
-
-            this.indicator.place();
-        }
-    }
-
-    clearIndicator() {
-        if (!this.indicator) {
-            return;
-        }
+    setIndicator() {
         this.indicator.destroy();
-        delete this.indicator;
+
+        if (this._id === "achievements" && gmi.achievements.unseen) {
+            this.indicator = new Indicator(this);
+        } else {
+            this.indicator = noIndicator;
+        }
     }
 }
 

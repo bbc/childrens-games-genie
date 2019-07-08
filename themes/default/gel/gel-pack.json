@@ -11,6 +11,12 @@
             "spacing": 4
         },
         {
+            "type": "image",
+            "key": "achievement-notification",
+            "url": "gel/desktop/achievement-notification.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "play",
             "url": "gel/desktop/play.png",
@@ -171,6 +177,12 @@
             "frameMax": 2,
             "margin": 0,
             "spacing": 4
+        },
+        {
+            "type": "image",
+            "key": "achievement-notification",
+            "url": "gel/mobile/achievement-notification.png",
+            "overwrite": false
         },
         {
             "type": "spritesheet",

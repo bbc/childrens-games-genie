@@ -232,7 +232,7 @@ export const config = {
             }
             gmi.sendStatsEvent("achievements", "click");
 
-            screen.scene.getLayouts()[0].buttons.achievements.clearIndicator();
+            screen.scene.getLayouts()[0].buttons.achievements.setIndicator();
         },
     },
     restart: {
