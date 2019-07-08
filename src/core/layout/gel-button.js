@@ -51,7 +51,7 @@ export class GelButton extends Phaser.Button {
 
     addIndicator() {
         if (this._id === "achievements" && gmi.achievements.unseen) {
-            this.indicator = this.game.add.sprite(0, 0, "home.achievement-anim");
+            this.indicator = this.game.add.sprite(0, 0, "shared.achievement-notification");
             this.addChild(this.indicator);
             this.indicator.scale = { x: 0, y: 0 };
             this.indicator.anchor.set(0.5, 0.5);

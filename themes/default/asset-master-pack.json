@@ -31,11 +31,13 @@
             "key": "background",
             "url": "shared/background.png",
             "overwrite": false
-        },
+        }
+    ],
+    "shared": [
         {
             "type": "image",
-            "key": "achievement-anim",
-            "url": "gel/desktop/achievement-anim.png",
+            "key": "achievement-notification",
+            "url": "gel/desktop/achievement-notification.png",
             "overwrite": false
         }
     ],
