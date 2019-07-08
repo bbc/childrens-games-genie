@@ -16,7 +16,7 @@
 // import { GelButton } from "../../../src/core/layout/gel-button";
 //import * as settingsModule from '../../../src/core/settings.js'
 
-describe.only("Layout - Button Factory", () => {
+describe("Layout - Button Factory", () => {
     // let mockGame;
 
     beforeEach(() => {
