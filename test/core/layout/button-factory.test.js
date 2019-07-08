@@ -10,6 +10,8 @@ import * as accessibilify from "../../../src/core/accessibility/accessibilify";
 import * as signal from "../../../src/core/signal-bus.js";
 import * as settingsModule from "../../../src/core/settings.js";
 
+jest.mock("../../../src/core/settings.js");
+
 describe("Layout - Button Factory", () => {
     let buttonFactory;
     let mockGame;
@@ -37,8 +39,7 @@ describe("Layout - Button Factory", () => {
             id: "expectedId",
             ariaLabel: "expectedAriaLabel",
             key: expectedKey,
-            action: () => {
-            },
+            action: () => {},
         };
 
         beforeEach(() => {
@@ -70,8 +71,8 @@ describe("Layout - Button Factory", () => {
 
             buttonFactory.createButton(expectedIsMobile, config);
 
-            signal.bus.publish({channel: buttonsChannel, name: "play"});
-            signal.bus.publish({channel: buttonsChannel, name: "play"});
+            signal.bus.publish({ channel: buttonsChannel, name: "play" });
+            signal.bus.publish({ channel: buttonsChannel, name: "play" });
 
             expect(config.action).toHaveBeenCalledTimes(2);
 
@@ -89,24 +90,24 @@ describe("Layout - Button Factory", () => {
             expect(btn.hitArea).toBe(null);
             expect(btn.inputEnabled).toBe(false);
         });
-    })
+    });
 
     describe("audio button", () => {
         test("sets audio button config key to audio-on if gmi audio setting is true", () => {
-            //TODO how can we make sure this is restored?
-            settingsModule.settings = {
-                getAllSettings: () => ({ audio: true }),
-            };
+            const mockSettings = {getAllSettings: () => ({ audio: true })}
+            Object.defineProperty(settingsModule, "settings", {
+                get: jest.fn(() => mockSettings),
+            });
 
             buttonFactory.createButton(false, { id: "__audio" });
             expect(GelButton.GelButton.mock.calls[0][4].key).toBe("audio-on");
         });
 
         test("sets audio button config key to audio-off if gmi audio setting is true", () => {
-            //TODO how can we make sure this is restored?
-            settingsModule.settings = {
-                getAllSettings: () => ({ audio: false }),
-            };
+            const mockSettings = {getAllSettings: () => ({ audio: false })}
+            Object.defineProperty(settingsModule, "settings", {
+                get: jest.fn(() => mockSettings),
+            });
 
             buttonFactory.createButton(false, { id: "__audio" });
 
