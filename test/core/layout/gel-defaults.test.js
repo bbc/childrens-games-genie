@@ -27,7 +27,7 @@ describe("Layout - Gel Defaults", () => {
             scene: {
                 getLayouts: jest
                     .fn()
-                    .mockReturnValue([{ buttons: { achievements: { indicator: { clear: clearIndicatorSpy } } } }]),
+                    .mockReturnValue([{ buttons: { achievements: { clearIndicator: clearIndicatorSpy } } }]),
             },
         };
         mockGame = {

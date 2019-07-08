@@ -57,18 +57,21 @@ export class GelButton extends Phaser.Button {
             this.indicator.anchor.set(0.5, 0.5);
             this.game.add.tween(this.indicator.scale).to({ x: 1, y: 1 }, 500, Phaser.Easing.Bounce.Out, true, 1000);
 
-            this.indicator.clear = function() {
-                this.indicator.destroy();
-                delete this.indicator;
-            }.bind(this)
-
             this.indicator.place = function() {
                 this.indicator.position.x = this.width / 2;
                 this.indicator.position.y = this.height / -2;
-            }.bind(this)
+            }.bind(this);
 
             this.indicator.place();
         }
+    }
+
+    clearIndicator() {
+        if (!this.indicator) {
+            return;
+        }
+        this.indicator.destroy();
+        delete this.indicator;
     }
 }
 
