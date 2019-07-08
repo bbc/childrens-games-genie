@@ -94,7 +94,7 @@ describe("Layout - Button Factory", () => {
 
     describe("audio button", () => {
         test("sets audio button config key to audio-on if gmi audio setting is true", () => {
-            const mockSettings = {getAllSettings: () => ({ audio: true })}
+            const mockSettings = { getAllSettings: () => ({ audio: true }) };
             Object.defineProperty(settingsModule, "settings", {
                 get: jest.fn(() => mockSettings),
             });
@@ -104,7 +104,7 @@ describe("Layout - Button Factory", () => {
         });
 
         test("sets audio button config key to audio-off if gmi audio setting is true", () => {
-            const mockSettings = {getAllSettings: () => ({ audio: false })}
+            const mockSettings = { getAllSettings: () => ({ audio: false }) };
             Object.defineProperty(settingsModule, "settings", {
                 get: jest.fn(() => mockSettings),
             });
