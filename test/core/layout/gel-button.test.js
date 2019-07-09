@@ -7,7 +7,7 @@
 /*
     We have been unable to test this file as it extends Phaser.Button.
     There appears to be no way to mock a global class that is extended
-    The problem bing that the global Phaser is evaluated at import before any mocks have been set up.
+    The problem being that the global Phaser is evaluated at import before any mocks have been set up.
 
  */
 
