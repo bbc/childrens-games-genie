@@ -77,9 +77,7 @@ export function create(game, metrics, buttonIds) {
     };
 
     const resize = metrics => {
-        if (groups) {
-            fp.forOwn(group => group.reset(metrics), groups);
-        }
+        fp.forOwn(group => group.reset(metrics), groups);
     };
     resize(metrics);
 
