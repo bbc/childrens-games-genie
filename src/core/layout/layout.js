@@ -29,6 +29,7 @@ const assignProperties = (object, overrides) => {
     return object;
 };
 
+// Copy gel config with only objects / functions as a reference.
 const shallowMergeOverrides = (config, overrides) => assignProperties(copyFirstChildren(config), overrides);
 
 /**
