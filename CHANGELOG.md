@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Achievements stats amendements. |
 | | Update webpack config so bowser package is run through babel. |
 | | Add achievement notification to achievement button. |
 | 1.0.14 | |
