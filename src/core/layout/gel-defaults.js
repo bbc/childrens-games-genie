@@ -240,8 +240,15 @@ export const config = {
         order: 12,
         id: "__restart",
         channel: buttonsChannel,
-        action: () => {
-            gmi.sendStatsEvent("level", "playagain");
+        action: ({ game }) => {
+
+            debugger
+
+
+            const metadata = { metadata: `SCO=[${result}]` }
+
+
+            gmi.sendStatsEvent("level", "playagain", metadata);
         },
     },
     continue: {
