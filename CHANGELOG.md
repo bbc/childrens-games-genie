@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Add level id to stats if present. |
 | 2.0.1 | |
 | | Remove achievement close callback. |
 | 2.0.0 | |
