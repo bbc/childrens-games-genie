@@ -185,7 +185,7 @@ describe("Layout - Gel Defaults", () => {
             const testLevelId = "test level id";
             mockGame.state.states["current-screen"].transientData.levelId = testLevelId;
             gel.config.replay.action({ game: mockGame });
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", testLevelId);
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", { source: testLevelId });
         });
     });
 
@@ -199,7 +199,7 @@ describe("Layout - Gel Defaults", () => {
             const testLevelId = "test level id";
             mockGame.state.states["current-screen"].transientData.levelId = testLevelId;
             gel.config.pauseReplay.action({ game: mockGame });
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", testLevelId);
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", { source: testLevelId });
         });
     });
 
@@ -251,7 +251,7 @@ describe("Layout - Gel Defaults", () => {
             const testLevelId = "test level id";
             mockGame.state.states["current-screen"].transientData.levelId = testLevelId;
             gel.config.restart.action({ game: mockGame });
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", testLevelId);
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "playagain", { source: testLevelId });
         });
     });
 
@@ -265,7 +265,7 @@ describe("Layout - Gel Defaults", () => {
             const testLevelId = "test level id";
             mockGame.state.states["current-screen"].transientData.levelId = testLevelId;
             gel.config.continueGame.action({ game: mockGame });
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "continue", testLevelId);
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("level", "continue", { source: testLevelId });
         });
     });
 
