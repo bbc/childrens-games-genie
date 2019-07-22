@@ -28,7 +28,7 @@ describe("Layout - Gel Defaults", () => {
             scene: {
                 getLayouts: jest.fn(() => [{ buttons: { achievements: { setIndicator: clearIndicatorSpy } } }]),
             },
-            transientData: {}
+            transientData: {},
         };
         mockGame = {
             sound: { mute: false },
