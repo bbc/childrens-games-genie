@@ -11,7 +11,7 @@ import * as signal from "../signal-bus.js";
 
 const pushLevelId = (game, params) => {
     const levelId = game.state.states[game.state.current].transientData.levelId;
-    return levelId ? [...params, levelId]: params;
+    return levelId ? [...params, levelId] : params;
 };
 
 export const buttonsChannel = "gel-buttons";
@@ -162,7 +162,7 @@ export const config = {
         order: 8,
         id: "__replay",
         action: ({ game }) => {
-            const params = pushLevelId(game, ["level", "playagain"])
+            const params = pushLevelId(game, ["level", "playagain"]);
             gmi.sendStatsEvent(...params);
         },
     },
@@ -175,7 +175,7 @@ export const config = {
         id: "__replay",
         channel: "pause-gel-buttons",
         action: ({ game }) => {
-            const params = pushLevelId(game, ["level", "playagain"])
+            const params = pushLevelId(game, ["level", "playagain"]);
             gmi.sendStatsEvent(...params);
         },
     },
@@ -248,7 +248,7 @@ export const config = {
         id: "__restart",
         channel: buttonsChannel,
         action: ({ game }) => {
-            const params = pushLevelId(game, ["level", "playagain"])
+            const params = pushLevelId(game, ["level", "playagain"]);
             gmi.sendStatsEvent(...params);
         },
     },
@@ -270,7 +270,7 @@ export const config = {
         id: "__continue",
         channel: buttonsChannel,
         action: ({ game }) => {
-            const params = pushLevelId(game, ["level", "continue"])
+            const params = pushLevelId(game, ["level", "continue"]);
             gmi.sendStatsEvent(...params);
         },
     },
