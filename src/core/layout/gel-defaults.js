@@ -11,7 +11,7 @@ import * as signal from "../signal-bus.js";
 
 const pushLevelId = (game, params) => {
     const levelId = game.state.states[game.state.current].transientData.levelId;
-    return levelId ? [...params, { "source": levelId }] : params;
+    return levelId ? [...params, { source: levelId }] : params;
 };
 
 export const buttonsChannel = "gel-buttons";
