@@ -3,6 +3,7 @@
 | Version | Description |
 |---------|-------------|
 | | Add level id to stats if present. |
+| | Adds validation tool for achievement config files. |
 | 2.0.1 | |
 | | Remove achievement close callback. |
 | 2.0.0 | |
