@@ -2,6 +2,8 @@
 
 | Version | Description |
 |---------|-------------|
+| 2.0.2 | |
+| | transientData automatically passed between screens. |
 | | Add level id to stats if present. |
 | | Adds validation tool for achievement config files. |
 | 2.0.1 | |
