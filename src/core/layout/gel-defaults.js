@@ -11,7 +11,7 @@ import * as signal from "../signal-bus.js";
 import fp from "../../../lib/lodash/fp/fp.js";
 
 const pushLevelId = (game, params) => {
-    const levelId = fp.get("transientData.level-select.choice.title", game.state.states[game.state.current])
+    const levelId = fp.get("transientData.level-select.choice.title", game.state.states[game.state.current]);
     return levelId ? [...params, { source: levelId }] : params;
 };
 

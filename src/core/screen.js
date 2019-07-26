@@ -44,7 +44,7 @@ export class Screen extends Phaser.State {
         this.overlaySetup();
 
         const routes = navigation[this.game.state.current].routes;
-        this.navigation = fp.mapValues(value => () => value(this.transientData || {}), routes)
+        this.navigation = fp.mapValues(value => () => value(this.transientData || {}), routes);
     }
 
     overlaySetup() {

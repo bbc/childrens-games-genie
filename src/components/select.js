@@ -85,7 +85,7 @@ export class Select extends Screen {
         const screenType = this.game.state.current.split("-")[0];
         gmi.sendStatsEvent(screenType, "select", metaData);
 
-        const choice = this.context.config.theme[this.key].choices[this.currentIndex]
+        const choice = this.context.config.theme[this.key].choices[this.currentIndex];
         this.transientData[this.key] = { index: this.currentIndex, choice };
         this.navigation.next();
     }
