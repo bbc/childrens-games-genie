@@ -18,7 +18,7 @@ describe("Screen", () => {
     let mockScene;
     let mockContext;
     let mockTransientData;
-    let mockNavigation
+    let mockNavigation;
 
     const createScreen = () => {
         screen = new Screen();
@@ -82,6 +82,13 @@ describe("Screen", () => {
             createAndInitScreen();
             screen.navigation.testRoute();
             expect(mockNavigation.loadscreen.routes.testRoute).toHaveBeenCalledWith(mockTransientData);
+        });
+
+        test("defaults transientData to empty Object", () => {
+            createAndInitScreen();
+            delete screen.transientData;
+            screen.navigation.testRoute();
+            expect(mockNavigation.loadscreen.routes.testRoute).toHaveBeenCalledWith({});
         });
 
         test("sets the background music using the theme config", () => {
