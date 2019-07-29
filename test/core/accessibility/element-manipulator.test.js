@@ -92,7 +92,7 @@ describe("element manipulator", () => {
             expect(eventListerCall).toBe("blur");
         });
 
-        test("removes the element on the next tick preventing race condition in Chrome (which fires blur events on element removal)", () => {
+        test("removes the element at the start of the next event loop preventing race condition in Chrome (which fires blur events on element removal)", () => {
             jest.useFakeTimers();
             resetElement();
             jest.runAllTimers();
