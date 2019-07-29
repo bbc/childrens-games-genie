@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Fix Chrome race condition with removed DOM elements triggering blur event with accessible elements.. |
 | 2.0.2 | |
 | | transientData automatically passed between screens. |
 | | Add level id to stats if present. |
