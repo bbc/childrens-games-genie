@@ -45,10 +45,6 @@ const nextTick = fn => setTimeout(fn, 0);
 
 const resetElementToDefault = (el, self) => {
     el.removeEventListener("blur", self);
-    el.parentElement.removeChild(el);
-    showElement(el);
-    unsetElementAsHiddenAndDisabled(el);
-
     nextTick(() => {
         el.parentElement.removeChild(el);
         showElement(el);
