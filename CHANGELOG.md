@@ -4,6 +4,7 @@
 |---------|-------------|
 | 2.0.2 | |
 | | transientData automatically passed between screens. |
+| | Fix Chrome race condition with removed DOM elements triggering blur event with accessible elements.. |
 | | Add level id to stats if present. |
 | | Adds validation tool for achievement config files. |
 | 2.0.1 | |
