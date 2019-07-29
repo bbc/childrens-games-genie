@@ -84,7 +84,6 @@ describe("element manipulator", () => {
         beforeEach(() => {
             elementManipulator.hideAndDisableElement(element);
             resetElement = element.addEventListener.mock.calls[element.addEventListener.mock.calls.length - 1][1];
-
         });
 
         test("removes the blur event listener", () => {

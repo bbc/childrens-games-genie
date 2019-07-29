@@ -50,7 +50,7 @@ const resetElementToDefault = (el, self) => {
         el.parentElement.removeChild(el);
         showElement(el);
         unsetElementAsHiddenAndDisabled(el);
-    })
+    });
 };
 
 const elementHiddenAndDisabled = element => {
