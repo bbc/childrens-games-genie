@@ -41,6 +41,7 @@ export const hideAndDisableElement = el => {
     }
 };
 
+//esline-disable-next-line local-rules/disallow-timers
 const nextTick = fn => setTimeout(fn, 0);
 
 const resetElementToDefault = (el, self) => {
