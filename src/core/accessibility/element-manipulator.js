@@ -40,7 +40,7 @@ export const hideAndDisableElement = el => {
         setElementAsHiddenAndDisabled(el);
     }
 };
-
+// eslint-disable-next-line local-rules/disallow-timers
 const nextTick = fn => setTimeout(fn, 0);
 
 const resetElementToDefault = (el, self) => {
