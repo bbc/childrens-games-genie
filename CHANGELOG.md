@@ -2,7 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
-| Unreleased | |
+| | Select screen index zero based to match config array. |
 | | Remove achievement audio
 | 2.0.2 | |
 | | transientData automatically passed between screens. |
