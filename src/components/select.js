@@ -14,7 +14,7 @@ import { createTestHarnessDisplay } from "./test-harness/layout-harness.js";
 import * as accessibleCarouselElements from "../core/accessibility/accessible-carousel-elements.js";
 import { gmi } from "../core/gmi/gmi.js";
 
-const wrapRange = (x, m) => ((x % m) + m) % m;
+const wrapRange = (value, max) => ((value % max) + max) % max;
 
 export class Select extends Screen {
     constructor() {
