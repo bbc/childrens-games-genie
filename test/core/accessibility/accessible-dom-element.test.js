@@ -213,6 +213,12 @@ describe("Accessible DOM Element", () => {
     });
 
     describe("checking visibility of mockElement", () => {
+        test("calling visible function returns true when mockElement has been created", () => {
+            const newAccessibleElement = accessibleDomElement(options);
+            //newAccessibleElement.show();
+            expect(newAccessibleElement.visible()).toBe(true);
+        });
+
         test("calling visible function returns true when mockElement is visible", () => {
             const newAccessibleElement = accessibleDomElement(options);
             newAccessibleElement.show();
