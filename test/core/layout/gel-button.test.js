@@ -4,57 +4,84 @@
  * @license Apache-2.0
  */
 
-/*
-    We have been unable to test this file as it extends Phaser.Button.
-    There appears to be no way to mock a global class that is extended
-    The problem being that the global Phaser is evaluated at import before any mocks have been set up.
+import { GelButton } from "../../../src/core/layout/gel-button";
 
- */
-
-//global.Phaser.Button = function() {}
-
-// import { GelButton } from "../../../src/core/layout/gel-button";
-//import * as settingsModule from '../../../src/core/settings.js'
-
-describe("Layout - Button Factory", () => {
-    // let mockGame;
+describe("Layout - GEL Button", () => {
+    let mockScene;
+    let mockConfig;
+    let mockMetrics;
 
     beforeEach(() => {
-        //jest.mock(global.Phaser.Button)
-        //jest.spyOn(Phaser, "Button").mockImplementation(function() {});
-        //Phaser = {
-        //    Button: () => "hi",
-        //    Matrix: () => "ho",
-        //}
-        //jest.spyOn(Phaser, "Button").mockImplementation(function() {})
-        //jest.spyOn(Phaser, "Game").mockImplementation(() => mockGame);
-        //mockGame = { canvas: () => {}, mockGame: "game" };
+        mockMetrics = {
+            stageWidth: null,
+            stageHeight: 600,
+            borderPad: 12,
+            isMobile: false,
+            buttonPad: 24,
+            buttonMin: 64,
+            hitMin: 70,
+            horizontals: { left: null, center: 0, right: null },
+            safeHorizontals: { left: -400, center: 0, right: 400 },
+            verticals: { top: -300, middle: 0, bottom: 300 },
+        };
+
+        mockConfig = {
+            group: "topLeft",
+            title: "Exit",
+            key: "exit",
+            ariaLabel: "Exit Game",
+            order: 0,
+            id: "__exit",
+            channel: "gel-buttons",
+        };
+
+        mockScene = {
+            sys: {
+                queueDepthSort: () => {},
+                anims: { once: () => {} },
+                textures: {
+                    get: jest.fn(() => ({
+                        get: jest.fn(() => new Map()),
+                    })),
+                },
+                game: { renderer: {} },
+                input: { enable: () => {} },
+            },
+        };
     });
 
     afterEach(() => jest.clearAllMocks());
 
-    describe("create method", () => {
-        test("returns correct methods", () => {
-            //const config = {
-            //    id: "expectedId",
-            //    ariaLabel: "expectedAriaLabel",
-            //    key: "test",
-            //    action: () => {},
-            //};
-            //Phaser.Button = function() {}
-            //GelButton.prototype = {};
-            //GelButton.prototype.constructor = jest.fn();
-            //jest.mock(GelButton.prototype, () => {
-            //    return function() {};
-            //})
-            //const mockSettings = {getAllSettings: () => ({ audio: false })}
-            //Object.defineProperty(global.Phaser, "Button", {
-            //    get: jest.fn(),
-            //});
-            //global.Phaser.Button = function() {}
-            //const x = new Phaser.Button( 0, 0, '');
-            //const y = new GelButton(mockGame, 0, 0, false, config);
-            //expect(buttonFactory.createButton).toBeDefined();
+    describe("Initialisation", () => {
+        test("creates a GEL button with basic properties", () => {
+            const gelButton = new GelButton(mockScene, 0, 0, mockMetrics, mockConfig);
+            expect(gelButton._id).toBe(mockConfig.key);
+            expect(gelButton._isMobile).toBe(mockMetrics.isMobile);
+            expect(gelButton.positionOverride).toBe(mockConfig.positionOverride);
+        });
+
+        test("sets the button hit area", () => {
+            const gelButton = new GelButton(mockScene, 0, 0, mockMetrics, mockConfig);
+            gelButton.setHitArea = jest.fn();
+            gelButton.constructor(mockScene, 0, 0, mockMetrics, mockConfig);
+            expect(gelButton.setHitArea).toHaveBeenCalledWith(mockMetrics);
+        });
+
+        test("sets the sprite to be interactive", () => {
+            const gelButton = new GelButton(mockScene, 0, 0, mockMetrics, mockConfig);
+            gelButton.setInteractive = jest.fn();
+            gelButton.constructor(mockScene, 0, 0, mockMetrics, mockConfig);
+            expect(gelButton.setInteractive).toHaveBeenCalled();
+        });
+
+        test("sets the button states", () => {
+            const gelButton = new GelButton(mockScene, 0, 0, mockMetrics, mockConfig);
+            gelButton.on = jest.fn();
+            gelButton.constructor(mockScene, 0, 0, mockMetrics, mockConfig);
+            expect(gelButton.on).toHaveBeenCalledWith("pointerdown", expect.any(Function));
+            expect(gelButton.on).toHaveBeenCalledWith("pointerup", expect.any(Function));
+            expect(gelButton.on).toHaveBeenCalledWith("pointerout", expect.any(Function));
+            expect(gelButton.on).toHaveBeenCalledWith("pointerover", expect.any(Function));
         });
     });
 });
