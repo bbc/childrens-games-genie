@@ -232,12 +232,12 @@ export const config = {
         channel: buttonsChannel,
         action: ({ game }) => {
             const screen = game.state.states[game.state.current];
+            screen.scene.getLayouts()[0].buttons.achievements.setIndicator();
             if (screen.navigation.achievements) {
                 screen.navigation.achievements();
             } else {
                 gmi.achievements.show();
             }
-            screen.scene.getLayouts()[0].buttons.achievements.setIndicator();
         },
     },
     restart: {

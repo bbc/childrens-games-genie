@@ -235,7 +235,13 @@ describe("Layout - Gel Defaults", () => {
             expect(mockGmi.achievements.show).toHaveBeenCalled();
         });
 
-        test("clears the indicator", () => {
+        test("clears the indicator when there is a achievements screen", () => {
+            gel.config.achievements.action({ game: mockGame });
+            expect(clearIndicatorSpy).toHaveBeenCalled();
+        });
+
+        test("clears the indicator when using the GMI Acheivements view", () => {
+            delete mockCurrentScreen.navigation.achievements;
             gel.config.achievements.action({ game: mockGame });
             expect(clearIndicatorSpy).toHaveBeenCalled();
         });
