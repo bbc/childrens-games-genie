@@ -2,10 +2,11 @@
 
 | Version | Description |
 |---------|-------------|
+| | Fix crashing when using Acheivement Screens | |
 | 2.0.7 | |
 | | Remove fullscreen api usage | |
 | | Remove disable of background elements on modals as now handled automatically in cage. | |
-| 2.0.6 | |
+| 2.0.6 | | 
 | | Reports title from character-select assets rather than the asset key | |
 | 2.0.5 | |
 | | Calls to 'visible' on accessible dom elements now reliable after creation. (CGPROD-1585) |
