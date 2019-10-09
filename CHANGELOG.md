@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Stats for opening achievements and home buttons | |
 | | Fix crashing when using Acheivement Screens | |
 | 2.0.7 | |
 | | Remove fullscreen api usage | |
