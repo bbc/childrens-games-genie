@@ -61,7 +61,12 @@ export const config = {
         order: 2,
         id: "__back",
         channel: buttonsChannel,
-        action: () => {
+        action: ({ game }) => {
+            const screen = game.state.states[game.state.current];
+
+            if (screen.key === "achievements") {
+                gmi.sendStatsEvent("achievements", "close");
+            }
             gmi.sendStatsEvent("back", "click");
         },
     },
@@ -137,6 +142,15 @@ export const config = {
             gmi.sendStatsEvent("pause", "click");
             pause.create(true, { game });
         },
+    },
+    previous: {
+        group: "middleLeftSafe",
+        title: "Previous",
+        key: "previous",
+        ariaLabel: "Previous Item",
+        order: 7,
+        id: "__previous",
+        channel: buttonsChannel,
     },
     previous: {
         group: "middleLeftSafe",
@@ -236,9 +250,8 @@ export const config = {
 
             screen.scene.getLayouts()[0].buttons.achievements.setIndicator();
 
-            gmi.sendStatsEvent("achievements", "open");
-
             if (screen.navigation.achievements) {
+                gmi.sendStatsEvent("achievements", "open");
                 screen.navigation.achievements();
             } else {
                 gmi.achievements.show();
