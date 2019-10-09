@@ -152,15 +152,6 @@ export const config = {
         id: "__previous",
         channel: buttonsChannel,
     },
-    previous: {
-        group: "middleLeftSafe",
-        title: "Previous",
-        key: "previous",
-        ariaLabel: "Previous Item",
-        order: 7,
-        id: "__previous",
-        channel: buttonsChannel,
-    },
     howToPlayPrevious: {
         group: "middleLeftSafe",
         title: "Previous",
