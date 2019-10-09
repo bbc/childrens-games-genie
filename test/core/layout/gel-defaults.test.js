@@ -78,12 +78,21 @@ describe("Layout - Gel Defaults", () => {
     });
 
     describe("Back Button Callback", () => {
-        beforeEach(() => {
-            gel.config.back.action();
+        test("fires a click stat", () => {
+            gel.config.back.action({ game: mockGame });
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("back", "click");
         });
 
-        test("fires a click stat", () => {
-            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("back", "click");
+        test("when backing out of an achievements page a stat is fired", () => {
+            const mockGame = {
+                state: {
+                    current: "achievements",
+                    states: { achievements: { key: "achievements" } },
+                },
+            };
+
+            gel.config.back.action({ game: mockGame });
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("achievements", "close");
         });
     });
 
@@ -233,6 +242,12 @@ describe("Layout - Gel Defaults", () => {
             delete mockCurrentScreen.navigation.achievements;
             gel.config.achievements.action({ game: mockGame });
             expect(mockGmi.achievements.show).toHaveBeenCalled();
+        });
+
+        test("calls 'achievements open' stats when local screen exists", () => {
+            gel.config.achievements.action({ game: mockGame });
+            expect(mockCurrentScreen.navigation.achievements).toHaveBeenCalled();
+            expect(mockGmi.sendStatsEvent).toHaveBeenCalledWith("achievements", "open");
         });
 
         test("clears the indicator when there is a achievements screen", () => {

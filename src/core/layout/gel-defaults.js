@@ -40,6 +40,7 @@ export const config = {
         channel: buttonsChannel,
         action: ({ game }) => {
             const screen = game.state.states[game.state.current];
+            gmi.sendStatsEvent("home", "click");
             screen.navigation.home();
         },
     },
@@ -60,7 +61,12 @@ export const config = {
         order: 2,
         id: "__back",
         channel: buttonsChannel,
-        action: () => {
+        action: ({ game }) => {
+            const screen = game.state.states[game.state.current];
+
+            if (screen.key === "achievements") {
+                gmi.sendStatsEvent("achievements", "close");
+            }
             gmi.sendStatsEvent("back", "click");
         },
     },
@@ -232,8 +238,11 @@ export const config = {
         channel: buttonsChannel,
         action: ({ game }) => {
             const screen = game.state.states[game.state.current];
+
             screen.scene.getLayouts()[0].buttons.achievements.setIndicator();
+
             if (screen.navigation.achievements) {
+                gmi.sendStatsEvent("achievements", "open");
                 screen.navigation.achievements();
             } else {
                 gmi.achievements.show();
