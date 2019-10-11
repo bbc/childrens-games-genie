@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| 2.0.8 | |
 | | Stats for achievement screens and home buttons | |
 | | Fix crashing when using Acheivement Screens | |
 | 2.0.7 | |
