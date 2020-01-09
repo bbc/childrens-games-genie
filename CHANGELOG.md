@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| | Update fake GMI to remove cookies checking | |
 | 2.0.8 | |
 | | Stats for achievement screens and home buttons | |
 | | Fix crashing when using Acheivement Screens | |
