@@ -5,6 +5,11 @@
             "key": "basicButton",
             "url": "game/basic-button.png",
             "overwrite": false
+        },
+        {
+            "type": "json",
+            "key": "jsonTest",
+            "url": "config.json"
         }
     ]
 }
