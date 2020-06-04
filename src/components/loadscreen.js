@@ -75,8 +75,8 @@ export class Loadscreen extends Screen {
     createBrandLogo() {
         const metrics = Scaler.getMetrics();
 
-        const x = metrics.horizontals.right - metrics.borderPad / metrics.scale;
-        const y = metrics.verticals.bottom - metrics.borderPad / metrics.scale;
+        const x = metrics.horizontals.right - metrics.horizontalBorderPad / metrics.scale;
+        const y = metrics.verticals.bottom - metrics.verticalBorderPad / metrics.scale;
         this.brandLogo = this.scene.addToBackground(this.game.add.image(0, 0, "brandLogo"));
         this.brandLogo.right = x;
         this.brandLogo.bottom = y;

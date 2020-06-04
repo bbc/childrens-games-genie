@@ -25,7 +25,8 @@ describe("Group", () => {
         };
         config = {};
         metrics = {
-            borderPad: 100,
+            horizontalBorderPad: 100,
+            verticalBorderPad: 100,
             buttonPad: 50,
             horizontals: { left: -1000, center: 0, right: 1000 },
             safeHorizontals: { left: -300, center: 0, right: 300 },
@@ -256,7 +257,7 @@ describe("Group", () => {
             const expectedGroupXPosition = 0;
             const expectedGroupYPosition = -333;
             const desktopMetrics = { horizontals: {}, verticals: {} };
-            const moreDesktopMetrics = { borderPad: 0, horizontals: { center: 0 }, verticals: { top: -333 } };
+            const moreDesktopMetrics = { verticalBorderPad: 0, horizontals: { center: 0 }, verticals: { top: -333 } };
 
             group = new Group(game, parentGroup, "top", "center", desktopMetrics, false);
             group.addButton(config);
