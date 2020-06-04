@@ -2,6 +2,8 @@
 
 | Version | Description |
 |---------|-------------|
+| 2.0.9 | |
+| | Fix button area padding for iPhone 5 | |
 | | Update fake GMI to remove cookies checking | |
 | 2.0.8 | |
 | | Stats for achievement screens and home buttons | |
