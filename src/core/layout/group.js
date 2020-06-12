@@ -14,7 +14,7 @@ const horizontal = {
             if (!child.hitArea) return;
             hitAreaOffset = fp.max([hitAreaOffset, -(child.x + child.hitArea.left) / metrics.scale]);
         }, group.children);
-        group.left = metrics[horizontalsType].left + metrics.horizontalBorderPad + hitAreaOffset;
+        group.left = metrics[horizontalsType].left + metrics.borderPad + hitAreaOffset;
     },
     center: (metrics, group, horizontalsType) => {
         group.centerX = metrics[horizontalsType].center;
@@ -25,7 +25,7 @@ const horizontal = {
             if (!child.hitArea) return;
             hitAreaOffset = fp.max([hitAreaOffset, (child.x + child.hitArea.right) / metrics.scale - group.width]);
         }, group.children);
-        group.right = metrics[horizontalsType].right - metrics.horizontalBorderPad - hitAreaOffset;
+        group.right = metrics[horizontalsType].right - metrics.borderPad - hitAreaOffset;
     },
 };
 
@@ -36,7 +36,7 @@ const vertical = {
             if (!child.hitArea) return;
             hitAreaOffset = fp.max([hitAreaOffset, -(child.y + child.hitArea.top) / metrics.scale]);
         }, group.children);
-        group.top = metrics.verticals.top + metrics.verticalBorderPad + hitAreaOffset;
+        group.top = metrics.verticals.top + metrics.borderPad + hitAreaOffset;
     },
     middle: (metrics, group) => {
         group.centerY = metrics.verticals.middle;
@@ -47,7 +47,7 @@ const vertical = {
             if (!child.hitArea) return;
             hitAreaOffset = fp.max([hitAreaOffset, (child.y + child.hitArea.bottom) / metrics.scale - group.height]);
         }, group.children);
-        group.bottom = metrics.verticals.bottom - metrics.verticalBorderPad - hitAreaOffset;
+        group.bottom = metrics.verticals.bottom - metrics.bottomBorderPad - hitAreaOffset;
     },
 };
 
