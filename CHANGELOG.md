@@ -2,7 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
-| 2.0.11 | |
+| 2.0.12 | |
 | | Fix button area padding for iPhone 5 | |
 | | Update fake GMI to remove cookies checking | |
 | 2.0.8 | |
