@@ -2,6 +2,8 @@
 
 | Version | Description |
 |---------|-------------|
+| 2.0.10 | |
+| | Fix button area padding for iPhone 5 - bottom padding increased, top padding reverted. | |
 | 2.0.9 | |
 | | Fix button area padding for iPhone 5 | |
 | | Update fake GMI to remove cookies checking | |
