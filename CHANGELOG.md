@@ -3,6 +3,7 @@
 | Version | Description |
 |---------|-------------|
 | 2.0.12 | |
+| | Adjust results screen achievements button position for iPhone 5. | |
 | | Fix button area padding for iPhone 5 | |
 | | Update fake GMI to remove cookies checking | |
 | 2.0.8 | |
