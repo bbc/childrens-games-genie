@@ -42,7 +42,7 @@
         "prettier": "1.17.0",
         "webpack": "^4.41.5",
         "webpack-cli": "^3.3.5",
-        "webpack-dev-server": "^3.7.2",
+        "webpack-dev-server": "^3.11.0",
         "webpack-visualizer-plugin": "^0.1.11"
     },
     "scripts": {
