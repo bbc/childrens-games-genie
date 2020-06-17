@@ -96,7 +96,7 @@
             "button-overrides": {
                 "achievements": {
                     "group": "middleCenter",
-                    "shiftY": 86
+                    "shiftY": 80
                 }
             }
         },
