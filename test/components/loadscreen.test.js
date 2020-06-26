@@ -11,6 +11,8 @@ import * as LoadBar from "../../src/components/loadbar";
 import * as AssetLoader from "../../src/core/asset-loader";
 import * as Scaler from "../../src/core/scaler.js";
 import * as GameSound from "../../src/core/game-sound";
+import { achievementsChannel } from "../../src/core/layout/gel-defaults.js";
+import * as signal from "../../src/core/signal-bus.js";
 
 describe("Load Screen", () => {
     let loadScreen;
@@ -41,7 +43,7 @@ describe("Load Screen", () => {
             sound: { mute: false },
             scale: { getParentBounds: jest.fn(), setGameSize: jest.fn() },
             cache: {
-                getJSON: jest.fn(),
+                getJSON: jest.fn().mockImplementation(() => "game JSON data"),
             },
         };
 
@@ -211,7 +213,7 @@ describe("Load Screen", () => {
             loadScreen.preload();
             assetLoaderCallbackSpy.mock.calls[0][0]();
 
-            expect(mockGmi.achievements.init).toHaveBeenCalled();
+            expect(mockGmi.achievements.init.mock.calls[0][0]).toBe("game JSON data");
         });
 
         test("does not call achievements init when achievements config flag is falsy", () => {
@@ -220,6 +222,20 @@ describe("Load Screen", () => {
             assetLoaderCallbackSpy.mock.calls[0][0]();
 
             expect(mockGmi.achievements.init).not.toHaveBeenCalled();
+        });
+
+        test("publishes a signal when a notification has fired", () => {
+            jest.spyOn(signal.bus, "publish");
+            mockContext.config.theme.game.achievements = true;
+            loadScreen.context = mockContext;
+            loadScreen.preload();
+            assetLoaderCallbackSpy.mock.calls[0][0]();
+            mockGmi.achievements.init.mock.calls[0][1]();
+
+            expect(signal.bus.publish).toHaveBeenCalledWith({
+                channel: achievementsChannel,
+                name: "achievement-notification-close",
+            });
         });
     });
 });

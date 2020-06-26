@@ -14,6 +14,8 @@ import { createLoadBar } from "./loadbar.js";
 import * as Scaler from "../core/scaler.js";
 import * as GameSound from "../core/game-sound.js";
 import { gmi } from "../core/gmi/gmi.js";
+import { achievementsChannel } from "../core/layout/gel-defaults.js";
+import * as signal from "../core/signal-bus.js";
 
 const MASTER_PACK_KEY = "MasterAssetPack";
 const GEL_PACK_KEY = "GelAssetPack";
@@ -50,7 +52,10 @@ export class Loadscreen extends Screen {
             GameSound.setButtonClickSound(this.game, "loadscreen.buttonClick");
 
             if (this.context.config.theme.game && this.context.config.theme.game.achievements === true) {
-                gmi.achievements.init(this.game.cache.getJSON("achievementsData"));
+                const achievementsCallBack = () => {
+                    signal.bus.publish({ channel: achievementsChannel, name: "achievement-notification-close" });
+                };
+                gmi.achievements.init(this.game.cache.getJSON("achievementsData"), achievementsCallBack);
             }
             gmi.sendStatsEvent("gameloaded", "true");
             gmi.gameLoaded();
