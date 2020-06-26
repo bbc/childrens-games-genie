@@ -14,6 +14,7 @@ describe("Results Screen", () => {
     let mockGame;
     let mockContext;
     let mockGmi;
+    let mockAchievementButton;
 
     beforeEach(() => {
         jest.spyOn(layoutHarness, "createTestHarnessDisplay").mockImplementation(() => {});
@@ -44,10 +45,13 @@ describe("Results Screen", () => {
         mockGmi = { sendStatsEvent: jest.fn() };
         createMockGmi(mockGmi);
 
+        mockAchievementButton = { buttons: { achievements: { setIndicator: jest.fn() } } };
+
         resultsScreen = new Results();
         resultsScreen.scene = {
             addToBackground: jest.fn(),
             addLayout: jest.fn(),
+            getLayouts: jest.fn().mockImplementation(() => [mockAchievementButton]),
         };
         resultsScreen.game = mockGame;
         resultsScreen.context = mockContext;
@@ -163,6 +167,18 @@ describe("Results Screen", () => {
             test("restarts the game and passes saved data through", () => {
                 signal.bus.subscribe.mock.calls[1][0].callback();
                 expect(resultsScreen.navigation.game).toHaveBeenCalledWith({ characterSelected: 1, results: 22 });
+            });
+        });
+
+        describe("achievement notification closed", () => {
+            test("adds a signal subscription", () => {
+                expect(signal.bus.subscribe.mock.calls[2][0].name).toBe("achievement-notification-close");
+            });
+
+            test("updates the seen/unseen notification indicator on the achievements button", () => {
+                signal.bus.subscribe.mock.calls[2][0].callback();
+                const { setIndicator } = mockAchievementButton.buttons.achievements;
+                expect(setIndicator).toHaveBeenCalled();
             });
         });
     });
