@@ -3,7 +3,7 @@
  * @author BBC Children's D+E
  * @license Apache-2.0
  */
-import { buttonsChannel } from "../core/layout/gel-defaults.js";
+import { buttonsChannel, achievementsChannel } from "../core/layout/gel-defaults.js";
 import { Screen } from "../core/screen.js";
 import * as signal from "../core/signal-bus.js";
 import { createTestHarnessDisplay } from "./test-harness/layout-harness.js";
@@ -57,6 +57,14 @@ export class Results extends Screen {
             channel: buttonsChannel,
             callback: () => {
                 this.navigation.game(this.transientData);
+            },
+        });
+
+        signal.bus.subscribe({
+            name: "achievement-notification-close",
+            channel: achievementsChannel,
+            callback: () => {
+                this.scene.getLayouts()[0].buttons.achievements.setIndicator();
             },
         });
     }

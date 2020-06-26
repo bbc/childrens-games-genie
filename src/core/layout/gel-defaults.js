@@ -16,6 +16,8 @@ const pushLevelId = (game, params) => {
 };
 
 export const buttonsChannel = "gel-buttons";
+export const achievementsChannel = "achievements";
+
 export const config = {
     exit: {
         group: "topLeft",

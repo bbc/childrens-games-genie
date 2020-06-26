@@ -8,12 +8,14 @@ import { createMockGmi } from "../mock/gmi";
 import { Results } from "../../src/components/results";
 import * as layoutHarness from "../../src/components/test-harness/layout-harness.js";
 import * as signal from "../../src/core/signal-bus.js";
+import { buttonsChannel, achievementsChannel } from "../../src/core/layout/gel-defaults.js";
 
 describe("Results Screen", () => {
     let resultsScreen;
     let mockGame;
     let mockContext;
     let mockGmi;
+    let mockAchievementButton;
 
     beforeEach(() => {
         jest.spyOn(layoutHarness, "createTestHarnessDisplay").mockImplementation(() => {});
@@ -44,10 +46,13 @@ describe("Results Screen", () => {
         mockGmi = { sendStatsEvent: jest.fn() };
         createMockGmi(mockGmi);
 
+        mockAchievementButton = { buttons: { achievements: { setIndicator: jest.fn() } } };
+
         resultsScreen = new Results();
         resultsScreen.scene = {
             addToBackground: jest.fn(),
             addLayout: jest.fn(),
+            getLayouts: jest.fn().mockImplementation(() => [mockAchievementButton]),
         };
         resultsScreen.game = mockGame;
         resultsScreen.context = mockContext;
@@ -147,6 +152,7 @@ describe("Results Screen", () => {
         describe("the continue button", () => {
             test("adds a signal subscription", () => {
                 expect(signal.bus.subscribe.mock.calls[0][0].name).toBe("continue");
+                expect(signal.bus.subscribe.mock.calls[0][0].channel).toBe(buttonsChannel);
             });
 
             test("navigates to the next screen when clicked", () => {
@@ -158,11 +164,25 @@ describe("Results Screen", () => {
         describe("the restart button", () => {
             test("adds a signal subscription", () => {
                 expect(signal.bus.subscribe.mock.calls[1][0].name).toBe("restart");
+                expect(signal.bus.subscribe.mock.calls[1][0].channel).toBe(buttonsChannel);
             });
 
             test("restarts the game and passes saved data through", () => {
                 signal.bus.subscribe.mock.calls[1][0].callback();
                 expect(resultsScreen.navigation.game).toHaveBeenCalledWith({ characterSelected: 1, results: 22 });
+            });
+        });
+
+        describe("achievement notification closed", () => {
+            test("adds a signal subscription", () => {
+                expect(signal.bus.subscribe.mock.calls[2][0].name).toBe("achievement-notification-close");
+                expect(signal.bus.subscribe.mock.calls[2][0].channel).toBe(achievementsChannel);
+            });
+
+            test("updates the seen/unseen notification indicator on the achievements button", () => {
+                signal.bus.subscribe.mock.calls[2][0].callback();
+                const { setIndicator } = mockAchievementButton.buttons.achievements;
+                expect(setIndicator).toHaveBeenCalled();
             });
         });
     });
