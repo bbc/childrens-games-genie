@@ -10,17 +10,17 @@ Issues should include:
 3. What you did to reproduce the issue
 4. Device/Browser details
 
-Ideally screenshots would also be helpful. 
+Ideally screenshots would also be helpful.
 
 ### Pull Requests
 
-We do not accept direct commits to the code base. 
+We do not accept direct commits to the code base.
 
 Any code contributions must:
 
 1. Be submitted via Pull Requests.
 2. Include unit tests for any code amended.
-3. Include summary of what was changed and why in the Pull Request. 
+3. Include summary of what was changed and why in the Pull Request.
 4. Pass the Pull Request Build.
 5. NOT include version number changes
 
