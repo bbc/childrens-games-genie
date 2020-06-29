@@ -2,6 +2,7 @@
 
 | Version | Description |
 |---------|-------------|
+| 2.0.13 | |
 | | Adds a signal to update the achievements indicator when a notification has been fired. | |
 | 2.0.12 | |
 | | Adjust results screen achievements button position for iPhone 5. | |
