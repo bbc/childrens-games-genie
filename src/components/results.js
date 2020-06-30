@@ -61,7 +61,7 @@ export class Results extends Screen {
         });
 
         signal.bus.subscribe({
-            name: "achievement-notification-close",
+            name: "achievements-close",
             channel: achievementsChannel,
             callback: () => {
                 this.scene.getLayouts()[0].buttons.achievements.setIndicator();

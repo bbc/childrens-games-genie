@@ -224,17 +224,17 @@ describe("Load Screen", () => {
             expect(mockGmi.achievements.init).not.toHaveBeenCalled();
         });
 
-        test("publishes a signal when a notification has fired", () => {
+        test("publishes a signal when the achievements is closed", () => {
             jest.spyOn(signal.bus, "publish");
             mockContext.config.theme.game.achievements = true;
             loadScreen.context = mockContext;
             loadScreen.preload();
             assetLoaderCallbackSpy.mock.calls[0][0]();
-            mockGmi.achievements.init.mock.calls[0][1]();
+            mockGmi.achievements.init.mock.calls[0][2]();
 
             expect(signal.bus.publish).toHaveBeenCalledWith({
                 channel: achievementsChannel,
-                name: "achievement-notification-close",
+                name: "achievements-close",
             });
         });
     });

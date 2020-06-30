@@ -52,10 +52,14 @@ export class Loadscreen extends Screen {
             GameSound.setButtonClickSound(this.game, "loadscreen.buttonClick");
 
             if (this.context.config.theme.game && this.context.config.theme.game.achievements === true) {
-                const achievementsCallBack = () => {
-                    signal.bus.publish({ channel: achievementsChannel, name: "achievement-notification-close" });
+                const achievementsCloseCallBack = () => {
+                    signal.bus.publish({ channel: achievementsChannel, name: "achievements-close" });
                 };
-                gmi.achievements.init(this.game.cache.getJSON("achievementsData"), achievementsCallBack);
+                gmi.achievements.init(
+                    this.game.cache.getJSON("achievementsData"),
+                    undefined,
+                    achievementsCloseCallBack,
+                );
             }
             gmi.sendStatsEvent("gameloaded", "true");
             gmi.gameLoaded();

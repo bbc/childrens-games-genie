@@ -175,7 +175,7 @@ describe("Results Screen", () => {
 
         describe("achievement notification closed", () => {
             test("adds a signal subscription", () => {
-                expect(signal.bus.subscribe.mock.calls[2][0].name).toBe("achievement-notification-close");
+                expect(signal.bus.subscribe.mock.calls[2][0].name).toBe("achievements-close");
                 expect(signal.bus.subscribe.mock.calls[2][0].channel).toBe(achievementsChannel);
             });
 
